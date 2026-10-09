@@ -1,4 +1,4 @@
-const CACHE = 'fortnight-v2.5.0';
+const CACHE = 'fortnight-v2.5.1';
 const ASSETS = [
   './',
   './index.html',
@@ -6,8 +6,8 @@ const ASSETS = [
   './icon-512.png',
   './icon-maskable-512.png',
   './manifest.webmanifest',
-  './_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/styles.css',
-  './_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/_ds_bundle.js'
+  './ds/styles.css',
+  './ds/ds-bundle.js'
 ];
 
 self.addEventListener('install', e => {

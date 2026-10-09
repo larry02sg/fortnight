@@ -11,8 +11,8 @@
 <helmet>
 <meta name="omelette-owns-print" content="1">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/styles.css">
-<script src="_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/_ds_bundle.js"></script>
+<link rel="stylesheet" href="ds/styles.css">
+<script src="ds/ds-bundle.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
@@ -20,7 +20,11 @@
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#201e1d">
 <meta name="mobile-web-app-capable" content="yes">
 <style>
-  html, body { height: 100%; }
+  :root {
+    --font-heading: 'Archivo', 'Roboto', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Archivo', 'Roboto', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow-x: hidden; }
   html { -webkit-text-size-adjust: 100%; }
   button, label, input, select, a { touch-action: manipulation; }
   input, select, textarea { font-size: 16px; }
@@ -70,9 +74,9 @@
           <span class="tag tag-accent" style="font-size: 11px; font-variant-numeric: tabular-nums;">{{ elapsedPill }}</span>
         </sc-if>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px; flex: 1 1 auto; justify-content: flex-end; min-width: 0;">
+      <div style="display: flex; align-items: center; gap: 8px; flex: 1 1 auto; justify-content: flex-end; min-width: 0; flex-wrap: wrap;">
         <button onClick="{{ goPrev }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">‹</button>
-        <div style="flex: 0 1 auto; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ periodLabel }}</div>
+        <div style="flex: 0 1 auto; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; font-variant-numeric: tabular-nums;">{{ periodLabel }}</div>
         <button onClick="{{ goNext }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">›</button>
         <button onClick="{{ toggleTheme }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); min-width: 44px; min-height: 44px; padding: 0 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer;">{{ themeLabel }}</button>
       </div>
