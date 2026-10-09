@@ -1,0 +1,59 @@
+{
+  "name": "Fortnight — Attendance & Commission",
+  "short_name": "Fortnight",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f3f2f2",
+  "theme_color": "#f3f2f2",
+  "icons": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Clock in or out",
+      "short_name": "Clock",
+      "url": "./#clock",
+      "icons": [
+        {
+          "src": "./icon-maskable-512.png",
+          "sizes": "512x512"
+        }
+      ]
+    },
+    {
+      "name": "Add a sale",
+      "short_name": "Sale",
+      "url": "./#sales",
+      "icons": [
+        {
+          "src": "./icon-maskable-512.png",
+          "sizes": "512x512"
+        }
+      ]
+    },
+    {
+      "name": "This fortnight’s pay",
+      "short_name": "Pay",
+      "url": "./#pay",
+      "icons": [
+        {
+          "src": "./icon-maskable-512.png",
+          "sizes": "512x512"
+        }
+      ]
+    }
+  ]
+}

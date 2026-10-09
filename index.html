@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#f3f2f2"/><rect width="100" height="11" fill="#ec3013"/><circle cx="50" cy="58" r="29" fill="none" stroke="#201e1d" stroke-width="6"/><path d="M50 58V38M50 58h15" stroke="#201e1d" stroke-width="5" stroke-linecap="square"/></svg></template>
+<helmet>
+<meta name="omelette-owns-print" content="1">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/styles.css">
+<script src="_ds/modernist-4b975c40-2f80-4e26-8c22-2849640d9bde/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f2f2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#201e1d">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+  html, body { height: 100%; }
+  html { -webkit-text-size-adjust: 100%; }
+  button, label, input, select, a { touch-action: manipulation; }
+  input, select, textarea { font-size: 16px; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+  a { color: var(--color-accent-700); }
+  a:hover { color: var(--color-accent); }
+  input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  [data-theme="dark"] {
+    --color-bg: #201e1d;
+    --color-surface: #2d2b2b;
+    --color-text: #f8f4f4;
+    --color-divider: color-mix(in srgb, #f8f4f4 32%, transparent);
+    --color-neutral-100: #201e1d;
+    --color-neutral-200: #2d2b2b;
+    --color-neutral-300: #444141;
+    --color-neutral-400: #605d5d;
+    --color-neutral-500: #7d7979;
+    --color-neutral-600: #9b9797;
+    --color-neutral-700: #bab6b6;
+    --color-neutral-800: #d7d3d3;
+    --color-neutral-900: #f8f4f4;
+    --color-accent-700: #ff9783;
+    --color-accent-100: #4d170e;
+    --color-accent-200: #7c1405;
+    color-scheme: dark;
+  }
+  [data-theme="dark"] input, [data-theme="dark"] select { background: var(--color-neutral-200); color: var(--color-text); }
+  [data-theme="dark"] .btn-primary { color: #fff; }
+  @media print {
+    .no-print { display: none !important; }
+    body, [data-theme] { background: #fff !important; color: #000 !important; }
+  }
+</style>
+</helmet>
+
+<div data-theme="{{ theme }}" style="min-height: 100%; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; overscroll-behavior-y: contain; display: flex; flex-direction: column;">
+
+  <div style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); border-bottom: 2px solid var(--color-text);">
+    <div onTouchStart="{{ onPeriodSwipeStart }}" onTouchEnd="{{ onPeriodSwipeEnd }}" style="max-width:1120px;margin:0 auto;width:100%; padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: baseline; gap: 10px;">
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 19px; letter-spacing: -0.01em; text-transform: uppercase;">Fortnight</span>
+        <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ version }}</span>
+        <sc-if value="{{ isLocked }}" hint-placeholder-val="{{ false }}">
+          <span class="tag tag-accent" style="font-size: 11px;">Locked</span>
+        </sc-if>
+        <sc-if value="{{ onShift }}" hint-placeholder-val="{{ false }}">
+          <span class="tag tag-accent" style="font-size: 11px; font-variant-numeric: tabular-nums;">{{ elapsedPill }}</span>
+        </sc-if>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; flex: 1 1 auto; justify-content: flex-end; min-width: 0;">
+        <button onClick="{{ goPrev }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">‹</button>
+        <div style="flex: 0 1 auto; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ periodLabel }}</div>
+        <button onClick="{{ goNext }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">›</button>
+        <button onClick="{{ toggleTheme }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); min-width: 44px; min-height: 44px; padding: 0 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer;">{{ themeLabel }}</button>
+      </div>
+    </div>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:1120px;margin:0 auto;width:100%; padding: 0 16px; display: flex; gap: 0; border-top: 2px solid var(--color-divider);">
+        <button onClick="{{ goClock }}" aria-current="{{ curClock }}" style="{{ tabClock }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
+        <button onClick="{{ goTime }}" aria-current="{{ curTime }}" style="{{ tabTime }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Timesheet</span></button>
+        <button onClick="{{ goSales }}" aria-current="{{ curSales }}" style="{{ tabSales }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
+        <button onClick="{{ goPay }}" aria-current="{{ curPay }}" style="{{ tabPay }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
+        <button onClick="{{ goMore }}" aria-current="{{ curMore }}" style="{{ tabMore }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showTierAlert }}" hint-placeholder-val="{{ false }}">
+    <div style="background: var(--color-accent); color: #fff; border-bottom: 2px solid var(--color-text);">
+      <div style="max-width:1120px;margin:0 auto;width:100%; padding: 10px 16px;">
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;">Tier within reach</div>
+        <div style="font-size: 14px; margin-top: 2px; text-wrap: pretty;">{{ tierAlertText }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div onTouchStart="{{ onSwipeStart }}" onTouchEnd="{{ onSwipeEnd }}" style="{{ kbStyle }}">
+  <div style="flex: 1; max-width:1120px;margin:0 auto;width:100%; padding: 20px 16px 28px;">
+
+    <sc-if value="{{ isClock }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Clock" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; align-items: start;">
+        <div>
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">{{ todayLong }}</div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 48px; line-height: 1; letter-spacing: -0.03em; margin: 8px 0 4px; font-variant-numeric: tabular-nums;">{{ clockTime }}</div>
+          <div style="font-size: 15px; color: var(--color-neutral-800); margin-bottom: 16px;">{{ clockStatus }}</div>
+          <sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ false }}">
+            <div style="border: 2px solid var(--color-accent); padding: 14px; margin-bottom: 16px;">
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700);">Missed clock-out</div>
+              <div style="font-size: 14px; margin-top: 6px; text-wrap: pretty;">{{ missedText }}</div>
+              <div class="field" style="margin-top: 10px;"><label for="mo">Clocked out at</label><input id="mo" class="input" type="time" value="{{ missedOut }}" onChange="{{ onMissedOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button class="btn btn-primary" onClick="{{ resolveMissed }}" style="flex: 1; min-height: 44px;">Save</button>
+                <button class="btn btn-ghost" onClick="{{ discardMissed }}" style="flex: 1; min-height: 44px; color: var(--color-accent-700);">Discard</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <button class="btn btn-primary" onClick="{{ punch }}" disabled="{{ lockedFlag }}" style="width: 100%; min-height: 72px; font-size: 20px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; justify-content: flex-start;">{{ punchLabel }}</button>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px;">
+            <sc-if value="{{ onShift }}" hint-placeholder-val="{{ false }}">
+              <button class="btn btn-secondary" onClick="{{ toggleBreak }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">{{ breakLabel }}</button>
+            </sc-if>
+            <button class="btn btn-secondary" onClick="{{ quickSale }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">Add a sale</button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 8px;">
+            <span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Today</span>
+            <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ todayHours }}</span>
+          </div>
+          <sc-if value="{{ noShiftsToday }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 14px; color: var(--color-neutral-600); padding: 8px 0;">Nothing recorded today yet.</div>
+          </sc-if>
+          <sc-for list="{{ todayRows }}" as="t" hint-placeholder-count="1">
+            <div style="display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--color-divider); font-size: 15px;">
+              <span style="font-variant-numeric: tabular-nums;">{{ t.span }}</span>
+              <span style="color: var(--color-neutral-700);">{{ t.brk }}</span>
+              <span style="font-weight: 600; font-variant-numeric: tabular-nums;">{{ t.hours }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="border-top: 2px solid var(--color-text); padding-top: 14px;">
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Fortnight so far</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px; margin-top: 12px;">
+            <sc-for list="{{ miniStats }}" as="m" hint-placeholder-count="4">
+              <div style="border-left: 2px solid var(--color-text); padding-left: 10px;">
+                <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ m.label }}</div>
+                <div style="font-family: var(--font-heading); font-weight: 800; font-size: 23px; font-variant-numeric: tabular-nums;">{{ m.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 18px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+              <span style="font-weight: 600;">{{ tierRateLabel }}</span>
+              <span style="color: var(--color-neutral-700); font-variant-numeric: tabular-nums;">{{ tierNext }}</span>
+            </div>
+            <div style="height: 10px; background: var(--color-neutral-300);">
+              <div style="height: 100%; width: {{ tierPct }}%; background: var(--color-accent);"></div>
+            </div>
+            <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 8px; text-wrap: pretty;">{{ projectionText }}</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTime }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Timesheet">
+        <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 18px; max-width: 640px;">
+          <sc-for list="{{ dayCells }}" as="d" hint-placeholder-count="14">
+            <button onClick="{{ d.pick }}" style="{{ d.mStyle }}">
+              <span style="font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.7;">{{ d.dow }}</span>
+              <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ d.dom }}</span>
+              <span style="font-size: 10px; font-variant-numeric: tabular-nums;">{{ d.hours }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ hasWarnings }}" hint-placeholder-val="{{ false }}">
+          <div style="border: 2px solid var(--color-accent); padding: 12px; margin-bottom: 16px; max-width: 640px;">
+            <div style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 6px;">Check these</div>
+            <sc-for list="{{ warnings }}" as="w" hint-placeholder-count="1">
+              <div style="font-size: 14px; padding: 4px 0; text-wrap: pretty;">{{ w.text }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ noShifts }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 14px; color: var(--color-neutral-600); padding: 10px 0 18px;">{{ noShiftsText }}</div>
+        </sc-if>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start;">
+          <sc-for list="{{ shiftRows }}" as="s" hint-placeholder-count="3">
+            <div onTouchStart="{{ s.tStart }}" onTouchMove="{{ s.tMove }}" onTouchEnd="{{ s.tEnd }}" style="{{ s.mCard }}">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+                <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ s.dateLabel }}</span>
+                <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ s.hours }}</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="field"><label>In</label><input class="input" type="time" value="{{ s.in }}" onChange="{{ s.setIn }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label>Out</label><input class="input" type="time" value="{{ s.out }}" onChange="{{ s.setOut }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; margin-top: 10px;">
+                <div class="field"><label>Break (min)</label><input class="input" type="number" inputMode="numeric" value="{{ s.brk }}" onChange="{{ s.setBrk }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <button class="btn btn-ghost" onClick="{{ s.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 14px; color: var(--color-accent-700);">{{ s.delLabel }}</button>
+              </div>
+              <sc-if value="{{ s.hasErr }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 8px; text-wrap: pretty;">{{ s.err }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="border: 2px solid var(--color-text); padding: 14px; margin-top: 18px; max-width: 520px;">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">Add a shift</div>
+          <div class="field" style="margin-bottom: 10px;"><label for="nd">Date</label><input id="nd" class="input" type="date" value="{{ shiftForm.date }}" onChange="{{ onShiftDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div class="field"><label for="ni">In</label><input id="ni" class="input" type="time" value="{{ shiftForm.in }}" onChange="{{ onShiftIn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field"><label for="no">Out</label><input id="no" class="input" type="time" value="{{ shiftForm.out }}" onChange="{{ onShiftOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          </div>
+          <div class="field" style="margin-bottom: 12px;"><label for="nb">Break (min)</label><input id="nb" class="input" type="number" inputMode="numeric" value="{{ shiftForm.brk }}" onChange="{{ onShiftBreak }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <button class="btn btn-secondary" onClick="{{ addShift }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add shift</button>
+        </div>
+
+        <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 14px; text-wrap: pretty;">{{ timesheetFooter }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSales }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Sales" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;">
+        <div style="border: 2px solid var(--color-text); padding: 14px;">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">{{ saleFormTitle }}</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 12px;">
+            <sc-for list="{{ catOptions }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.pick }}" style="{{ c.mStyle }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+            <sc-for list="{{ quickChips }}" as="q" hint-placeholder-count="5">
+              <button class="btn btn-secondary" onClick="{{ q.pick }}" style="min-height: 44px; padding: 0 16px; font-size: 14px;">{{ q.label }}</button>
+            </sc-for>
+          </div>
+          <div class="field" style="margin-bottom: 10px;"><label for="samt">Amount</label><input id="samt" class="input" type="number" inputMode="decimal" value="{{ form.amount }}" onChange="{{ onAmount }}" onKeyDown="{{ onFormKey }}" placeholder="0.00" style="font-size: 18px; min-height: 52px; width: 100%; font-variant-numeric: tabular-nums;"></div>
+          <sc-if value="{{ hasAmountErr }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 13px; color: var(--color-accent-700); margin: -4px 0 10px; text-wrap: pretty;">{{ amountErr }}</div>
+          </sc-if>
+          <div class="field" style="margin-bottom: 10px;"><label for="sdate">Date</label><input id="sdate" class="input" type="date" value="{{ form.date }}" onChange="{{ onSaleDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <div class="field" style="margin-bottom: 12px;"><label for="snote">Note</label><input id="snote" class="input" type="text" value="{{ form.note }}" onChange="{{ onNote }}" onKeyDown="{{ onFormKey }}" placeholder="Optional" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <button class="btn btn-primary" onClick="{{ addSale }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add entry</button>
+        </div>
+
+        <div>
+          <div style="position: sticky; top: 108px; z-index: 10; background: var(--color-bg); display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; margin-bottom: 6px; border-bottom: 2px solid var(--color-text);">
+            <span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">This fortnight</span>
+            <span style="font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ salesTotal }}</span>
+          </div>
+          <sc-if value="{{ noSales }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 14px; color: var(--color-neutral-600); padding: 8px 0;">No entries this fortnight.</div>
+          </sc-if>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ saleRows }}" as="e" hint-placeholder-count="4">
+              <div onTouchStart="{{ e.tStart }}" onTouchMove="{{ e.tMove }}" onTouchEnd="{{ e.tEnd }}" style="{{ e.mCard }}">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ e.cat }}</span>
+                  <span style="font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums;">{{ e.amount }}</span>
+                </div>
+                <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 4px;">{{ e.dateLabel }} · {{ e.note }}</div>
+                <div style="display: flex; gap: 8px; margin-top: 10px;">
+                  <button class="btn btn-secondary" onClick="{{ e.edit }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1;">Edit</button>
+                  <button class="btn btn-ghost" onClick="{{ e.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1; color: var(--color-accent-700);">{{ e.delLabel }}</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Storage on this device</div>
+          <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ storageText }}</p>
+          <sc-if value="{{ needsPersist }}" hint-placeholder-val="{{ false }}">
+            <button class="btn btn-primary" onClick="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
+          </sc-if>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Install on this device</div>
+          <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ installText }}</p>
+          <button class="btn btn-secondary" onClick="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Danger</div>
+          <button class="btn btn-ghost" onClick="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Pay">
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">{{ profileLine }}</div>
+        <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 2px;">{{ employerLine }} · paid {{ payDate }}</div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px; margin: 20px 0;">
+          <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+            <div style="border-left: 2px solid var(--color-text); padding-left: 10px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ k.label }}</div>
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums;">{{ k.value }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
+          <div>
+            <div style="border-top: 2px solid var(--color-text);">
+              <sc-for list="{{ payRows }}" as="p" hint-placeholder-count="8">
+                <div style="{{ p.mStyle }}">
+                  <div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline;">
+                    <span style="font-size: 14px;">{{ p.label }}</span>
+                    <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ p.amount }}</span>
+                  </div>
+                  <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 2px;">{{ p.basis }} {{ p.rate }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="border: 2px solid var(--color-text); padding: 14px; margin-top: 18px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Gross pay this fortnight</div>
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;">{{ grossPay }}</div>
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 14px;">Superannuation</div>
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; font-variant-numeric: tabular-nums;">{{ superTotal }}</div>
+              <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 4px; text-wrap: pretty;">{{ superDetail }}</div>
+            </div>
+          </div>
+
+          <div>
+            <div style="border-top: 2px solid var(--color-text); padding-top: 14px;">
+              <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Sales by day</div>
+              <div style="display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 2px; align-items: end; height: 100px; border-bottom: 2px solid var(--color-text); margin-top: 10px;">
+                <sc-for list="{{ salesBars }}" as="s" hint-placeholder-count="14">
+                  <button onClick="{{ s.tap }}" style="{{ s.mStyle }}"></button>
+                </sc-for>
+              </div>
+              <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 8px;">{{ barTapLabel }}</div>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+              <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Commission mix</div>
+              <sc-for list="{{ mixBars }}" as="m" hint-placeholder-count="3">
+                <div style="margin-top: 10px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                    <span>{{ m.label }}</span>
+                    <span style="font-weight: 600; font-variant-numeric: tabular-nums;">{{ m.value }}</span>
+                  </div>
+                  <div style="height: 10px; background: var(--color-neutral-300);"><div style="height: 100%; width: {{ m.pct }}%; background: var(--color-text);"></div></div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+              <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Year to date — {{ fyLabel }}</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px; margin-top: 12px;">
+                <sc-for list="{{ ytdStats }}" as="y" hint-placeholder-count="5">
+                  <div>
+                    <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ y.label }}</div>
+                    <div style="font-family: var(--font-heading); font-weight: 800; font-size: 19px; font-variant-numeric: tabular-nums;">{{ y.value }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+              <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">What if</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px;">
+                <div class="field"><label for="sima">Amount</label><input id="sima" class="input" type="number" inputMode="decimal" value="{{ simAmount }}" onChange="{{ onSim }}" placeholder="0" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label for="simc">Category</label>
+                  <select id="simc" class="input" value="{{ simCat }}" onChange="{{ onSimCat }}" style="font-size: 16px; min-height: 44px; width: 100%;">
+                    <sc-for list="{{ catList }}" as="c" hint-placeholder-count="4">
+                      <option value="{{ c.key }}">{{ c.label }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+              </div>
+              <div style="font-size: 13px; color: var(--color-neutral-800); margin-top: 10px; text-wrap: pretty;">{{ simResult }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px;">
+          <button class="btn btn-secondary" onClick="{{ toggleLock }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">{{ lockLabel }}</button>
+          <button class="btn btn-secondary" onClick="{{ exportCsv }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Export CSV</button>
+          <button class="btn btn-secondary" onClick="{{ doPrint }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Print payslip</button>
+        </div>
+
+        <sc-if value="{{ showLockNudge }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 14px; padding: 12px; border: 2px solid var(--color-accent); max-width: 560px;">
+            <div style="font-size: 14px; color: var(--color-accent-900); text-wrap: pretty;">{{ lockNudgeText }}</div>
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+              <button class="btn btn-primary" onClick="{{ lockNudgeAct }}" style="flex: 1; min-height: 44px;">Back up</button>
+              <button class="btn btn-ghost" onClick="{{ dismissLockNudge }}" style="flex: 1; min-height: 44px;">Later</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMore }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="More" style="max-width: 560px;">
+        <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">More</div>
+        <div style="margin-top: 12px;">
+          <button onClick="{{ goHist }}" style="{{ rowStyle }}"><span>History</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button onClick="{{ goSettings }}" style="{{ rowStyle }}"><span>Settings &amp; backup</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button onClick="{{ doPrint }}" style="{{ rowStyle }}"><span>Print / save PDF</span><span style="color: var(--color-neutral-700);">›</span></button>
+        </div>
+        <div style="margin-top: 18px; padding: 12px; border: 2px solid var(--color-divider);">
+          <div style="font-size: 14px; font-weight: 600;">{{ lastBackupText }}</div>
+          <sc-if value="{{ backupStale }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 4px; text-wrap: pretty;">{{ backupStaleText }}</div>
+          </sc-if>
+          <button class="btn btn-primary" onClick="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 12px;">Download backup</button>
+        </div>
+        <div style="font-size: 12px; color: var(--color-neutral-600); margin-top: 16px;">Fortnight {{ version }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isHist }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="History">
+        <button class="btn btn-ghost" onClick="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+        <sc-if value="{{ noHistory }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 14px; color: var(--color-neutral-600);">Nothing recorded yet.</div>
+        </sc-if>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start;">
+          <sc-for list="{{ historyRows }}" as="h" hint-placeholder-count="3">
+            <div style="border:2px solid var(--color-divider);padding:14px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+                <span style="font-family: var(--font-heading); font-weight: 800; font-size: 14px;">{{ h.label }}</span>
+                <span style="font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums;">{{ h.gross }}</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 10px;">
+                <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Hours</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ h.hours }}</div></div>
+                <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Sales</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ h.sales }}</div></div>
+                <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Tier</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ h.tier }}</div></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px;">
+                <span style="font-size: 13px; font-variant-numeric: tabular-nums; {{ h.deltaStyle }}">{{ h.delta }} vs previous</span>
+                <button class="btn btn-secondary" onClick="{{ h.open }}" style="min-height: 44px; padding: 0 18px;">Open</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ hasMoreHistory }}" hint-placeholder-val="{{ false }}">
+          <button class="btn btn-secondary" onClick="{{ toggleHistory }}" style="width: 100%; min-height: 52px; font-size: 16px; justify-content: flex-start; margin-top: 12px;">{{ moreHistoryLabel }}</button>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Settings" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; align-items: start;">
+        <div>
+          <button class="btn btn-ghost" onClick="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Payslip details</div>
+          <div style="margin: 12px 0 22px;">
+            <div class="field" style="margin-bottom: 10px;"><label for="pe">Employee name</label><input id="pe" class="input" type="text" value="{{ profile.employee }}" onChange="{{ onProfEmployee }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field" style="margin-bottom: 10px;"><label for="pr">Role</label><input id="pr" class="input" type="text" value="{{ profile.role }}" onChange="{{ onProfRole }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field" style="margin-bottom: 10px;"><label for="pc">Employer</label><input id="pc" class="input" type="text" value="{{ profile.employer }}" onChange="{{ onProfEmployer }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field"><label for="pa">ABN</label><input id="pa" class="input" type="text" inputMode="numeric" value="{{ profile.abn }}" onChange="{{ onProfAbn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          </div>
+
+        </div>
+
+        <div>
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Backup</div>
+          <div style="border-top: 2px solid var(--color-text); border-bottom: 2px solid var(--color-divider); padding: 12px 0; margin: 12px 0 14px;">
+            <div style="font-size: 14px; font-weight: 600;">{{ lastBackupText }}</div>
+            <sc-if value="{{ backupStale }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 4px; text-wrap: pretty;">{{ backupStaleText }}</div>
+            </sc-if>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <button class="btn btn-primary" onClick="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Download backup</button>
+            <button class="btn btn-secondary" onClick="{{ copyBackup }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Copy to clipboard</button>
+            <button class="btn btn-secondary" onClick="{{ exportBundleCsv }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Export CSV bundle</button>
+            <label class="btn btn-secondary" for="imp" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; cursor: pointer; display: flex; align-items: center;">Restore from file</label>
+            <input id="imp" type="file" accept=".json,application/json" onChange="{{ importJson }}" style="display: none;">
+          </div>
+          <sc-if value="{{ hasBackupMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 12px; text-wrap: pretty;">{{ backupMsg }}</div>
+          </sc-if>
+          <sc-if value="{{ canUndoRestore }}" hint-placeholder-val="{{ false }}">
+            <button class="btn btn-ghost" onClick="{{ undoRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">Undo the restore</button>
+          </sc-if>
+          <sc-if value="{{ hasBackupLog }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top: 18px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700); margin-bottom: 6px;">Recent backups</div>
+              <sc-for list="{{ backupLog }}" as="b" hint-placeholder-count="2">
+                <div style="padding: 8px 0; border-bottom: 1px solid var(--color-divider); font-size: 13px;">
+                  <div style="font-variant-numeric: tabular-nums;">{{ b.when }}</div>
+                  <div style="color: var(--color-neutral-700);">{{ b.detail }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Version {{ version }}</div>
+          <div style="margin-top: 12px;">
+            <sc-for list="{{ changelog }}" as="c" hint-placeholder-count="3">
+              <div style="{{ c.style }}; padding-left: 10px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: baseline; gap: 10px;">
+                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums;">{{ c.v }}</span>
+                  <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ c.date }}</span>
+                </div>
+                <sc-for list="{{ c.notes }}" as="n" hint-placeholder-count="2">
+                  <div style="font-size: 13px; color: var(--color-neutral-800); padding: 2px 0; text-wrap: pretty;">{{ n.text }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Storage on this device</div>
+          <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ storageText }}</p>
+          <sc-if value="{{ needsPersist }}" hint-placeholder-val="{{ false }}">
+            <button class="btn btn-primary" onClick="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
+          </sc-if>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Install on this device</div>
+          <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ installText }}</p>
+          <button class="btn btn-secondary" onClick="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Danger</div>
+          <button class="btn btn-ghost" onClick="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+  </div>
+
+  <sc-if value="{{ hasUndo }}" hint-placeholder-val="{{ false }}">
+    <div class="no-print" style="position: sticky; bottom: 12px; z-index: 40; max-width:1120px;margin:0 auto;width:100%; padding: 0 16px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-text); color: var(--color-bg); padding: 10px 14px;">
+        <span style="font-size: 14px;">{{ undoLabel }}</span>
+        <button class="btn btn-primary" onClick="{{ doUndo }}" style="min-height: 40px; padding: 0 16px;">Undo</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showBottomNav }}" hint-placeholder-val="{{ false }}">
+    <nav class="no-print" aria-label="Main" style="position: sticky; bottom: 0; z-index: 50; background: var(--color-bg); border-top: 2px solid var(--color-text); display: grid; grid-template-columns: repeat(5, 1fr); padding-bottom: max(env(safe-area-inset-bottom, 0px), 6px);">
+      <button onClick="{{ goClock }}" aria-label="Clock" aria-current="{{ curClock }}" style="{{ navClock }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
+      <button onClick="{{ goTime }}" aria-label="Timesheet" aria-current="{{ curTime }}" style="{{ navTime }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Time</span></button>
+      <button onClick="{{ goSales }}" aria-label="Sales" aria-current="{{ curSales }}" style="{{ navSales }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
+      <button onClick="{{ goPay }}" aria-label="Pay" aria-current="{{ curPay }}" style="{{ navPay }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
+      <button onClick="{{ goMore }}" aria-label="More" aria-current="{{ curMore }}" style="{{ navMore }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
+    </nav>
+  </sc-if>
+
+  <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 90; background: rgba(32,30,29,0.55); display: flex; align-items: flex-end; justify-content: center;">
+      <div style="width: 100%; max-width: 560px; max-height: 86vh; overflow: auto; background: var(--color-bg); border: 2px solid var(--color-text); padding: 18px 16px 24px;">
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; margin-bottom: 4px;">Restore from backup?</div>
+        <div style="font-size: 12px; color: var(--color-neutral-700); word-break: break-all; margin-bottom: 14px;">{{ pFile }}</div>
+        <sc-for list="{{ pFacts }}" as="f" hint-placeholder-count="6">
+          <div style="padding: 8px 0; border-top: 1px solid var(--color-divider);">
+            <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ f.k }}</div>
+            <div style="font-size: 14px; {{ f.style }}">{{ f.v }}</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ pHasRejects }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 12px; padding: 10px; background: var(--color-accent-100); font-size: 13px; color: var(--color-accent-900); text-wrap: pretty;">{{ pRejects }}</div>
+        </sc-if>
+        <div style="margin-top: 12px; padding-top: 10px; border-top: 2px solid var(--color-divider); font-size: 13px; color: var(--color-neutral-800); text-wrap: pretty;">{{ pLoss }} Merge keeps both sets. A snapshot is taken first either way.</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 16px;">
+          <button class="btn btn-primary" onClick="{{ doReplace }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Replace everything</button>
+          <button class="btn btn-secondary" onClick="{{ doMerge }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Merge</button>
+          <button class="btn btn-ghost" onClick="{{ cancelRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:1080},&quot;hourlyRate&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:30,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:200,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;$/h&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;superPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:25,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;productPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;consumptionPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;tier1Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:2,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier2Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier3Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;}}">
+const DAY = 86400000;
+const ANCHOR = Math.floor(Date.UTC(2026, 9, 5) / DAY);
+const CATS = [
+  { key: 'product', label: 'Product sold' },
+  { key: 'consumption', label: 'Service consumption' },
+  { key: 'servicePackage', label: 'Service package' },
+  { key: 'vip', label: 'VIP package' }
+];
+const CATLABEL = { product: 'Product sold', consumption: 'Service consumption', servicePackage: 'Service package', vip: 'VIP package' };
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+function dnum(s) { const p = s.split('-').map(Number); return Math.floor(Date.UTC(p[0], p[1] - 1, p[2]) / DAY); }
+function ymdOf(n) { return new Date(n * DAY).toISOString().slice(0, 10); }
+function localYmd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function mins(t) { if (!t) return null; const p = t.split(':').map(Number); return p[0] * 60 + p[1]; }
+function to12(t) { if (!t) return ''; const p = t.split(':').map(Number); const h = p[0] % 12 || 12; return h + ':' + String(p[1]).padStart(2, '0') + ' ' + (p[0] < 12 ? 'am' : 'pm'); }
+function money(n) { return '$' + (Math.round(n * 100) / 100).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function money0(n) { return '$' + Math.round(n).toLocaleString('en-AU'); }
+function hrsLabel(h) { const t = Math.round(h * 60); return Math.floor(t / 60) + 'h ' + String(t % 60).padStart(2, '0') + 'm'; }
+function fmtDate(s, o) { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]).toLocaleDateString('en-AU', o); }
+function dateObj(s) { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+function uid() { return Math.random().toString(36).slice(2, 10); }
+function paidMinutes(s) {
+  const a = mins(s.in), b = mins(s.out);
+  if (a == null || b == null) return null;
+  return Math.max(0, ((b - a + 1440) % 1440) - (Number(s.breakMin) || 0));
+}
+function fnv(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16).padStart(8, '0'); }
+function coreOf(d) { return { shifts: d.shifts || [], sales: d.sales || [], locked: d.locked || [], profile: d.profile || {}, theme: d.theme || 'light' }; }
+function checksumOf(d) { return fnv(JSON.stringify(coreOf(d))); }
+function stampOf(d) { return localYmd(d) + '-' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0'); }
+function isYmd(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s); }
+function isHm(s) { return s == null || s === '' || (typeof s === 'string' && /^\d{1,2}:\d{2}$/.test(s)); }
+function validShift(s) { return !!s && typeof s === 'object' && isYmd(s.date) && isHm(s.in) && isHm(s.out) && (s.breakMin == null || isFinite(Number(s.breakMin))); }
+function validSale(s) { return !!s && typeof s === 'object' && isYmd(s.date) && !!CATLABEL[s.cat] && isFinite(Number(s.amount)); }
+function spanOf(rows) { const ds = rows.map(r => r.date).filter(isYmd).sort(); return ds.length ? { from: ds[0], to: ds[ds.length - 1] } : null; }
+function spanLabel(sp) { return sp ? fmtDate(sp.from, { day: 'numeric', month: 'short', year: 'numeric' }) + ' – ' + fmtDate(sp.to, { day: 'numeric', month: 'short', year: 'numeric' }) : 'no dated records'; }
+function verCmp(a, b) {
+  const x = String(a).split('.').map(Number), y = String(b).split('.').map(Number);
+  for (let i = 0; i < 3; i++) { const d = (x[i] || 0) - (y[i] || 0); if (d) return d < 0 ? -1 : 1; }
+  return 0;
+}
+function agoText(iso) {
+  if (!iso) return null;
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / DAY);
+  if (days <= 0) return 'today';
+  if (days === 1) return 'yesterday';
+  return days + ' days ago';
+}
+function csvRows(rows) { return rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\n'); }
+
+const VERSION = '2.5.0';
+const CHANGELOG = [
+  { v: '2.5.0', date: '2026-10-09', notes: ['Android Back now closes sheets and steps back through tabs instead of leaving the app.', 'Asks Android to keep the data persistent so it is not evicted when storage runs low.', 'Breaks are a button — start and end one instead of typing minutes.', 'Catches a missed clock-out on the next open and offers a time to save.', 'Haptic feedback on clock in and out and on confirming a delete.', 'Add a sale straight from the Clock screen, with the category you used last.', 'Fields no longer hide behind the keyboard; swipe a card left to delete; swipe between tabs.', 'Follows the system dark mode on first run; icon-only buttons are labelled for screen readers.'] },
+  { v: '2.4.0', date: '2026-10-09', notes: ['One responsive build for phone and computer — no separate mobile file.', 'Bottom tab bar on a phone, top tabs on a computer.', 'Tables replaced with card rows throughout; 44px minimum touch targets.', '16px inputs with numeric and decimal keypads, two-tap deletes, swipe between fortnights.', 'Tap a chart bar to read the day.'] },
+  { v: '2.3.0', date: '2026-10-09', notes: ['Backups are timestamped to the minute and named with their record counts.', 'Restore now previews the file first — export date, version, counts and date range — and offers replace or merge.', 'A snapshot is taken before any restore, so one tap undoes it.', 'Deeper validation with a checksum; invalid records are reported, not silently loaded.', 'Last-backup tracker, a nudge after 14 days and at fortnight lock, plus the last three backups listed.', 'Copy a backup to the clipboard, or export shifts and sales as one CSV bundle.'] },
+  { v: '2.2.0', date: '2026-10-08', notes: ['Named the app Fortnight.'] },
+  { v: '2.1.0', date: '2026-10-08', notes: ['Version tracking and this changelog.', 'Timesheet empty states.', 'Dark-mode primary buttons made legible; locked fortnights now freeze timesheet inputs.'] },
+  { v: '2.0.0', date: '2026-10-08', notes: ['Unpaid breaks deducted from paid hours.', 'Validation warnings: missing clock-outs, overlaps, long shifts, future dates.', 'Tier simulator, next-bracket alert and end-of-fortnight projection.', 'Edit sale entries; undo on delete; quick-amount chips and Enter to add.', '14-day strip with hours per day; commission-mix and sales-by-day charts.', 'Lock a fortnight as paid; payslip details, YTD totals and PDF printing.', 'JSON backup and restore; dark mode; install to home screen.'] },
+  { v: '1.1.0', date: '2026-10-08', notes: ['Clock reads in 12-hour time.'] },
+  { v: '1.0.0', date: '2026-10-08', notes: ['Clock in/out, sales by category, fortnightly pay with tiered commission, CSV export and history.'] }
+];
+const TABS = ['clock', 'time', 'sales', 'pay', 'more'];
+function mn(t) { if (!t) return 0; const p = String(t).split(':').map(Number); return (p[0] || 0) * 60 + (p[1] || 0); }
+function hm(d) { return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+function addHours(t, h) { const m = Math.min(mn(t) + h * 60, 23 * 60 + 59); return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
+const EMPTY = { shifts: [], sales: [], locked: [], profile: { employee: '', role: '', employer: '', abn: '' }, theme: 'light' };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const today = localYmd(new Date());
+    this.state = {
+      tab: 'clock',
+      periodIdx: Math.floor((dnum(today) - ANCHOR) / 14),
+      data: EMPTY,
+      now: Date.now(),
+      form: { cat: 'product', amount: '', note: '', date: today },
+      shiftForm: { date: today, in: '', out: '', brk: '' },
+      editForm: { id: null, cat: 'product', amount: '', note: '', date: today },
+      selectedDay: null,
+      undo: null,
+      simAmount: '',
+      simCat: 'servicePackage',
+      backupMsg: '',
+      lastBackupAt: null,
+      backupLog: [],
+      pending: null,
+      snapshot: null,
+      lockNudge: false,
+      armed: null,
+      barTap: null,
+      vw: typeof window !== 'undefined' ? window.innerWidth : 1200,
+      installState: '',
+      resetArmed: false,
+      kbPad: 0,
+      missed: null,
+      missedOut: '',
+      swipeId: null,
+      swipeDx: 0,
+      storageText: '',
+      persisted: null,
+      showAllHistory: false
+    };
+  }
+
+  componentDidMount() {
+    let loaded = null;
+    try {
+      const raw = localStorage.getItem('timeclock.v2') || localStorage.getItem('timeclock.v1');
+      if (raw) loaded = JSON.parse(raw);
+    } catch (e) { /* first run */ }
+    if (loaded) this.setState({ data: Object.assign({}, EMPTY, loaded, { profile: Object.assign({}, EMPTY.profile, loaded.profile || {}) }) });
+    if (!loaded || !loaded.theme) {
+      try { if (window.matchMedia('(prefers-color-scheme: dark)').matches) this.setState({ data: Object.assign({}, EMPTY, loaded || {}, { theme: 'dark' }) }); } catch (e) { /* no matchMedia */ }
+    }
+    const td = localYmd(new Date());
+    const stale = ((loaded && loaded.shifts) || []).filter(s => !s.out && s.in && s.date < td);
+    if (stale.length) {
+      const s = stale[stale.length - 1];
+      this.setState({ missed: s.id, missedOut: addHours(s.in, 8) });
+    }
+    try {
+      const meta = JSON.parse(localStorage.getItem('fortnight.meta') || '{}');
+      this.setState({ lastBackupAt: meta.lastBackupAt || null, backupLog: Array.isArray(meta.log) ? meta.log : [] });
+    } catch (e) { /* no meta yet */ }
+    this.onResize = () => {
+      const w = window.innerWidth;
+      if ((w < 820) !== (this.state.vw < 820)) this.setState({ vw: w }); else this.vwLast = w;
+    };
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('orientationchange', this.onResize);
+    this.onResize();
+
+    const hash = (location.hash || '').replace('#', '');
+    if (['clock', 'time', 'sales', 'pay', 'more'].indexOf(hash) !== -1) this.setState({ tab: hash });
+    try { history.replaceState({ fnTab: hash || this.state.tab }, ''); } catch (e) { /* no history */ }
+    this.onPop = e => {
+      if (this.state.pending) { this.setState({ pending: null }); try { history.pushState({ fnTab: this.state.tab }, ''); } catch (err) {} return; }
+      if (this.state.missed) { this.setState({ missed: null }); try { history.pushState({ fnTab: this.state.tab }, ''); } catch (err) {} return; }
+      const s = e.state || {};
+      this.setState({ tab: TABS.indexOf(s.fnTab) === -1 && s.fnTab !== 'hist' && s.fnTab !== 'settings' ? 'clock' : s.fnTab, armed: null, barTap: null });
+    };
+    window.addEventListener('popstate', this.onPop);
+
+    this.onVV = () => {
+      const vv = window.visualViewport;
+      if (!vv) return;
+      const pad = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+      const next = pad > 120 ? pad : 0;
+      if (next !== this.state.kbPad) this.setState({ kbPad: next });
+    };
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', this.onVV);
+
+    this.checkStorage();
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this.onPrompt = e => { e.preventDefault(); this.deferredPrompt = e; this.setState({ installState: 'ready' }); };
+    window.addEventListener('beforeinstallprompt', this.onPrompt);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => { if (!this.reloading) { this.reloading = true; location.reload(); } });
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('orientationchange', this.onResize);
+    clearInterval(this.timer);
+    clearTimeout(this.undoTimer);
+    window.removeEventListener('beforeinstallprompt', this.onPrompt);
+    window.removeEventListener('popstate', this.onPop);
+    if (window.visualViewport) window.visualViewport.removeEventListener('resize', this.onVV);
+  }
+
+  vib(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) { /* unsupported */ } }
+
+  checkStorage() {
+    if (!navigator.storage) { this.setState({ storageText: 'This browser cannot report on storage. Keep downloading backups.' }); return; }
+    const persisted = navigator.storage.persisted ? navigator.storage.persisted() : Promise.resolve(false);
+    const est = navigator.storage.estimate ? navigator.storage.estimate() : Promise.resolve({});
+    Promise.all([persisted, est]).then(([p, e]) => {
+      const used = e && e.usage ? Math.max(1, Math.round(e.usage / 1024)) : null;
+      const quota = e && e.quota ? Math.round(e.quota / 1048576) : null;
+      this.setState({
+        persisted: !!p,
+        storageText: (p ? 'Your data is marked as persistent — Android will not evict it to reclaim space.' : 'Not persistent yet. Android may clear this app\u2019s data when storage runs low.')
+          + (used ? ' Using ' + used + ' KB' + (quota ? ' of about ' + quota + ' MB.' : '.') : '')
+      });
+    }).catch(() => this.setState({ storageText: 'Could not read storage status.' }));
+  }
+  requestPersist = () => {
+    if (!navigator.storage || !navigator.storage.persist) { this.setState({ storageText: 'This browser has no persistent-storage request. Keep downloading backups.' }); return; }
+    navigator.storage.persist().then(ok => {
+      this.setState({ persisted: ok, storageText: ok ? 'Granted — your data is now persistent.' : 'Android declined for now. Installing the app to your home screen usually makes it grant this.' });
+      if (ok) this.vib(10);
+    }).catch(() => this.setState({ storageText: 'The request failed.' }));
+  };
+
+  toggleBreak = () => {
+    const today = localYmd(new Date());
+    if (this.isLocked(this.periodOf(today))) return;
+    const shifts = this.state.data.shifts.slice();
+    const open = shifts.find(s => s.date === today && !s.out);
+    if (!open) return;
+    const t = hm(new Date());
+    const i = shifts.indexOf(open);
+    if (open.bs) shifts[i] = Object.assign({}, open, { bs: '', breakMin: (Number(open.breakMin) || 0) + Math.max(0, mn(t) - mn(open.bs)) });
+    else shifts[i] = Object.assign({}, open, { bs: t });
+    this.vib(10);
+    this.patch({ shifts });
+  };
+
+  resolveMissed = () => {
+    const id = this.state.missed;
+    const t = this.state.missedOut;
+    if (!id || !t) return;
+    this.patchShift(id, 'out', t);
+    this.setState({ missed: null });
+  };
+  discardMissed = () => {
+    const id = this.state.missed;
+    this.save(Object.assign({}, this.state.data, { shifts: this.state.data.shifts.filter(s => s.id !== id) }), 'Open shift discarded');
+    this.setState({ missed: null });
+  };
+
+  quickSale = () => {
+    const last = this.state.data.lastCat || this.state.form.cat;
+    this.setState({ form: Object.assign({}, this.state.form, { cat: last, date: localYmd(new Date()) }) });
+    this.goTab('sales');
+    setTimeout(() => { const el = document.getElementById('samt'); if (el) el.focus(); }, 150);
+  };
+
+  rowSwipe(id, onDelete) {
+    return {
+      tStart: e => { e.stopPropagation(); this.rs = { x: e.touches[0].clientX, id: id }; },
+      tMove: e => {
+        if (!this.rs || this.rs.id !== id) return;
+        const dx = e.touches[0].clientX - this.rs.x;
+        if (dx < -6) { e.stopPropagation(); this.setState({ swipeId: id, swipeDx: Math.max(dx, -140) }); }
+      },
+      tEnd: e => {
+        e.stopPropagation();
+        const dx = this.state.swipeDx;
+        const mine = this.rs && this.rs.id === id;
+        this.rs = null;
+        this.setState({ swipeId: null, swipeDx: 0 });
+        if (mine && dx < -96) { this.vib([12, 40, 12]); onDelete(); }
+      }
+    };
+  }
+
+  save(data, undoLabel) {
+    if (undoLabel) {
+      const prev = this.state.data;
+      clearTimeout(this.undoTimer);
+      this.undoTimer = setTimeout(() => this.setState({ undo: null }), 12000);
+      this.setState({ undo: { label: undoLabel, data: prev } });
+    }
+    this.setState({ data });
+    try { localStorage.setItem('timeclock.v2', JSON.stringify(data)); } catch (e) { /* storage full */ }
+  }
+  patch(part, undoLabel) { this.save(Object.assign({}, this.state.data, part), undoLabel); }
+
+  cfg() {
+    const p = this.props;
+    return {
+      rate: Number(p.hourlyRate ?? 30), sup: Number(p.superPct ?? 12) / 100,
+      prod: Number(p.productPct ?? 5) / 100, cons: Number(p.consumptionPct ?? 3) / 100,
+      t1: Number(p.tier1Pct ?? 2) / 100, t2: Number(p.tier2Pct ?? 4) / 100, t3: Number(p.tier3Pct ?? 8) / 100
+    };
+  }
+  rateFor(base) { const c = this.cfg(); return base < 9231 ? c.t1 : base < 16154 ? c.t2 : c.t3; }
+  periodDays(i) { const s = ANCHOR + i * 14; return { start: s, end: s + 13 }; }
+  periodOf(dateStr) { return Math.floor((dnum(dateStr) - ANCHOR) / 14); }
+  inPeriod(dateStr, i) { const r = this.periodDays(i); const n = dnum(dateStr); return n >= r.start && n <= r.end; }
+  isLocked(i) { return (this.state.data.locked || []).indexOf(i) !== -1; }
+
+  compute(i) {
+    const c = this.cfg();
+    const shifts = this.state.data.shifts.filter(s => this.inPeriod(s.date, i));
+    const sales = this.state.data.sales.filter(s => this.inPeriod(s.date, i));
+    let hours = 0;
+    shifts.forEach(s => { const m = paidMinutes(s); if (m != null) hours += m / 60; });
+    const by = { product: 0, consumption: 0, servicePackage: 0, vip: 0 };
+    sales.forEach(s => { by[s.cat] = (by[s.cat] || 0) + Number(s.amount || 0); });
+    const tierBase = by.product + by.servicePackage + by.vip;
+    const tierRate = this.rateFor(tierBase);
+    const pkgBase = by.servicePackage + by.vip;
+    const pkgComm = pkgBase * tierRate;
+    const prodComm = by.product * c.prod;
+    const consComm = by.consumption * c.cons;
+    const comm = pkgComm + prodComm + consComm;
+    const commSuper = comm * c.sup;
+    const wage = hours * c.rate;
+    const wageSuper = wage * c.sup;
+    return { c, shifts, sales, hours, by, tierBase, tierRate, pkgBase, pkgComm, prodComm, consComm, comm, commSuper, commNet: comm - commSuper, wage, wageSuper, gross: wage + comm - commSuper, superTotal: wageSuper + commSuper, salesTotal: tierBase + by.consumption };
+  }
+
+  periodLabel(i) {
+    const r = this.periodDays(i);
+    return fmtDate(ymdOf(r.start), { day: 'numeric', month: 'short' }) + ' – ' + fmtDate(ymdOf(r.end), { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  activeIdxs() {
+    const m = {};
+    this.state.data.shifts.forEach(s => { m[this.periodOf(s.date)] = true; });
+    this.state.data.sales.forEach(s => { m[this.periodOf(s.date)] = true; });
+    return Object.keys(m).map(Number).sort((a, b) => b - a);
+  }
+
+  warningsFor(i) {
+    const out = [];
+    const today = localYmd(new Date());
+    const shifts = this.state.data.shifts.filter(s => this.inPeriod(s.date, i)).slice().sort((a, b) => a.date.localeCompare(b.date) || (a.in || '').localeCompare(b.in || ''));
+    shifts.forEach((s, n) => {
+      const d = fmtDate(s.date, { day: 'numeric', month: 'short' });
+      if (!s.in || !s.out) { if (s.date < today) out.push({ id: s.id, text: d + ' — shift has no clock-out; it counts as zero hours.' }); }
+      else {
+        const raw = ((mins(s.out) - mins(s.in) + 1440) % 1440);
+        if (raw > 960) out.push({ id: s.id, text: d + ' — ' + (raw / 60).toFixed(1) + ' h is unusually long; check the clock-out.' });
+        if ((Number(s.breakMin) || 0) >= raw) out.push({ id: s.id, text: d + ' — break is longer than the shift.' });
+      }
+      if (s.date > today) out.push({ id: s.id, text: d + ' — dated in the future.' });
+      const prev = shifts[n - 1];
+      if (prev && prev.date === s.date && prev.out && s.in && mins(s.in) < mins(prev.out)) out.push({ id: s.id, text: d + ' — overlaps the previous shift.' });
+    });
+    return out;
+  }
+
+  fyOf(i) { const d = dateObj(ymdOf(this.periodDays(i).start)); const y = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1; return y; }
+  ytd(i) {
+    const y = this.fyOf(i);
+    const acc = { hours: 0, wage: 0, comm: 0, commSuper: 0, gross: 0, superTotal: 0, sales: 0 };
+    this.activeIdxs().filter(k => this.fyOf(k) === y && k <= i).forEach(k => {
+      const x = this.compute(k);
+      acc.hours += x.hours; acc.wage += x.wage; acc.comm += x.comm; acc.commSuper += x.commSuper;
+      acc.gross += x.gross; acc.superTotal += x.superTotal; acc.sales += x.salesTotal;
+    });
+    acc.label = 'FY ' + y + '–' + String(y + 1).slice(2);
+    return acc;
+  }
+
+  punch = () => {
+    const today = localYmd(new Date());
+    if (this.isLocked(this.periodOf(today))) return;
+    const now = new Date();
+    const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    const shifts = this.state.data.shifts.slice();
+    const open = shifts.find(s => s.date === today && !s.out);
+    if (open) shifts[shifts.indexOf(open)] = Object.assign({}, open, { out: t });
+    else shifts.push({ id: uid(), date: today, in: t, out: '', breakMin: 0 });
+    this.vib(open ? [14, 50, 14] : 18);
+    this.patch({ shifts });
+  };
+
+  addShift = () => {
+    const f = this.state.shiftForm;
+    if (!f.date) return;
+    this.patch({ shifts: this.state.data.shifts.concat([{ id: uid(), date: f.date, in: f.in, out: f.out, breakMin: Number(f.brk) || 0 }]) });
+    this.setState({ shiftForm: { date: f.date, in: '', out: '', brk: '' } });
+  };
+  patchShift(id, key, val) {
+    this.patch({ shifts: this.state.data.shifts.map(s => s.id === id ? Object.assign({}, s, { [key]: val }) : s) });
+  }
+
+  addSale = () => {
+    const f = this.state.form;
+    const amt = parseFloat(f.amount);
+    if (!amt || !f.date) return;
+    this.patch({ sales: this.state.data.sales.concat([{ id: uid(), date: f.date, cat: f.cat, amount: amt, note: f.note }]), lastCat: f.cat });
+    this.vib(10);
+    this.setState({ form: { cat: f.cat, amount: '', note: '', date: f.date } });
+  };
+
+  saveEdit = () => {
+    const f = this.state.editForm;
+    const amt = parseFloat(f.amount);
+    if (!amt || !f.date) return;
+    const sales = f.id
+      ? this.state.data.sales.map(s => s.id === f.id ? Object.assign({}, s, { cat: f.cat, amount: amt, note: f.note, date: f.date }) : s)
+      : this.state.data.sales.concat([{ id: uid(), date: f.date, cat: f.cat, amount: amt, note: f.note }]);
+    this.patch({ sales });
+    this.setState({ editForm: { id: null, cat: f.cat, amount: '', note: '', date: f.date } });
+  };
+
+  exportCsv = () => {
+    const i = this.state.periodIdx, r = this.compute(i);
+    const rows = [['Type', 'Date', 'Detail', 'Note', 'Amount']];
+    r.shifts.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach(s => {
+      const m = paidMinutes(s);
+      rows.push(['Shift', s.date, to12(s.in) + ' to ' + (to12(s.out) || 'open') + (s.breakMin ? ' (' + s.breakMin + ' min break)' : ''), '', m == null ? '0.00 h' : (m / 60).toFixed(2) + ' h']);
+    });
+    r.sales.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach(s => rows.push(['Sale', s.date, CATLABEL[s.cat], s.note || '', Number(s.amount).toFixed(2)]));
+    const barsCaptionShort = 'Peak ' + money0(maxSale) + '.';
+    const y = this.ytd(i);
+    rows.push([], ['Summary', this.periodLabel(i), '', '', '']);
+    rows.push(['Hours', '', '', '', r.hours.toFixed(2)]);
+    rows.push(['Wages', '', money(r.c.rate) + '/h', '', r.wage.toFixed(2)]);
+    rows.push(['Tier base', '', '', '', r.tierBase.toFixed(2)]);
+    rows.push(['Package commission', '', (r.tierRate * 100).toFixed(0) + '%', '', r.pkgComm.toFixed(2)]);
+    rows.push(['Product commission', '', (r.c.prod * 100).toFixed(0) + '%', '', r.prodComm.toFixed(2)]);
+    rows.push(['Consumption commission', '', (r.c.cons * 100).toFixed(0) + '%', '', r.consComm.toFixed(2)]);
+    rows.push(['Super withheld from commission', '', '-' + (r.c.sup * 100).toFixed(0) + '%', '', (-r.commSuper).toFixed(2)]);
+    rows.push(['Gross pay', '', '', '', r.gross.toFixed(2)]);
+    rows.push(['Super total', '', '', '', r.superTotal.toFixed(2)]);
+    rows.push([], [y.label + ' to date', '', '', '', ''], ['YTD gross', '', '', '', y.gross.toFixed(2)], ['YTD super', '', '', '', y.superTotal.toFixed(2)]);
+    this.download('payslip-' + ymdOf(this.periodDays(i).start) + '.csv', rows.map(r2 => r2.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n'), 'text/csv');
+  };
+
+  download(name, text, type) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([text], { type }));
+    a.download = name;
+    a.click();
+  }
+
+  backupPayload() {
+    const d = this.state.data;
+    const core = coreOf(d);
+    return Object.assign({
+      app: 'Fortnight', schema: 2, appVersion: VERSION,
+      exportedAt: new Date().toISOString(),
+      counts: { shifts: core.shifts.length, sales: core.sales.length },
+      span: spanOf(core.shifts.concat(core.sales)),
+      checksum: checksumOf(d)
+    }, core);
+  }
+  backupName(ext) {
+    const d = this.state.data;
+    return 'fortnight-backup-' + stampOf(new Date()) + '-' + (d.shifts || []).length + 'shifts-' + (d.sales || []).length + 'sales.' + ext;
+  }
+  noteBackup(kind) {
+    const at = new Date().toISOString();
+    const d = this.state.data;
+    const log = [{ at, kind, shifts: (d.shifts || []).length, sales: (d.sales || []).length }].concat(this.state.backupLog || []).slice(0, 3);
+    this.setState({ lastBackupAt: at, backupLog: log, lockNudge: false });
+    try { localStorage.setItem('fortnight.meta', JSON.stringify({ lastBackupAt: at, log })); } catch (e) { /* storage full */ }
+  }
+
+  exportJson = () => {
+    const p = this.backupPayload();
+    const name = this.backupName('json');
+    this.download(name, JSON.stringify(p, null, 2), 'application/json');
+    this.noteBackup('JSON file');
+    this.setState({ backupMsg: 'Saved ' + name + ' — ' + p.counts.shifts + ' shifts, ' + p.counts.sales + ' sales, checksum ' + p.checksum + '.' });
+  };
+
+  exportBundleCsv = () => {
+    const d = this.state.data;
+    const rows = [['FORTNIGHT CSV BUNDLE', 'exported ' + new Date().toISOString(), 'v' + VERSION]];
+    rows.push([], ['SHIFTS'], ['Date', 'Day', 'In', 'Out', 'Break (min)', 'Paid hours']);
+    (d.shifts || []).slice().sort((a, b) => (a.date < b.date ? -1 : 1)).forEach(s => {
+      const pm = paidMinutes(s);
+      rows.push([s.date, fmtDate(s.date, { weekday: 'short' }), s.in || '', s.out || '', s.breakMin || 0, pm == null ? '' : (pm / 60).toFixed(2)]);
+    });
+    rows.push([], ['SALES'], ['Date', 'Category', 'Amount', 'Note']);
+    (d.sales || []).slice().sort((a, b) => (a.date < b.date ? -1 : 1)).forEach(s => {
+      rows.push([s.date, CATLABEL[s.cat] || s.cat, Number(s.amount).toFixed(2), s.note || '']);
+    });
+    const name = this.backupName('csv');
+    this.download(name, csvRows(rows), 'text/csv');
+    this.noteBackup('CSV bundle');
+    this.setState({ backupMsg: 'Saved ' + name + '. CSV is for reading in a spreadsheet — restore still needs the JSON file.' });
+  };
+
+  copyBackup = () => {
+    const text = JSON.stringify(this.backupPayload());
+    const done = () => {
+      this.noteBackup('Clipboard');
+      this.setState({ backupMsg: 'Backup copied to the clipboard (' + Math.ceil(text.length / 1024) + ' KB). Paste it somewhere safe — a note or an email to yourself.' });
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, () => this.setState({ backupMsg: 'Could not reach the clipboard. Use Download backup instead.' }));
+    } else {
+      this.setState({ backupMsg: 'This browser blocks clipboard access. Use Download backup instead.' });
+    }
+  };
+
+  importJson = e => {
+    const file = e.target.files && e.target.files[0];
+    const input = e.target;
+    if (!file) return;
+    const fr = new FileReader();
+    fr.onload = () => { this.stageRestore(fr.result, file.name); input.value = ''; };
+    fr.onerror = () => { this.setState({ backupMsg: 'That file could not be read.' }); input.value = ''; };
+    fr.readAsText(file);
+  };
+
+  stageRestore(text, sourceName) {
+    let d;
+    try { d = JSON.parse(text); } catch (err) { this.setState({ backupMsg: 'That file is not valid JSON — it may be truncated or edited.' }); return; }
+    if (!d || typeof d !== 'object' || !Array.isArray(d.shifts) || !Array.isArray(d.sales)) {
+      this.setState({ backupMsg: 'That file is not a Fortnight backup — no shifts or sales list found.' });
+      return;
+    }
+    const shifts = d.shifts.filter(validShift).map(s => Object.assign({}, s, { id: s.id || uid(), breakMin: Number(s.breakMin) || 0 }));
+    const sales = d.sales.filter(validSale).map(s => Object.assign({}, s, { id: s.id || uid(), amount: Number(s.amount) }));
+    const badShifts = d.shifts.length - shifts.length, badSales = d.sales.length - sales.length;
+    const fv = String(d.appVersion || '0.0.0');
+    const cmp = verCmp(fv, VERSION);
+    const cur = this.state.data;
+    const haveS = {}, haveE = {};
+    (cur.shifts || []).forEach(x => { haveS[x.id] = 1; });
+    (cur.sales || []).forEach(x => { haveE[x.id] = 1; });
+    this.setState({
+      backupMsg: '',
+      pending: {
+        sourceName,
+        shifts, sales,
+        locked: Array.isArray(d.locked) ? d.locked.filter(n => typeof n === 'number') : [],
+        profile: d.profile && typeof d.profile === 'object' ? d.profile : {},
+        theme: d.theme === 'dark' ? 'dark' : 'light',
+        badShifts, badSales,
+        checksumOk: !d.checksum || d.checksum === fnv(JSON.stringify(coreOf(d))),
+        hasChecksum: !!d.checksum,
+        fv, cmp,
+        newShifts: shifts.filter(x => !haveS[x.id]).length,
+        newSales: sales.filter(x => !haveE[x.id]).length,
+        exportedAt: d.exportedAt || null,
+        span: spanOf(shifts.concat(sales))
+      }
+    });
+  }
+
+  applyRestore(mode) {
+    const p = this.state.pending;
+    if (!p) return;
+    const cur = this.state.data;
+    try { localStorage.setItem('fortnight.snapshot', JSON.stringify(cur)); } catch (e) { /* storage full */ }
+    let next;
+    if (mode === 'merge') {
+      const join = (a, b) => { const m = {}; a.concat(b).forEach(x => { m[x.id] = x; }); return Object.keys(m).map(k => m[k]).sort((x, y) => (x.date < y.date ? -1 : 1)); };
+      const locks = {};
+      (cur.locked || []).concat(p.locked).forEach(n => { locks[n] = 1; });
+      next = Object.assign({}, cur, {
+        shifts: join(cur.shifts || [], p.shifts),
+        sales: join(cur.sales || [], p.sales),
+        locked: Object.keys(locks).map(Number),
+        profile: Object.assign({}, p.profile, cur.profile)
+      });
+    } else {
+      next = Object.assign({}, EMPTY, {
+        shifts: p.shifts, sales: p.sales, locked: p.locked, theme: cur.theme,
+        profile: Object.assign({}, EMPTY.profile, p.profile)
+      });
+    }
+    const skipped = p.badShifts + p.badSales;
+    this.save(next, 'Restored from backup');
+    this.setState({
+      pending: null, snapshot: cur,
+      backupMsg: (mode === 'merge' ? 'Merged' : 'Replaced') + ' — now ' + next.shifts.length + ' shifts and ' + next.sales.length + ' sales.'
+        + (skipped ? ' ' + skipped + ' invalid record' + (skipped === 1 ? '' : 's') + ' skipped.' : '')
+        + (p.cmp < 0 ? ' Migrated from v' + p.fv + '.' : '')
+    });
+  }
+
+  undoRestore = () => {
+    const s = this.state.snapshot;
+    if (!s) return;
+    this.save(s);
+    this.setState({ snapshot: null, backupMsg: 'Restore undone — your previous data is back.' });
+  };
+
+  goTab = t => {
+    if (t !== this.state.tab) { try { history.pushState({ fnTab: t }, ''); } catch (e) { /* no history */ } }
+    this.setState({ tab: t, armed: null, barTap: null, swipeId: null, swipeDx: 0 });
+  };
+  tabStyle(on) {
+    return 'appearance:none;border:0;cursor:pointer;display:flex;align-items:center;gap:8px;min-height:52px;padding:0 18px;font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:transparent;border-bottom:3px solid ' +
+      (on ? 'var(--color-accent);color:var(--color-text);' : 'transparent;color:var(--color-neutral-600);');
+  }
+  navStyle(on) {
+    return 'appearance:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:60px;padding:8px 2px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;background:transparent;' +
+      (on ? 'color:var(--color-accent);' : 'color:var(--color-neutral-600);');
+  }
+  armDelete(id, fn) {
+    if (this.state.armed === id) { clearTimeout(this.armTimer); this.setState({ armed: null }); this.vib([12, 40, 12]); fn(); return; }
+    clearTimeout(this.armTimer);
+    this.setState({ armed: id });
+    this.armTimer = setTimeout(() => this.setState({ armed: null }), 4000);
+  }
+
+  doInstall = () => {
+    if (this.deferredPrompt) { this.deferredPrompt.prompt(); this.deferredPrompt = null; this.setState({ installState: 'prompted' }); }
+    else this.setState({ installState: 'manual' });
+  };
+
+  renderVals() {
+    const st = this.state, i = st.periodIdx, r = this.compute(i);
+    const today = localYmd(new Date());
+    const nowD = new Date(st.now);
+    const locked = this.isLocked(i);
+    const warnings = this.warningsFor(i);
+    const range = this.periodDays(i);
+
+    const tabDefs = [['clock', 'Clock'], ['time', 'Timesheet' + (warnings.length ? ' · ' + warnings.length : '')], ['sales', 'Sales'], ['pay', 'Pay'], ['hist', 'History'], ['settings', 'Settings']];
+    const tabs = tabDefs.map((t, n) => ({
+      label: t[1],
+      go: () => this.setState({ tab: t[0] }),
+      style: 'appearance:none;border:0;border-right:1px solid var(--color-divider);cursor:pointer;padding:12px 20px;font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;' +
+        (st.tab === t[0] ? 'background:var(--color-accent);color:#fff;' : 'background:transparent;color:var(--color-neutral-800);')
+    }));
+
+    const openShift = st.data.shifts.find(s => s.date === today && !s.out);
+    const todayShifts = st.data.shifts.filter(s => s.date === today);
+    let todayMin = 0; todayShifts.forEach(s => { const m = paidMinutes(s); if (m != null) todayMin += m; });
+
+    const tierCeil = r.tierBase < 9231 ? 9231 : r.tierBase < 16154 ? 16154 : r.tierBase;
+    const gap = tierCeil - r.tierBase;
+    const nextRateLabel = r.tierBase < 9231 ? (r.c.t2 * 100).toFixed(0) + '%' : (r.c.t3 * 100).toFixed(0) + '%';
+    const upliftRate = r.tierBase < 9231 ? r.c.t2 : r.c.t3;
+    const uplift = (r.pkgBase + gap) * upliftRate - r.pkgComm;
+
+    const elapsed = Math.min(14, Math.max(1, dnum(today) - range.start + 1));
+    const inPeriodNow = dnum(today) >= range.start && dnum(today) <= range.end;
+    const projBase = r.tierBase / elapsed * 14;
+    const projectionText = !inPeriodNow ? 'Fortnight closed.'
+      : 'Day ' + elapsed + ' of 14 — on this run rate you finish near ' + money0(projBase) + ', a ' + (this.rateFor(projBase) * 100).toFixed(0) + '% tier.';
+
+    const dayCells = [];
+    let maxDayMin = 0;
+    for (let n = 0; n < 14; n++) {
+      const ds = ymdOf(range.start + n);
+      let m = 0;
+      st.data.shifts.forEach(s => { if (s.date === ds) { const pm = paidMinutes(s); if (pm != null) m += pm; } });
+      maxDayMin = Math.max(maxDayMin, m);
+      dayCells.push({ ds, m });
+    }
+    const dayCellVals = dayCells.map(c => {
+      const sel = st.selectedDay === c.ds;
+      const d = dateObj(c.ds);
+      return {
+        dow: DOW[d.getDay()], dom: String(d.getDate()),
+        hours: c.m ? (c.m / 60).toFixed(1) + 'h' : '—',
+        barH: maxDayMin ? Math.max(2, Math.round((c.m / maxDayMin) * 44)) : 2,
+        barColor: c.m ? (sel ? 'var(--color-bg)' : 'var(--color-accent)') : 'var(--color-neutral-300)',
+        pick: () => this.setState({ selectedDay: sel ? null : c.ds }),
+        mStyle: 'appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:58px;padding:4px 2px;font-family:var(--font-body);border:2px solid ' + (sel ? 'var(--color-text)' : 'var(--color-divider)') + ';' +
+          (sel ? 'background:var(--color-text);color:var(--color-bg);' : 'background:transparent;color:var(--color-text);') +
+          (c.ds === today ? 'outline:2px solid var(--color-accent);outline-offset:-2px;' : ''),
+        style: 'appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px;font-family:var(--font-body);border:2px solid ' + (sel ? 'var(--color-text)' : 'var(--color-divider)') + ';' +
+          (sel ? 'background:var(--color-text);color:var(--color-bg);' : 'background:transparent;color:var(--color-text);') +
+          (c.ds === today ? 'outline:2px solid var(--color-accent);outline-offset:-2px;' : '')
+      };
+    });
+
+    let periodShifts = r.shifts.slice().sort((a, b) => a.date.localeCompare(b.date) || (a.in || '').localeCompare(b.in || ''));
+    if (st.selectedDay) periodShifts = periodShifts.filter(s => s.date === st.selectedDay);
+    const warnIds = {}; warnings.forEach(w => { warnIds[w.id] = true; });
+
+    const periodSales = r.sales.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+    const recent = [];
+    st.data.sales.filter(s => s.cat === st.form.cat).slice(-30).reverse().forEach(s => { if (recent.indexOf(Number(s.amount)) === -1 && recent.length < 5) recent.push(Number(s.amount)); });
+    const chips = (recent.length ? recent : [50, 120, 250, 600, 1200]).map(v => ({
+      label: money0(v), pick: () => this.setState({ form: Object.assign({}, st.form, { amount: String(v) }) })
+    }));
+
+    const idxs = this.activeIdxs();
+    const historyRows = idxs.map((k, n) => {
+      const x = this.compute(k);
+      const prevIdx = idxs[n + 1];
+      const d = prevIdx == null ? null : x.gross - this.compute(prevIdx).gross;
+      return {
+        label: this.periodLabel(k), hours: hrsLabel(x.hours), sales: money0(x.salesTotal),
+        tier: (x.tierRate * 100).toFixed(0) + '%', comm: money(x.comm), gross: money(x.gross),
+        delta: d == null ? '—' : (d >= 0 ? '+' : '−') + money0(Math.abs(d)),
+        deltaStyle: d == null ? '' : (d >= 0 ? 'color: var(--color-neutral-800);' : 'color: var(--color-accent-700);'),
+        open: () => this.setState({ periodIdx: k, tab: 'pay', selectedDay: null })
+      };
+    });
+
+    const mixMax = Math.max(r.prodComm, r.consComm, r.pkgComm, 1);
+    const salesByDay = dayCells.map(c => {
+      let amt = 0;
+      st.data.sales.forEach(s => { if (s.date === c.ds) amt += Number(s.amount || 0); });
+      return { ds: c.ds, amt };
+    });
+    const maxSale = Math.max.apply(null, salesByDay.map(s => s.amt).concat([1]));
+
+    const sim = parseFloat(st.simAmount) || 0;
+    let simResult = 'Enter an amount to see what it does to this fortnight.';
+    if (sim > 0) {
+      const add = { product: 0, consumption: 0, servicePackage: 0, vip: 0 };
+      add[st.simCat] = sim;
+      const nb = r.tierBase + add.product + add.servicePackage + add.vip;
+      const nr = this.rateFor(nb);
+      const npkg = (r.pkgBase + add.servicePackage + add.vip) * nr;
+      const nComm = npkg + (r.by.product + add.product) * r.c.prod + (r.by.consumption + add.consumption) * r.c.cons;
+      const delta = (nComm - r.comm) * (1 - r.c.sup);
+      simResult = 'A ' + money0(sim) + ' ' + CATLABEL[st.simCat].toLowerCase() + ' takes the tier base to ' + money0(nb) + ' at ' + (nr * 100).toFixed(0) + '%' +
+        (nr !== r.tierRate ? ' — up a bracket' : '') + ', adding ' + money(delta) + ' to your take-home commission.';
+    }
+
+    const barsCaptionShort = 'Peak ' + money0(maxSale) + '.';
+    const y = this.ytd(i);
+    const prof = st.data.profile || EMPTY.profile;
+    const sub = { borderBottom: '2px solid var(--color-text)', fontWeight: 600 };
+
+    return {
+      version: 'v' + VERSION,
+      openChangelog: () => this.setState({ tab: 'settings' }),
+      changelog: CHANGELOG.map(c => ({
+        v: 'v' + c.v,
+        date: fmtDate(c.date, { day: 'numeric', month: 'short', year: 'numeric' }),
+        notes: c.notes.map(n => ({ text: n })),
+        style: c.v === VERSION ? { borderLeft: '2px solid var(--color-accent)' } : { borderLeft: '2px solid var(--color-divider)' }
+      })),
+      theme: st.data.theme === 'dark' ? 'dark' : 'light',
+      themeLabel: st.data.theme === 'dark' ? 'Light' : 'Dark',
+      toggleTheme: () => this.patch({ theme: st.data.theme === 'dark' ? 'light' : 'dark' }),
+      tabs,
+      isClock: st.tab === 'clock', isTime: st.tab === 'time', isSales: st.tab === 'sales',
+      isPay: st.tab === 'pay', isHist: st.tab === 'hist', isSettings: st.tab === 'settings',
+      periodLabel: this.periodLabel(i),
+      goPrev: () => this.setState({ periodIdx: i - 1, selectedDay: null }),
+      goNext: () => this.setState({ periodIdx: i + 1, selectedDay: null }),
+      isLocked: locked,
+      lockedFlag: locked ? true : undefined,
+      lockLabel: locked ? 'Unlock fortnight' : 'Mark as paid & lock',
+      toggleLock: () => {
+        const l = (st.data.locked || []).slice();
+        const n = l.indexOf(i);
+        if (n === -1) l.push(i); else l.splice(n, 1);
+        this.patch({ locked: l });
+        this.setState({ lockNudge: n === -1 });
+      },
+      showLockNudge: st.lockNudge,
+      lockNudgeText: 'Fortnight locked. This is the moment to archive it — download a backup now.',
+      lockNudgeAct: () => { this.exportJson(); this.setState({ tab: 'settings' }); },
+      dismissLockNudge: () => this.setState({ lockNudge: false }),
+
+      showTierAlert: !locked && inPeriodNow && r.tierBase > 0 && gap > 0 && gap <= 2000,
+      tierAlertText: money0(gap) + ' more in packages or product lifts every package sale to ' + nextRateLabel + ' — worth about ' + money(uplift * (1 - r.c.sup)) + ' extra take-home.',
+
+      todayLong: nowD.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+      clockTime: nowD.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }).toLowerCase(),
+      clockStatus: openShift ? 'On the clock since ' + to12(openShift.in) : 'Clocked out',
+      punchLabel: openShift ? 'Clock out' : 'Clock in',
+      punch: this.punch,
+      todayHours: hrsLabel(todayMin / 60),
+      noShiftsToday: todayShifts.length === 0,
+      todayRows: todayShifts.map(s => {
+        const m = paidMinutes(s);
+        return { span: (to12(s.in) || '—') + ' → ' + (to12(s.out) || 'now'), brk: s.breakMin ? s.breakMin + ' min break' : '', hours: m == null ? 'open' : hrsLabel(m / 60) };
+      }),
+
+      form: st.form,
+      catList: CATS,
+      catOptions: CATS.map(c => ({
+        label: c.label,
+        pick: () => this.setState({ form: Object.assign({}, st.form, { cat: c.key }) }),
+        mStyle: 'appearance:none;cursor:pointer;text-align:left;min-height:52px;padding:8px 12px;font-family:var(--font-body);font-size:14px;font-weight:600;line-height:1.2;border:2px solid var(--color-text);' +
+          (st.form.cat === c.key ? 'background:var(--color-text);color:var(--color-bg);' : 'background:transparent;color:var(--color-text);'),
+        style: 'appearance:none;cursor:pointer;text-align:left;padding:10px 12px;font-family:var(--font-body);font-size:13px;font-weight:600;border:2px solid var(--color-text);' +
+          (st.form.cat === c.key ? 'background:var(--color-text);color:var(--color-bg);' : 'background:transparent;color:var(--color-text);')
+      })),
+      quickChips: chips,
+      onAmount: e => this.setState({ form: Object.assign({}, st.form, { amount: e.target.value }) }),
+      onNote: e => this.setState({ form: Object.assign({}, st.form, { note: e.target.value }) }),
+      onSaleDate: e => this.setState({ form: Object.assign({}, st.form, { date: e.target.value }) }),
+      onFormKey: e => { if (e.key === 'Enter') this.addSale(); },
+      addSale: this.addSale,
+
+      tierRateLabel: (r.tierRate * 100).toFixed(0) + '% on packages',
+      tierPct: r.tierBase >= 16154 ? 100 : Math.min(100, Math.round((r.tierBase / tierCeil) * 100)),
+      tierTotal: money(r.tierBase),
+      tierNext: r.tierBase >= 16154 ? 'Top tier reached' : money0(gap) + ' to ' + nextRateLabel,
+      projectionText,
+      miniStats: [
+        { label: 'Hours', value: hrsLabel(r.hours) },
+        { label: 'Sales', value: money0(r.salesTotal) },
+        { label: 'Commission', value: money0(r.comm) },
+        { label: 'Gross', value: money0(r.gross) }
+      ],
+
+      dayCells: dayCellVals,
+      hasWarnings: warnings.length > 0,
+      warnings,
+      shiftForm: st.shiftForm,
+      onShiftDate: e => this.setState({ shiftForm: Object.assign({}, st.shiftForm, { date: e.target.value }) }),
+      onShiftIn: e => this.setState({ shiftForm: Object.assign({}, st.shiftForm, { in: e.target.value }) }),
+      onShiftOut: e => this.setState({ shiftForm: Object.assign({}, st.shiftForm, { out: e.target.value }) }),
+      onShiftBreak: e => this.setState({ shiftForm: Object.assign({}, st.shiftForm, { brk: e.target.value }) }),
+      addShift: this.addShift,
+      shiftRows: periodShifts.map(s => {
+        const m = paidMinutes(s);
+        const sw = this.rowSwipe(s.id, () => this.save(Object.assign({}, st.data, { shifts: st.data.shifts.filter(x => x.id !== s.id) }), 'Shift deleted'));
+        const bad = s.in && s.out && mn(s.out) <= mn(s.in);
+        return {
+          tStart: sw.tStart, tMove: sw.tMove, tEnd: sw.tEnd,
+          hasErr: !!bad,
+          err: bad ? 'Out is at or before in — this shift counts as zero.' : '',
+          dateLabel: fmtDate(s.date, { weekday: 'short', day: 'numeric', month: 'short' }),
+          in: s.in, out: s.out, brk: s.breakMin || 0,
+          hours: m == null ? '—' : hrsLabel(m / 60),
+          style: warnIds[s.id] ? { background: 'var(--color-accent-100)' } : {},
+          setIn: e => this.patchShift(s.id, 'in', e.target.value),
+          setOut: e => this.patchShift(s.id, 'out', e.target.value),
+          setBrk: e => this.patchShift(s.id, 'breakMin', Number(e.target.value) || 0),
+          mCard: 'border:2px solid ' + (warnIds[s.id] || bad ? 'var(--color-accent)' : 'var(--color-divider)') + ';padding:14px;touch-action:pan-y;transition:transform .12s;'
+            + (warnIds[s.id] || bad ? 'background:var(--color-accent-100);' : '')
+            + (st.swipeId === s.id ? 'transform:translateX(' + st.swipeDx + 'px);' : ''),
+          delLabel: st.armed === s.id ? 'Tap to confirm' : 'Delete',
+          del: () => this.armDelete(s.id, () => this.save(Object.assign({}, st.data, { shifts: st.data.shifts.filter(x => x.id !== s.id) }), 'Shift deleted'))
+        };
+      }),
+      noShifts: periodShifts.length === 0,
+      noShiftsText: st.selectedDay ? 'No shifts on this day.' : 'No shifts this fortnight.',
+      timesheetFooter: (st.selectedDay ? fmtDate(st.selectedDay, { weekday: 'long', day: 'numeric', month: 'short' }) + ' — tap the day again to show all · ' : '') + 'Fortnight total ' + hrsLabel(r.hours),
+
+      isEditing: !!st.editForm.id,
+      saleFormTitle: st.editForm.id ? 'Edit entry' : 'Add an entry',
+      saveEditLabel: st.editForm.id ? 'Save changes' : 'Add entry',
+      editForm: st.editForm,
+      onEditCat: e => this.setState({ editForm: Object.assign({}, st.editForm, { cat: e.target.value }) }),
+      onEditAmount: e => this.setState({ editForm: Object.assign({}, st.editForm, { amount: e.target.value }) }),
+      onEditDate: e => this.setState({ editForm: Object.assign({}, st.editForm, { date: e.target.value }) }),
+      onEditNote: e => this.setState({ editForm: Object.assign({}, st.editForm, { note: e.target.value }) }),
+      onEditKey: e => { if (e.key === 'Enter') this.saveEdit(); },
+      saveEdit: this.saveEdit,
+      cancelEdit: () => this.setState({ editForm: { id: null, cat: 'product', amount: '', note: '', date: today } }),
+      noSales: periodSales.length === 0,
+      saleRows: periodSales.map(s => Object.assign({}, this.rowSwipe(s.id, () => this.save(Object.assign({}, st.data, { sales: st.data.sales.filter(x => x.id !== s.id) }), 'Entry deleted')), {
+        mCard: 'border:2px solid var(--color-divider);padding:14px;touch-action:pan-y;transition:transform .12s;' + (st.swipeId === s.id ? 'transform:translateX(' + st.swipeDx + 'px);' : ''),
+        dateLabel: fmtDate(s.date, { day: 'numeric', month: 'short' }),
+        cat: CATLABEL[s.cat], note: s.note || '—', amount: money(Number(s.amount)),
+        edit: () => this.setState({ editForm: { id: s.id, cat: s.cat, amount: String(s.amount), note: s.note || '', date: s.date }, tab: 'sales' }),
+        delLabel: st.armed === s.id ? 'Confirm' : 'Delete',
+        del: () => this.armDelete(s.id, () => this.save(Object.assign({}, st.data, { sales: st.data.sales.filter(x => x.id !== s.id) }), 'Entry deleted'))
+      })),
+      salesTotal: money(r.salesTotal),
+
+      profile: prof,
+      profileLine: (prof.employee || 'Unnamed employee') + (prof.role ? ' — ' + prof.role : ''),
+      employerLine: prof.employer || 'Employer not set',
+      abnLine: prof.abn ? 'ABN ' + prof.abn : '',
+      payDate: fmtDate(ymdOf(range.end), { day: 'numeric', month: 'long', year: 'numeric' }),
+      onProfEmployee: e => this.patch({ profile: Object.assign({}, prof, { employee: e.target.value }) }),
+      onProfRole: e => this.patch({ profile: Object.assign({}, prof, { role: e.target.value }) }),
+      onProfEmployer: e => this.patch({ profile: Object.assign({}, prof, { employer: e.target.value }) }),
+      onProfAbn: e => this.patch({ profile: Object.assign({}, prof, { abn: e.target.value }) }),
+
+      kpis: [
+        { label: 'Hours worked', value: hrsLabel(r.hours) },
+        { label: 'Sales recorded', value: money(r.salesTotal) },
+        { label: 'Package tier', value: (r.tierRate * 100).toFixed(0) + '%' },
+        { label: 'Commission earned', value: money(r.comm) }
+      ],
+      payRows: ([
+        { label: 'Wages', basis: hrsLabel(r.hours), rate: money(r.c.rate) + '/h', amount: money(r.wage), style: {} },
+        { label: 'Product sold', basis: money(r.by.product), rate: (r.c.prod * 100).toFixed(0) + '%', amount: money(r.prodComm), style: {} },
+        { label: 'Service consumption', basis: money(r.by.consumption), rate: (r.c.cons * 100).toFixed(0) + '%', amount: money(r.consComm), style: {} },
+        { label: 'Service + VIP packages', basis: money(r.pkgBase), rate: (r.tierRate * 100).toFixed(0) + '%', amount: money(r.pkgComm), style: {} },
+        { label: 'Total commission', basis: 'tier base ' + money(r.tierBase), rate: '', amount: money(r.comm), style: sub },
+        { label: 'Super withheld from commission', basis: money(r.comm), rate: '−' + (r.c.sup * 100).toFixed(0) + '%', amount: '−' + money(r.commSuper), style: { color: 'var(--color-accent-700)' } },
+        { label: 'Commission payable', basis: '', rate: '', amount: money(r.commNet), style: sub },
+        { label: 'Super on wages (employer, on top)', basis: money(r.wage), rate: '+' + (r.c.sup * 100).toFixed(0) + '%', amount: money(r.wageSuper), style: { color: 'var(--color-neutral-700)' } }
+      ]).map(row => Object.assign({}, row, {
+        mStyle: 'padding:10px 0;border-bottom:1px solid var(--color-divider);'
+          + (row.style && row.style.fontWeight ? 'border-bottom:2px solid var(--color-text);font-weight:600;' : '')
+          + (row.style && row.style.color ? 'color:' + row.style.color + ';' : '')
+      })),
+      grossPay: money(r.gross),
+      superTotal: money(r.superTotal),
+      superDetail: money(r.wageSuper) + ' on wages plus ' + money(r.commSuper) + ' withheld from commission.',
+
+      fyLabel: y.label,
+      ytdStats: [
+        { label: 'Hours', value: hrsLabel(y.hours) },
+        { label: 'Wages', value: money0(y.wage) },
+        { label: 'Commission', value: money0(y.comm) },
+        { label: 'Gross', value: money0(y.gross) },
+        { label: 'Super', value: money0(y.superTotal) }
+      ],
+
+      mixBars: [
+        { label: 'Packages @ ' + (r.tierRate * 100).toFixed(0) + '%', value: money(r.pkgComm), pct: Math.round((r.pkgComm / mixMax) * 100) },
+        { label: 'Product @ ' + (r.c.prod * 100).toFixed(0) + '%', value: money(r.prodComm), pct: Math.round((r.prodComm / mixMax) * 100) },
+        { label: 'Consumption @ ' + (r.c.cons * 100).toFixed(0) + '%', value: money(r.consComm), pct: Math.round((r.consComm / mixMax) * 100) }
+      ],
+      salesBars: salesByDay.map((s, n) => ({
+        h: Math.max(2, Math.round((s.amt / maxSale) * 118)),
+        title: fmtDate(s.ds, { day: 'numeric', month: 'short' }) + ' — ' + money0(s.amt),
+        tap: () => this.setState({ barTap: st.barTap === n ? null : n }),
+        mStyle: 'appearance:none;border:0;padding:0;cursor:pointer;min-height:2px;height:' + Math.max(2, Math.round((s.amt / maxSale) * 90)) + 'px;background:' + (st.barTap === n ? 'var(--color-accent)' : 'var(--color-text)') + ';'
+      })),
+      barTapLabel: st.barTap == null ? 'Tap a bar for the day. ' + barsCaptionShort : fmtDate(salesByDay[st.barTap].ds, { weekday: 'short', day: 'numeric', month: 'short' }) + ' — ' + money0(salesByDay[st.barTap].amt),
+      barsCaption: 'Peak day ' + money0(maxSale) + ' · ' + fmtDate(ymdOf(range.start), { day: 'numeric', month: 'short' }) + ' to ' + fmtDate(ymdOf(range.end), { day: 'numeric', month: 'short' }),
+
+      simAmount: st.simAmount,
+      simCat: st.simCat,
+      onSim: e => this.setState({ simAmount: e.target.value }),
+      onSimCat: e => this.setState({ simCat: e.target.value }),
+      simResult,
+
+      doPrint: () => window.print(),
+      exportCsv: this.exportCsv,
+      exportJson: this.exportJson,
+      exportBundleCsv: this.exportBundleCsv,
+      copyBackup: this.copyBackup,
+      importJson: this.importJson,
+      backupMsg: st.backupMsg,
+      hasBackupMsg: !!st.backupMsg,
+
+      lastBackupText: st.lastBackupAt
+        ? 'Last backup ' + agoText(st.lastBackupAt) + ' — ' + new Date(st.lastBackupAt).toLocaleString('en-AU', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })
+        : 'No backup taken from this browser yet.',
+      backupStale: !st.lastBackupAt || (Date.now() - new Date(st.lastBackupAt).getTime()) > 14 * DAY,
+      backupStaleText: !st.lastBackupAt
+        ? 'Take one now — everything lives in this browser alone.'
+        : 'That is over a fortnight ago. Download a fresh one.',
+      backupLog: (st.backupLog || []).map(b => ({
+        when: new Date(b.at).toLocaleString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }),
+        detail: b.kind + ' · ' + b.shifts + ' shifts, ' + b.sales + ' sales'
+      })),
+      hasBackupLog: (st.backupLog || []).length > 0,
+
+      canUndoRestore: !!st.snapshot,
+      undoRestore: this.undoRestore,
+
+      hasPending: !!st.pending,
+      pFile: st.pending ? st.pending.sourceName : '',
+      pExported: st.pending ? (st.pending.exportedAt ? new Date(st.pending.exportedAt).toLocaleString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'not recorded') : '',
+      pVersion: st.pending ? ('v' + st.pending.fv + (st.pending.cmp < 0 ? ' — older than this app (v' + VERSION + '); it will be migrated on load' : st.pending.cmp > 0 ? ' — NEWER than this app (v' + VERSION + '); fields this version does not know will be dropped' : ' — same as this app')) : '',
+      pVersionWarn: st.pending && st.pending.cmp > 0 ? 'color: var(--color-accent-700); font-weight: 600;' : '',
+      pCounts: st.pending ? st.pending.shifts.length + ' shifts · ' + st.pending.sales.length + ' sales' : '',
+      pSpan: st.pending ? spanLabel(st.pending.span) : '',
+      pNew: st.pending ? st.pending.newShifts + ' shifts and ' + st.pending.newSales + ' sales in this file are not already here' : '',
+      pLoss: st.pending ? 'Replace discards your current ' + (st.data.shifts || []).length + ' shifts and ' + (st.data.sales || []).length + ' sales.' : '',
+      pHasRejects: !!(st.pending && (st.pending.badShifts + st.pending.badSales) > 0),
+      pRejects: st.pending ? (st.pending.badShifts + ' shift record' + (st.pending.badShifts === 1 ? '' : 's') + ' and ' + st.pending.badSales + ' sale record' + (st.pending.badSales === 1 ? '' : 's') + ' failed validation and will be skipped.') : '',
+      pBadSum: !!(st.pending && !st.pending.checksumOk),
+      pSumText: st.pending ? (st.pending.hasChecksum ? (st.pending.checksumOk ? 'Checksum verified.' : 'Checksum does not match — this file was edited or truncated after export. Restore only if you know why.') : 'No checksum in this file (written by an older version).') : '',
+      doReplace: () => this.applyRestore('replace'),
+      doMerge: () => this.applyRestore('merge'),
+      cancelRestore: () => this.setState({ pending: null, backupMsg: 'Restore cancelled — nothing changed.' }),
+      installText: st.installState === 'ready' ? 'Ready to install — it will open full screen and keep working offline.'
+        : st.installState === 'prompted' ? 'Follow your browser prompt to finish installing.'
+        : st.installState === 'manual' ? 'No install prompt here. Use the browser menu — in Edge on Android: ⋯ then "Add to phone".'
+        : 'Install Fortnight to your home screen or dock so it opens full screen and keeps working without a connection.',
+      doInstall: this.doInstall,
+      resetLabel: st.resetArmed ? 'Tap again to erase everything' : 'Erase all data',
+      resetAll: () => {
+        if (!st.resetArmed) { this.setState({ resetArmed: true }); setTimeout(() => this.setState({ resetArmed: false }), 5000); return; }
+        this.save(EMPTY, 'All data erased');
+        this.setState({ resetArmed: false, backupMsg: 'All records erased.' });
+      },
+
+      historyRows: st.showAllHistory ? historyRows : historyRows.slice(0, 6),
+      noHistory: historyRows.length === 0,
+
+      hasUndo: !!st.undo,
+      undoLabel: st.undo ? st.undo.label : '',
+      doUndo: () => { const u = st.undo; if (u) { this.setState({ undo: null }); this.save(u.data); } },
+
+      isMobile: (this.props.viewWidth || st.vw) < 820,
+      isDesktop: (this.props.viewWidth || st.vw) >= 820,
+      isMore: st.tab === 'more',
+      goClock: () => this.goTab('clock'),
+      goTime: () => this.goTab('time'),
+      goSales: () => this.goTab('sales'),
+      goPay: () => this.goTab('pay'),
+      goMore: () => this.goTab('more'),
+      goHist: () => this.goTab('hist'),
+      goSettings: () => this.goTab('settings'),
+      navClock: this.navStyle(st.tab === 'clock'),
+      navTime: this.navStyle(st.tab === 'time'),
+      navSales: this.navStyle(st.tab === 'sales'),
+      navPay: this.navStyle(st.tab === 'pay'),
+      navMore: this.navStyle(st.tab === 'more' || st.tab === 'hist' || st.tab === 'settings'),
+      tabClock: this.tabStyle(st.tab === 'clock'),
+      tabTime: this.tabStyle(st.tab === 'time'),
+      tabSales: this.tabStyle(st.tab === 'sales'),
+      tabPay: this.tabStyle(st.tab === 'pay'),
+      tabMore: this.tabStyle(st.tab === 'more' || st.tab === 'hist' || st.tab === 'settings'),
+      rowStyle: 'appearance:none;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 14px;background:transparent;color:var(--color-text);border:0;border-bottom:2px solid var(--color-divider);font-family:var(--font-body);font-size:16px;font-weight:600;text-align:left;',
+
+      onSwipeStart: e => { const t = e.touches && e.touches[0]; this.sw = t ? { x: t.clientX, y: t.clientY } : null; },
+      onSwipeEnd: e => {
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t || !this.sw) return;
+        const dx = t.clientX - this.sw.x, dy = t.clientY - this.sw.y;
+        this.sw = null;
+        if (Math.abs(dx) < 70 || Math.abs(dy) > 50) return;
+        const n = TABS.indexOf(st.tab);
+        if (n === -1) return;
+        const next = TABS[Math.min(TABS.length - 1, Math.max(0, n + (dx < 0 ? 1 : -1)))];
+        if (next !== st.tab) this.goTab(next);
+      },
+      onPeriodSwipeStart: e => { const t = e.touches && e.touches[0]; this.pw = t ? { x: t.clientX, y: t.clientY } : null; },
+      onPeriodSwipeEnd: e => {
+        const t = e.changedTouches && e.changedTouches[0];
+        if (!t || !this.pw) return;
+        const dx = t.clientX - this.pw.x, dy = t.clientY - this.pw.y;
+        this.pw = null;
+        if (Math.abs(dx) < 60 || Math.abs(dy) > 40) return;
+        this.setState({ periodIdx: i + (dx < 0 ? 1 : -1), selectedDay: null, barTap: null });
+      },
+
+      kbOpen: st.kbPad > 0,
+      kbStyle: 'padding-bottom: ' + (st.kbPad + 28) + 'px;',
+
+      onShift: !!openShift,
+      onBreak: !!(openShift && openShift.bs),
+      breakLabel: openShift && openShift.bs ? 'End break' : 'Start break',
+      toggleBreak: this.toggleBreak,
+      elapsedPill: openShift ? hrsLabel(Math.max(0, (mn(hm(nowD)) - mn(openShift.in) - (Number(openShift.breakMin) || 0))) / 60) + ' on shift' : '',
+      quickSale: this.quickSale,
+
+      hasMissed: !!st.missed,
+      missedText: (() => {
+        const s = st.data.shifts.find(x => x.id === st.missed);
+        return s ? 'You clocked in on ' + fmtDate(s.date, { weekday: 'long', day: 'numeric', month: 'short' }) + ' at ' + to12(s.in) + ' and never clocked out.' : '';
+      })(),
+      missedOut: st.missedOut,
+      onMissedOut: e => this.setState({ missedOut: e.target.value }),
+      resolveMissed: this.resolveMissed,
+      discardMissed: this.discardMissed,
+
+      amountErr: st.form.amount !== '' && !(parseFloat(st.form.amount) > 0) ? 'Enter an amount above zero.' : '',
+      hasAmountErr: st.form.amount !== '' && !(parseFloat(st.form.amount) > 0),
+
+      storageText: st.storageText,
+      storageOk: st.persisted === true,
+      needsPersist: st.persisted === false,
+      requestPersist: this.requestPersist,
+
+      showAllHistory: st.showAllHistory,
+      toggleHistory: () => this.setState({ showAllHistory: !st.showAllHistory }),
+      hasMoreHistory: historyRows.length > 6 && !st.showAllHistory,
+      moreHistoryLabel: 'Show all ' + historyRows.length + ' fortnights',
+
+      curClock: st.tab === 'clock' ? 'page' : null,
+      curTime: st.tab === 'time' ? 'page' : null,
+      curSales: st.tab === 'sales' ? 'page' : null,
+      curPay: st.tab === 'pay' ? 'page' : null,
+      curMore: (st.tab === 'more' || st.tab === 'hist' || st.tab === 'settings') ? 'page' : null,
+      showBottomNav: (this.props.viewWidth || st.vw) < 820 && st.kbPad === 0,
+
+      pFacts: st.pending ? [
+        { k: 'Exported', v: st.pending.exportedAt ? new Date(st.pending.exportedAt).toLocaleString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'not recorded', style: 'font-variant-numeric: tabular-nums;' },
+        { k: 'Version', v: 'v' + st.pending.fv + (st.pending.cmp < 0 ? ' — older, will be migrated' : st.pending.cmp > 0 ? ' — NEWER than this app' : ' — same as this app'), style: st.pending.cmp > 0 ? 'color: var(--color-accent-700); font-weight: 600;' : '' },
+        { k: 'Contains', v: st.pending.shifts.length + ' shifts · ' + st.pending.sales.length + ' sales', style: 'font-variant-numeric: tabular-nums;' },
+        { k: 'Covering', v: spanLabel(st.pending.span), style: 'font-variant-numeric: tabular-nums;' },
+        { k: 'New here', v: st.pending.newShifts + ' shifts, ' + st.pending.newSales + ' sales not already stored', style: '' },
+        { k: 'Integrity', v: st.pending.hasChecksum ? (st.pending.checksumOk ? 'Checksum verified.' : 'Checksum MISMATCH — edited or truncated.') : 'No checksum (older export).', style: st.pending.checksumOk ? '' : 'color: var(--color-accent-700); font-weight: 600;' }
+      ] : []
+    };
+  }
+}
+
+</script>
+</body>
+</html>
