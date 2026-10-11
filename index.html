@@ -60,10 +60,24 @@
 </style>
 </helmet>
 
-<div data-theme="{{ theme }}" style="min-height: 100%; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; overscroll-behavior-y: contain; display: flex; flex-direction: column;">
+<div data-theme="{{ theme }}" style="min-height: 100%; width: 100%; max-width: 100vw; overflow-x: clip; box-sizing: border-box; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-tap-highlight-color: transparent; overscroll-behavior-y: contain; display: flex; flex-direction: column;">
+
+  <sc-if value="{{ pinGate }}" hint-placeholder-val="{{ false }}">
+    <div class="no-print" style="position: fixed; inset: 0; z-index: 200; background: var(--color-bg); display: flex; align-items: center; justify-content: center; padding: 24px;">
+      <div style="width: 100%; max-width: 320px;">
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; letter-spacing: -0.01em; text-transform: uppercase;">Fortnight</div>
+        <div style="font-size: 14px; color: var(--color-neutral-700); margin-top: 6px; text-wrap: pretty;">Enter your PIN to open the app.</div>
+        <div class="field" style="margin-top: 18px;"><label for="pingate">PIN</label><input id="pingate" class="input" type="password" sc-camel-input-mode="numeric" sc-camel-auto-complete="off" value="{{ pinInput }}" sc-camel-on-change="{{ onPinInput }}" sc-camel-on-key-down="{{ onPinKey }}" style="font-size: 20px; min-height: 56px; width: 100%; letter-spacing: 0.3em; font-variant-numeric: tabular-nums;"></div>
+        <sc-if value="{{ hasPinErr }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 8px;">{{ pinErr }}</div>
+        </sc-if>
+        <button class="btn btn-primary" sc-camel-on-click="{{ submitPin }}" style="width: 100%; min-height: 56px; font-size: 16px; justify-content: flex-start; margin-top: 14px;">Unlock</button>
+      </div>
+    </div>
+  </sc-if>
 
   <div style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); border-bottom: 2px solid var(--color-text);">
-    <div onTouchStart="{{ onPeriodSwipeStart }}" onTouchEnd="{{ onPeriodSwipeEnd }}" style="max-width:1120px;margin:0 auto;width:100%; padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <div sc-camel-on-touch-start="{{ onPeriodSwipeStart }}" sc-camel-on-touch-end="{{ onPeriodSwipeEnd }}" style="max-width:1120px;margin:0 auto;width:100%; padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
       <div style="display: flex; align-items: baseline; gap: 10px;">
         <span style="font-family: var(--font-heading); font-weight: 800; font-size: 19px; letter-spacing: -0.01em; text-transform: uppercase;">Fortnight</span>
         <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ version }}</span>
@@ -74,20 +88,20 @@
           <span class="tag tag-accent" style="font-size: 11px; font-variant-numeric: tabular-nums;">{{ elapsedPill }}</span>
         </sc-if>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px; flex: 1 1 auto; justify-content: flex-end; min-width: 0; flex-wrap: wrap;">
-        <button onClick="{{ goPrev }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">‹</button>
-        <div style="flex: 0 1 auto; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; font-variant-numeric: tabular-nums;">{{ periodLabel }}</div>
-        <button onClick="{{ goNext }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">›</button>
-        <button onClick="{{ toggleTheme }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); min-width: 44px; min-height: 44px; padding: 0 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer;">{{ themeLabel }}</button>
+      <div style="display: flex; align-items: center; gap: 6px; flex: 1 1 auto; justify-content: flex-end; min-width: 0; flex-wrap: wrap;">
+        <button sc-camel-on-click="{{ goPrev }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">‹</button>
+        <div style="flex: 0 1 auto; min-width: 0; text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ periodLabel }}</div>
+        <button sc-camel-on-click="{{ goNext }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;">›</button>
+        <button sc-camel-on-click="{{ toggleTheme }}" style="appearance: none; border: 2px solid var(--color-divider); background: transparent; color: var(--color-text); min-width: 44px; min-height: 44px; padding: 0 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer;">{{ themeLabel }}</button>
       </div>
     </div>
     <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
       <div style="max-width:1120px;margin:0 auto;width:100%; padding: 0 16px; display: flex; gap: 0; border-top: 2px solid var(--color-divider);">
-        <button onClick="{{ goClock }}" aria-current="{{ curClock }}" style="{{ tabClock }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
-        <button onClick="{{ goTime }}" aria-current="{{ curTime }}" style="{{ tabTime }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Timesheet</span></button>
-        <button onClick="{{ goSales }}" aria-current="{{ curSales }}" style="{{ tabSales }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
-        <button onClick="{{ goPay }}" aria-current="{{ curPay }}" style="{{ tabPay }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
-        <button onClick="{{ goMore }}" aria-current="{{ curMore }}" style="{{ tabMore }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
+        <button sc-camel-on-click="{{ goClock }}" aria-current="{{ curClock }}" style="{{ tabClock }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
+        <button sc-camel-on-click="{{ goTime }}" aria-current="{{ curTime }}" style="{{ tabTime }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Timesheet</span></button>
+        <button sc-camel-on-click="{{ goSales }}" aria-current="{{ curSales }}" style="{{ tabSales }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
+        <button sc-camel-on-click="{{ goPay }}" aria-current="{{ curPay }}" style="{{ tabPay }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
+        <button sc-camel-on-click="{{ goMore }}" aria-current="{{ curMore }}" style="{{ tabMore }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
       </div>
     </sc-if>
   </div>
@@ -101,7 +115,31 @@
     </div>
   </sc-if>
 
-  <div onTouchStart="{{ onSwipeStart }}" onTouchEnd="{{ onSwipeEnd }}" style="{{ kbStyle }}">
+  <sc-if value="{{ showPayday }}" hint-placeholder-val="{{ false }}">
+    <div class="no-print" style="background: var(--color-accent); color: #fff; border-bottom: 2px solid var(--color-text);">
+      <div style="max-width:1120px;margin:0 auto;width:100%; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+        <div style="flex: 1 1 240px;">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;">{{ paydayTitle }}</div>
+          <div style="font-size: 14px; margin-top: 2px; text-wrap: pretty;">{{ paydayText }}</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" sc-camel-on-click="{{ paydayGo }}" style="min-height: 44px; padding: 0 16px;">Open</button>
+          <button sc-camel-on-click="{{ paydayDismiss }}" style="appearance:none;border:2px solid #fff;background:transparent;color:#fff;min-height:44px;padding:0 14px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;">Later</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showOwedBanner }}" hint-placeholder-val="{{ false }}">
+    <div class="no-print" style="background: var(--color-text); color: var(--color-bg); border-bottom: 2px solid var(--color-text);">
+      <div style="max-width:1120px;margin:0 auto;width:100%; padding: 10px 16px;">
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;">{{ owedTitle }}</div>
+        <div style="font-size: 14px; margin-top: 2px; text-wrap: pretty;">{{ owedText }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div sc-camel-on-touch-start="{{ onSwipeStart }}" sc-camel-on-touch-end="{{ onSwipeEnd }}" style="{{ kbStyle }}">
   <div style="flex: 1; max-width:1120px;margin:0 auto;width:100%; padding: 20px 16px 28px;">
 
     <sc-if value="{{ isClock }}" hint-placeholder-val="{{ true }}">
@@ -114,22 +152,39 @@
             <div style="border: 2px solid var(--color-accent); padding: 14px; margin-bottom: 16px;">
               <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700);">Missed clock-out</div>
               <div style="font-size: 14px; margin-top: 6px; text-wrap: pretty;">{{ missedText }}</div>
-              <div class="field" style="margin-top: 10px;"><label for="mo">Clocked out at</label><input id="mo" class="input" type="time" value="{{ missedOut }}" onChange="{{ onMissedOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <div class="field" style="margin-top: 10px;"><label for="mo">Clocked out at</label><input id="mo" class="input" type="time" value="{{ missedOut }}" sc-camel-on-change="{{ onMissedOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
               <div style="display: flex; gap: 8px; margin-top: 10px;">
-                <button class="btn btn-primary" onClick="{{ resolveMissed }}" style="flex: 1; min-height: 44px;">Save</button>
-                <button class="btn btn-ghost" onClick="{{ discardMissed }}" style="flex: 1; min-height: 44px; color: var(--color-accent-700);">Discard</button>
+                <button class="btn btn-primary" sc-camel-on-click="{{ resolveMissed }}" style="flex: 1; min-height: 44px;">Save</button>
+                <button class="btn btn-ghost" sc-camel-on-click="{{ discardMissed }}" style="flex: 1; min-height: 44px; color: var(--color-accent-700);">Discard</button>
               </div>
             </div>
           </sc-if>
 
-          <button class="btn btn-primary" onClick="{{ punch }}" disabled="{{ lockedFlag }}" style="width: 100%; min-height: 72px; font-size: 20px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; justify-content: flex-start;">{{ punchLabel }}</button>
+          <button class="btn btn-primary" sc-camel-on-click="{{ punch }}" disabled="{{ lockedFlag }}" style="width: 100%; min-height: 72px; font-size: 20px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; justify-content: flex-start;">{{ punchLabel }}</button>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px;">
             <sc-if value="{{ onShift }}" hint-placeholder-val="{{ false }}">
-              <button class="btn btn-secondary" onClick="{{ toggleBreak }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">{{ breakLabel }}</button>
+              <button class="btn btn-secondary" sc-camel-on-click="{{ toggleBreak }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">{{ breakLabel }}</button>
             </sc-if>
-            <button class="btn btn-secondary" onClick="{{ quickSale }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">Add a sale</button>
+            <button class="btn btn-secondary" sc-camel-on-click="{{ quickSale }}" style="min-height: 52px; font-size: 16px; justify-content: flex-start;">Add a sale</button>
           </div>
+
+          <sc-if value="{{ hasTemplates }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top: 14px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Log a usual shift</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                <sc-for list="{{ templates }}" as="t" hint-placeholder-count="2">
+                  <button class="btn btn-secondary" sc-camel-on-click="{{ t.log }}" disabled="{{ lockedFlag }}" style="min-height: 48px; padding: 0 14px; font-size: 14px;">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasSuggested }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top: 14px; border: 2px solid var(--color-divider); padding: 12px;">
+              <div style="font-size: 14px; text-wrap: pretty;">{{ suggestedText }}</div>
+              <button class="btn btn-secondary" sc-camel-on-click="{{ saveSuggested }}" style="min-height: 44px; padding: 0 14px; margin-top: 10px;">Save as template</button>
+            </div>
+          </sc-if>
 
           <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 8px;">
             <span style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Today</span>
@@ -166,6 +221,7 @@
               <div style="height: 100%; width: {{ tierPct }}%; background: var(--color-accent);"></div>
             </div>
             <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 8px; text-wrap: pretty;">{{ projectionText }}</div>
+            <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 4px; text-wrap: pretty;">{{ tierValueText }}</div>
           </div>
         </div>
       </div>
@@ -175,7 +231,7 @@
       <div data-screen-label="Timesheet">
         <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-bottom: 18px; max-width: 640px;">
           <sc-for list="{{ dayCells }}" as="d" hint-placeholder-count="14">
-            <button onClick="{{ d.pick }}" style="{{ d.mStyle }}">
+            <button sc-camel-on-click="{{ d.pick }}" style="{{ d.mStyle }}">
               <span style="font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.7;">{{ d.dow }}</span>
               <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ d.dom }}</span>
               <span style="font-size: 10px; font-variant-numeric: tabular-nums;">{{ d.hours }}</span>
@@ -198,18 +254,18 @@
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;align-items:start;">
           <sc-for list="{{ shiftRows }}" as="s" hint-placeholder-count="3">
-            <div onTouchStart="{{ s.tStart }}" onTouchMove="{{ s.tMove }}" onTouchEnd="{{ s.tEnd }}" style="{{ s.mCard }}">
+            <div sc-camel-on-touch-start="{{ s.tStart }}" sc-camel-on-touch-move="{{ s.tMove }}" sc-camel-on-touch-end="{{ s.tEnd }}" style="{{ s.mCard }}">
               <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
                 <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ s.dateLabel }}</span>
                 <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ s.hours }}</span>
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div class="field"><label>In</label><input class="input" type="time" value="{{ s.in }}" onChange="{{ s.setIn }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-                <div class="field"><label>Out</label><input class="input" type="time" value="{{ s.out }}" onChange="{{ s.setOut }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label>In</label><input class="input" type="time" value="{{ s.in }}" sc-camel-on-change="{{ s.setIn }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label>Out</label><input class="input" type="time" value="{{ s.out }}" sc-camel-on-change="{{ s.setOut }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
               </div>
               <div style="display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; margin-top: 10px;">
-                <div class="field"><label>Break (min)</label><input class="input" type="number" inputMode="numeric" value="{{ s.brk }}" onChange="{{ s.setBrk }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-                <button class="btn btn-ghost" onClick="{{ s.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 14px; color: var(--color-accent-700);">{{ s.delLabel }}</button>
+                <div class="field"><label>Break (min)</label><input class="input" type="number" sc-camel-input-mode="numeric" value="{{ s.brk }}" sc-camel-on-change="{{ s.setBrk }}" disabled="{{ lockedFlag }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <button class="btn btn-ghost" sc-camel-on-click="{{ s.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 14px; color: var(--color-accent-700);">{{ s.delLabel }}</button>
               </div>
               <sc-if value="{{ s.hasErr }}" hint-placeholder-val="{{ false }}">
                 <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 8px; text-wrap: pretty;">{{ s.err }}</div>
@@ -219,14 +275,77 @@
         </div>
 
         <div style="border: 2px solid var(--color-text); padding: 14px; margin-top: 18px; max-width: 520px;">
-          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">Add a shift</div>
-          <div class="field" style="margin-bottom: 10px;"><label for="nd">Date</label><input id="nd" class="input" type="date" value="{{ shiftForm.date }}" onChange="{{ onShiftDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-            <div class="field"><label for="ni">In</label><input id="ni" class="input" type="time" value="{{ shiftForm.in }}" onChange="{{ onShiftIn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-            <div class="field"><label for="no">Out</label><input id="no" class="input" type="time" value="{{ shiftForm.out }}" onChange="{{ onShiftOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px;">
+            <span style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">Add a shift</span>
+            <button class="btn btn-ghost" sc-camel-on-click="{{ toggleTplForm }}" style="min-height: 44px; padding: 0 10px; font-size: 13px;">{{ tplFormLabel }}</button>
           </div>
-          <div class="field" style="margin-bottom: 12px;"><label for="nb">Break (min)</label><input id="nb" class="input" type="number" inputMode="numeric" value="{{ shiftForm.brk }}" onChange="{{ onShiftBreak }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-          <button class="btn btn-secondary" onClick="{{ addShift }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add shift</button>
+          <sc-if value="{{ hasTemplates }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-bottom: 12px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px;">Templates</div>
+              <sc-for list="{{ templates }}" as="t" hint-placeholder-count="2">
+                <div style="display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--color-divider);">
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600;">{{ t.label }}</div>
+                    <div style="font-size: 12px; color: var(--color-neutral-700);">{{ t.detail }}</div>
+                  </div>
+                  <button class="btn btn-secondary" sc-camel-on-click="{{ t.fill }}" style="min-height: 44px; padding: 0 12px; font-size: 13px;">Use</button>
+                  <button class="btn btn-ghost" sc-camel-on-click="{{ t.del }}" style="min-height: 44px; padding: 0 10px; font-size: 13px; color: var(--color-accent-700);">{{ t.delLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showTplForm }}" hint-placeholder-val="{{ false }}">
+            <div style="border: 2px solid var(--color-divider); padding: 12px; margin-bottom: 12px;">
+              <div class="field" style="margin-bottom: 10px;"><label for="tl">Name (optional)</label><input id="tl" class="input" type="text" value="{{ tplForm.label }}" sc-camel-on-change="{{ onTplLabel }}" placeholder="e.g. Weekday" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                <div class="field"><label for="ti">In</label><input id="ti" class="input" type="time" value="{{ tplForm.in }}" sc-camel-on-change="{{ onTplIn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label for="to">Out</label><input id="to" class="input" type="time" value="{{ tplForm.out }}" sc-camel-on-change="{{ onTplOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              </div>
+              <div class="field" style="margin-bottom: 12px;"><label for="tb">Break (min)</label><input id="tb" class="input" type="number" sc-camel-input-mode="numeric" value="{{ tplForm.brk }}" sc-camel-on-change="{{ onTplBrk }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <button class="btn btn-secondary" sc-camel-on-click="{{ saveTemplate }}" disabled="{{ saveTplDisabled }}" style="width:100%;min-height:48px;font-size:15px;justify-content:flex-start;">Save template</button>
+            </div>
+          </sc-if>
+          <div class="field" style="margin-bottom: 10px;"><label for="nd">Date</label><input id="nd" class="input" type="date" value="{{ shiftForm.date }}" sc-camel-on-change="{{ onShiftDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <div class="field"><label for="ni">In</label><input id="ni" class="input" type="time" value="{{ shiftForm.in }}" sc-camel-on-change="{{ onShiftIn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field"><label for="no">Out</label><input id="no" class="input" type="time" value="{{ shiftForm.out }}" sc-camel-on-change="{{ onShiftOut }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          </div>
+          <div class="field" style="margin-bottom: 12px;"><label for="nb">Break (min)</label><input id="nb" class="input" type="number" sc-camel-input-mode="numeric" value="{{ shiftForm.brk }}" sc-camel-on-change="{{ onShiftBreak }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ addShift }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add shift</button>
+        </div>
+
+        <div style="border: 2px solid var(--color-text); padding: 14px; margin-top: 18px; max-width: 520px;">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;">Leave and sick days</div>
+          <div style="font-size: 13px; color: var(--color-neutral-700); text-wrap: pretty;">{{ leaveSummary }}</div>
+          <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 2px; text-wrap: pretty;">{{ leavePayLine }}</div>
+
+          <sc-if value="{{ hasLeaveDays }}" hint-placeholder-val="{{ false }}">
+            <div style="margin: 12px 0;">
+              <sc-for list="{{ leaveRows }}" as="d" hint-placeholder-count="1">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--color-divider);">
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600;">{{ d.dateLabel }} — {{ d.typeLabel }}</div>
+                    <div style="font-size: 12px; color: var(--color-neutral-700);">{{ d.paidLabel }} {{ d.note }}</div>
+                  </div>
+                  <button class="btn btn-ghost" sc-camel-on-click="{{ d.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 10px; font-size: 13px; color: var(--color-accent-700);">{{ d.delLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 10px;">
+            <div class="field"><label for="ld">From</label><input id="ld" class="input" type="date" value="{{ dayForm.date }}" sc-camel-on-change="{{ onDayDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field"><label for="le">To (optional)</label><input id="le" class="input" type="date" value="{{ dayForm.end }}" sc-camel-on-change="{{ onDayEnd }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          </div>
+          <div class="field" style="margin-bottom: 10px;"><label for="lt">Type</label>
+            <sc-raw-select id="lt" class="input" value="{{ dayForm.type }}" sc-camel-on-change="{{ onDayType }}" style="font-size: 16px; min-height: 44px; width: 100%;">
+              <sc-for list="{{ leaveTypes }}" as="l" hint-placeholder-count="6">
+                <option value="{{ l.key }}">{{ l.label }}</option>
+              </sc-for>
+            </sc-raw-select>
+          </div>
+          <div class="field" style="margin-bottom: 12px;"><label for="ln">Note</label><input id="ln" class="input" type="text" value="{{ dayForm.note }}" sc-camel-on-change="{{ onDayNote }}" placeholder="Optional" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ addDay }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">{{ addDayLabel }}</button>
         </div>
 
         <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 14px; text-wrap: pretty;">{{ timesheetFooter }}</div>
@@ -239,21 +358,21 @@
           <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">{{ saleFormTitle }}</div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 12px;">
             <sc-for list="{{ catOptions }}" as="c" hint-placeholder-count="4">
-              <button onClick="{{ c.pick }}" style="{{ c.mStyle }}">{{ c.label }}</button>
+              <button sc-camel-on-click="{{ c.pick }}" style="{{ c.mStyle }}">{{ c.label }}</button>
             </sc-for>
           </div>
           <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
             <sc-for list="{{ quickChips }}" as="q" hint-placeholder-count="5">
-              <button class="btn btn-secondary" onClick="{{ q.pick }}" style="min-height: 44px; padding: 0 16px; font-size: 14px;">{{ q.label }}</button>
+              <button class="btn btn-secondary" sc-camel-on-click="{{ q.pick }}" style="min-height: 44px; padding: 0 16px; font-size: 14px;">{{ q.label }}</button>
             </sc-for>
           </div>
-          <div class="field" style="margin-bottom: 10px;"><label for="samt">Amount</label><input id="samt" class="input" type="number" inputMode="decimal" value="{{ form.amount }}" onChange="{{ onAmount }}" onKeyDown="{{ onFormKey }}" placeholder="0.00" style="font-size: 18px; min-height: 52px; width: 100%; font-variant-numeric: tabular-nums;"></div>
+          <div class="field" style="margin-bottom: 10px;"><label for="samt">Amount</label><input id="samt" class="input" type="number" sc-camel-input-mode="decimal" value="{{ form.amount }}" sc-camel-on-change="{{ onAmount }}" sc-camel-on-key-down="{{ onFormKey }}" placeholder="0.00" style="font-size: 18px; min-height: 52px; width: 100%; font-variant-numeric: tabular-nums;"></div>
           <sc-if value="{{ hasAmountErr }}" hint-placeholder-val="{{ false }}">
             <div style="font-size: 13px; color: var(--color-accent-700); margin: -4px 0 10px; text-wrap: pretty;">{{ amountErr }}</div>
           </sc-if>
-          <div class="field" style="margin-bottom: 10px;"><label for="sdate">Date</label><input id="sdate" class="input" type="date" value="{{ form.date }}" onChange="{{ onSaleDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-          <div class="field" style="margin-bottom: 12px;"><label for="snote">Note</label><input id="snote" class="input" type="text" value="{{ form.note }}" onChange="{{ onNote }}" onKeyDown="{{ onFormKey }}" placeholder="Optional" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-          <button class="btn btn-primary" onClick="{{ addSale }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add entry</button>
+          <div class="field" style="margin-bottom: 10px;"><label for="sdate">Date</label><input id="sdate" class="input" type="date" value="{{ form.date }}" sc-camel-on-change="{{ onSaleDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <div class="field" style="margin-bottom: 12px;"><label for="snote">Note</label><input id="snote" class="input" type="text" value="{{ form.note }}" sc-camel-on-change="{{ onNote }}" sc-camel-on-key-down="{{ onFormKey }}" placeholder="Optional" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+          <button class="btn btn-primary" sc-camel-on-click="{{ addSale }}" disabled="{{ lockedFlag }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Add entry</button>
         </div>
 
         <div>
@@ -266,15 +385,15 @@
           </sc-if>
           <div style="display: grid; gap: 10px;">
             <sc-for list="{{ saleRows }}" as="e" hint-placeholder-count="4">
-              <div onTouchStart="{{ e.tStart }}" onTouchMove="{{ e.tMove }}" onTouchEnd="{{ e.tEnd }}" style="{{ e.mCard }}">
+              <div sc-camel-on-touch-start="{{ e.tStart }}" sc-camel-on-touch-move="{{ e.tMove }}" sc-camel-on-touch-end="{{ e.tEnd }}" style="{{ e.mCard }}">
                 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
                   <span style="font-family: var(--font-heading); font-weight: 800; font-size: 15px;">{{ e.cat }}</span>
                   <span style="font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums;">{{ e.amount }}</span>
                 </div>
                 <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 4px;">{{ e.dateLabel }} · {{ e.note }}</div>
                 <div style="display: flex; gap: 8px; margin-top: 10px;">
-                  <button class="btn btn-secondary" onClick="{{ e.edit }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1;">Edit</button>
-                  <button class="btn btn-ghost" onClick="{{ e.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1; color: var(--color-accent-700);">{{ e.delLabel }}</button>
+                  <button class="btn btn-secondary" sc-camel-on-click="{{ e.edit }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1;">Edit</button>
+                  <button class="btn btn-ghost" sc-camel-on-click="{{ e.del }}" disabled="{{ lockedFlag }}" style="min-height: 44px; padding: 0 18px; flex: 1; color: var(--color-accent-700);">{{ e.delLabel }}</button>
                 </div>
               </div>
             </sc-for>
@@ -283,15 +402,15 @@
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Storage on this device</div>
           <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ storageText }}</p>
           <sc-if value="{{ needsPersist }}" hint-placeholder-val="{{ false }}">
-            <button class="btn btn-primary" onClick="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
+            <button class="btn btn-primary" sc-camel-on-click="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
           </sc-if>
 
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Install on this device</div>
           <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ installText }}</p>
-          <button class="btn btn-secondary" onClick="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
 
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Danger</div>
-          <button class="btn btn-ghost" onClick="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
+          <button class="btn btn-ghost" sc-camel-on-click="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
         </div>
       </div>
     </sc-if>
@@ -300,6 +419,15 @@
       <div data-screen-label="Pay">
         <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">{{ profileLine }}</div>
         <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 2px;">{{ employerLine }} · paid {{ payDate }}</div>
+
+        <sc-if value="{{ showForecast }}" hint-placeholder-val="{{ false }}">
+          <div style="border: 2px solid var(--color-accent); padding: 14px; margin-top: 18px;">
+            <div style="font-family: var(--font-heading); font-weight: 800; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-700);">{{ forecastTitle }}</div>
+            <div style="font-family: var(--font-heading); font-weight: 800; font-size: 36px; line-height: 1.05; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 6px;">{{ forecastGross }}</div>
+            <div style="font-size: 13px; color: var(--color-neutral-800); margin-top: 6px; text-wrap: pretty;">{{ forecastDetail }}</div>
+            <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 2px;">{{ forecastSoFar }}</div>
+          </div>
+        </sc-if>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px; margin: 20px 0;">
           <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
@@ -331,6 +459,71 @@
               <div style="font-family: var(--font-heading); font-weight: 800; font-size: 25px; font-variant-numeric: tabular-nums;">{{ superTotal }}</div>
               <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 4px; text-wrap: pretty;">{{ superDetail }}</div>
             </div>
+
+            <div style="border: 2px solid var(--color-text); padding: 14px; margin-top: 18px;">
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">Payout received</div>
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 14px;">
+                <span>Gross pay this fortnight</span>
+                <span style="font-weight: 700; font-variant-numeric: tabular-nums;">{{ payGrossLine }}</span>
+              </div>
+              <sc-if value="{{ hasCarryIn }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 14px; color: var(--color-accent-700);">
+                  <span>{{ carryLabel }}</span>
+                  <span style="font-weight: 700; font-variant-numeric: tabular-nums;">{{ carryValue }}</span>
+                </div>
+              </sc-if>
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; margin-top: 4px; border-top: 2px solid var(--color-text);">
+                <span style="font-size: 14px; font-weight: 600;">Expected payout</span>
+                <span style="font-family: var(--font-heading); font-weight: 800; font-size: 24px; font-variant-numeric: tabular-nums;">{{ payExpected }}</span>
+              </div>
+
+              <sc-if value="{{ hasPayList }}" hint-placeholder-val="{{ false }}">
+                <div style="margin: 12px 0 4px;">
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+                    <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ payListTitle }}</span>
+                    <sc-if value="{{ hasPayTotal }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ payListTotal }}</span>
+                    </sc-if>
+                  </div>
+                  <sc-for list="{{ payRecords }}" as="p" hint-placeholder-count="1">
+                    <div style="{{ p.mStyle }}">
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">{{ p.amount }}</div>
+                        <div style="font-size: 12px; color: var(--color-neutral-700);">{{ p.when }} {{ p.note }}</div>
+                      </div>
+                      <button class="btn btn-ghost" sc-camel-on-click="{{ p.edit }}" style="min-height: 44px; padding: 0 10px; font-size: 13px;">{{ p.editLabel }}</button>
+                      <button class="btn btn-ghost" sc-camel-on-click="{{ p.del }}" style="min-height: 44px; padding: 0 10px; font-size: 13px; color: var(--color-accent-700);">{{ p.delLabel }}</button>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:14px;">{{ payFormTitle }}</div>
+              <sc-if value="{{ hasSaveNudge }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 4px; text-wrap: pretty;">{{ saveNudge }}</div>
+              </sc-if>
+              <div class="field" style="margin: 10px 0;"><label for="payamt">Amount your employer paid</label><input id="payamt" class="input" type="number" sc-camel-input-mode="decimal" value="{{ payForm.amount }}" sc-camel-on-change="{{ onPayAmount }}" sc-camel-on-key-down="{{ onPayKey }}" placeholder="0.00" style="font-size: 18px; min-height: 52px; width: 100%; font-variant-numeric: tabular-nums;"></div>
+              <sc-if value="{{ hasPayErr }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size: 13px; color: var(--color-accent-700); margin: -4px 0 10px; text-wrap: pretty;">{{ payErr }}</div>
+              </sc-if>
+              <div class="field" style="margin-bottom: 10px;"><label for="paydate">Date received</label><input id="paydate" class="input" type="date" value="{{ payForm.date }}" sc-camel-on-change="{{ onPayDate }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <div class="field" style="margin-bottom: 12px;"><label for="paynote">Note about the difference</label><input id="paynote" class="input" type="text" value="{{ payForm.note }}" sc-camel-on-change="{{ onPayNote }}" sc-camel-on-key-down="{{ onPayKey }}" placeholder="Optional — why it differs" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+
+              <sc-if value="{{ hasPayStatus }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ payStatusStyle }}">{{ payStatus }}</div>
+              </sc-if>
+
+              <button class="btn btn-primary" sc-camel-on-click="{{ savePayout }}" disabled="{{ savePayDisabled }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">{{ savePayLabel }}</button>
+              <sc-if value="{{ isEditingPayout }}" hint-placeholder-val="{{ false }}">
+                <button class="btn btn-ghost" sc-camel-on-click="{{ cancelPayEdit }}" style="width:100%;min-height:44px;font-size:14px;justify-content:flex-start;text-align:left;margin-top:6px;">Cancel edit</button>
+              </sc-if>
+              <sc-if value="{{ canWriteOff }}" hint-placeholder-val="{{ false }}">
+                <button class="btn btn-secondary" sc-camel-on-click="{{ toggleWriteOff }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;margin-top:10px;">{{ writeOffLabel }}</button>
+              </sc-if>
+              <sc-if value="{{ hasPayoutRecord }}" hint-placeholder-val="{{ false }}">
+                <button class="btn btn-ghost" sc-camel-on-click="{{ removePayout }}" style="width:100%;min-height:44px;font-size:14px;justify-content:flex-start;text-align:left;margin-top:6px;color: var(--color-accent-700);">{{ removePayLabel }}</button>
+              </sc-if>
+            </div>
           </div>
 
           <div>
@@ -338,7 +531,7 @@
               <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Sales by day</div>
               <div style="display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 2px; align-items: end; height: 100px; border-bottom: 2px solid var(--color-text); margin-top: 10px;">
                 <sc-for list="{{ salesBars }}" as="s" hint-placeholder-count="14">
-                  <button onClick="{{ s.tap }}" style="{{ s.mStyle }}"></button>
+                  <button sc-camel-on-click="{{ s.tap }}" style="{{ s.mStyle }}"></button>
                 </sc-for>
               </div>
               <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 8px;">{{ barTapLabel }}</div>
@@ -372,13 +565,13 @@
             <div style="margin-top: 20px; border-top: 2px solid var(--color-text); padding-top: 14px;">
               <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">What if</div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px;">
-                <div class="field"><label for="sima">Amount</label><input id="sima" class="input" type="number" inputMode="decimal" value="{{ simAmount }}" onChange="{{ onSim }}" placeholder="0" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+                <div class="field"><label for="sima">Amount</label><input id="sima" class="input" type="number" sc-camel-input-mode="decimal" value="{{ simAmount }}" sc-camel-on-change="{{ onSim }}" placeholder="0" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
                 <div class="field"><label for="simc">Category</label>
-                  <select id="simc" class="input" value="{{ simCat }}" onChange="{{ onSimCat }}" style="font-size: 16px; min-height: 44px; width: 100%;">
+                  <sc-raw-select id="simc" class="input" value="{{ simCat }}" sc-camel-on-change="{{ onSimCat }}" style="font-size: 16px; min-height: 44px; width: 100%;">
                     <sc-for list="{{ catList }}" as="c" hint-placeholder-count="4">
                       <option value="{{ c.key }}">{{ c.label }}</option>
                     </sc-for>
-                  </select>
+                  </sc-raw-select>
                 </div>
               </div>
               <div style="font-size: 13px; color: var(--color-neutral-800); margin-top: 10px; text-wrap: pretty;">{{ simResult }}</div>
@@ -387,17 +580,17 @@
         </div>
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px;">
-          <button class="btn btn-secondary" onClick="{{ toggleLock }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">{{ lockLabel }}</button>
-          <button class="btn btn-secondary" onClick="{{ exportCsv }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Export CSV</button>
-          <button class="btn btn-secondary" onClick="{{ doPrint }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Print payslip</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ toggleLock }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">{{ lockLabel }}</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ exportCsv }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Export CSV</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ doPrint }}" style="min-height: 52px; flex: 1 1 200px; justify-content: flex-start;">Print payslip</button>
         </div>
 
         <sc-if value="{{ showLockNudge }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top: 14px; padding: 12px; border: 2px solid var(--color-accent); max-width: 560px;">
             <div style="font-size: 14px; color: var(--color-accent-900); text-wrap: pretty;">{{ lockNudgeText }}</div>
             <div style="display: flex; gap: 8px; margin-top: 10px;">
-              <button class="btn btn-primary" onClick="{{ lockNudgeAct }}" style="flex: 1; min-height: 44px;">Back up</button>
-              <button class="btn btn-ghost" onClick="{{ dismissLockNudge }}" style="flex: 1; min-height: 44px;">Later</button>
+              <button class="btn btn-primary" sc-camel-on-click="{{ lockNudgeAct }}" style="flex: 1; min-height: 44px;">Back up</button>
+              <button class="btn btn-ghost" sc-camel-on-click="{{ dismissLockNudge }}" style="flex: 1; min-height: 44px;">Later</button>
             </div>
           </div>
         </sc-if>
@@ -408,16 +601,18 @@
       <div data-screen-label="More" style="max-width: 560px;">
         <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">More</div>
         <div style="margin-top: 12px;">
-          <button onClick="{{ goHist }}" style="{{ rowStyle }}"><span>History</span><span style="color: var(--color-neutral-700);">›</span></button>
-          <button onClick="{{ goSettings }}" style="{{ rowStyle }}"><span>Settings &amp; backup</span><span style="color: var(--color-neutral-700);">›</span></button>
-          <button onClick="{{ doPrint }}" style="{{ rowStyle }}"><span>Print / save PDF</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button sc-camel-on-click="{{ goHist }}" style="{{ rowStyle }}"><span>History</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button sc-camel-on-click="{{ goDisc }}" style="{{ rowStyle }}"><span>Payment differences</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button sc-camel-on-click="{{ goFy }}" style="{{ rowStyle }}"><span>Financial year</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button sc-camel-on-click="{{ goSettings }}" style="{{ rowStyle }}"><span>Settings &amp; backup</span><span style="color: var(--color-neutral-700);">›</span></button>
+          <button sc-camel-on-click="{{ doPrint }}" style="{{ rowStyle }}"><span>Print / save PDF</span><span style="color: var(--color-neutral-700);">›</span></button>
         </div>
         <div style="margin-top: 18px; padding: 12px; border: 2px solid var(--color-divider);">
           <div style="font-size: 14px; font-weight: 600;">{{ lastBackupText }}</div>
           <sc-if value="{{ backupStale }}" hint-placeholder-val="{{ false }}">
             <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 4px; text-wrap: pretty;">{{ backupStaleText }}</div>
           </sc-if>
-          <button class="btn btn-primary" onClick="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 12px;">Download backup</button>
+          <button class="btn btn-primary" sc-camel-on-click="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 12px;">Download backup</button>
         </div>
         <div style="font-size: 12px; color: var(--color-neutral-600); margin-top: 16px;">Fortnight {{ version }}</div>
       </div>
@@ -425,7 +620,7 @@
 
     <sc-if value="{{ isHist }}" hint-placeholder-val="{{ false }}">
       <div data-screen-label="History">
-        <button class="btn btn-ghost" onClick="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+        <button class="btn btn-ghost" sc-camel-on-click="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
         <sc-if value="{{ noHistory }}" hint-placeholder-val="{{ false }}">
           <div style="font-size: 14px; color: var(--color-neutral-600);">Nothing recorded yet.</div>
         </sc-if>
@@ -441,35 +636,144 @@
                 <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Sales</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ h.sales }}</div></div>
                 <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Tier</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ h.tier }}</div></div>
               </div>
+              <div style="font-size: 13px; font-variant-numeric: tabular-nums; margin-top: 10px; {{ h.payStyle }}">{{ h.payoutLine }}</div>
               <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px;">
                 <span style="font-size: 13px; font-variant-numeric: tabular-nums; {{ h.deltaStyle }}">{{ h.delta }} vs previous</span>
-                <button class="btn btn-secondary" onClick="{{ h.open }}" style="min-height: 44px; padding: 0 18px;">Open</button>
+                <button class="btn btn-secondary" sc-camel-on-click="{{ h.open }}" style="min-height: 44px; padding: 0 18px;">Open</button>
               </div>
             </div>
           </sc-for>
         </div>
         <sc-if value="{{ hasMoreHistory }}" hint-placeholder-val="{{ false }}">
-          <button class="btn btn-secondary" onClick="{{ toggleHistory }}" style="width: 100%; min-height: 52px; font-size: 16px; justify-content: flex-start; margin-top: 12px;">{{ moreHistoryLabel }}</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ toggleHistory }}" style="width: 100%; min-height: 52px; font-size: 16px; justify-content: flex-start; margin-top: 12px;">{{ moreHistoryLabel }}</button>
         </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDisc }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Payment differences" style="max-width: 720px;">
+        <button class="btn btn-ghost" sc-camel-on-click="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">Payment differences</div>
+        <div style="font-size: 14px; color: var(--color-neutral-700); margin-top: 4px; text-wrap: pretty;">Every fortnight where what landed did not match what was expected. This is the record to raise with your employer.</div>
+        <div style="border: 2px solid var(--color-text); padding: 12px; margin-top: 14px;">
+          <div style="font-size: 14px; font-weight: 600; text-wrap: pretty;">{{ discBalance }}</div>
+        </div>
+        <sc-if value="{{ noDisc }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size: 14px; color: var(--color-neutral-600); margin-top: 16px;">No payments recorded yet. Record one on the Pay tab and differences will show up here.</div>
+        </sc-if>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;align-items:start;margin-top:14px;">
+          <sc-for list="{{ discRows }}" as="e" hint-placeholder-count="2">
+            <div style="border: 2px solid var(--color-divider); padding: 14px;">
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 14px;">{{ e.label }}</div>
+              <div style="{{ e.diffStyle }}">{{ e.diff }}</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+                <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Expected</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ e.expected }}</div></div>
+                <div><div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Paid</div><div style="font-size: 14px; font-variant-numeric: tabular-nums;">{{ e.paid }}</div></div>
+              </div>
+              <div style="font-size: 13px; color: var(--color-neutral-700); margin-top: 10px; text-wrap: pretty;">{{ e.status }}</div>
+              <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 2px;">{{ e.count }} {{ e.note }}</div>
+              <button class="btn btn-secondary" sc-camel-on-click="{{ e.open }}" style="min-height: 44px; padding: 0 16px; margin-top: 12px;">Open</button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isFy }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="Financial year" style="max-width: 720px;">
+        <button class="btn btn-ghost" sc-camel-on-click="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+        <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: -0.01em;">{{ fyTitle }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:16px;">
+          <sc-for list="{{ fyStats }}" as="s" hint-placeholder-count="8">
+            <div style="border-left: 2px solid var(--color-text); padding-left: 10px;">
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">{{ s.label }}</div>
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums;">{{ s.value }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ hasFyLeave }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 22px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+            <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Days off taken</div>
+            <sc-for list="{{ fyLeaveRows }}" as="l" hint-placeholder-count="2">
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--color-divider); font-size: 14px;">
+                <span>{{ l.label }}</span>
+                <span style="font-weight: 600; font-variant-numeric: tabular-nums;">{{ l.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div style="margin-top: 22px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Records</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 12px;">
+            <div>
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Best fortnight</div>
+              <div style="font-size: 15px; font-weight: 600; text-wrap: pretty;">{{ bestText }}</div>
+            </div>
+            <div>
+              <div style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-700);">Biggest sales run</div>
+              <div style="font-size: 15px; font-weight: 600; text-wrap: pretty;">{{ bestSalesText }}</div>
+            </div>
+          </div>
+          <div style="font-size: 14px; color: var(--color-neutral-800); margin-top: 12px; text-wrap: pretty;">{{ streakText }}</div>
+        </div>
+
+        <div style="margin-top: 22px; border-top: 2px solid var(--color-text); padding-top: 14px;">
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Every fortnight</div>
+          <sc-for list="{{ fyRows }}" as="x" hint-placeholder-count="4">
+            <div style="{{ x.mStyle }}">
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 600;">{{ x.label }}</div>
+                <div style="font-size: 12px; color: var(--color-neutral-700);">{{ x.detail }}</div>
+              </div>
+              <span style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ x.gross }}</span>
+              <button class="btn btn-ghost" sc-camel-on-click="{{ x.open }}" style="min-height: 44px; padding: 0 10px; font-size: 13px;">Open</button>
+            </div>
+          </sc-for>
+        </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
       <div data-screen-label="Settings" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; align-items: start;">
         <div>
-          <button class="btn btn-ghost" onClick="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
+          <button class="btn btn-ghost" sc-camel-on-click="{{ goMore }}" style="min-height: 44px; padding: 0 12px; margin-bottom: 12px;">‹ More</button>
 
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Payslip details</div>
           <div style="margin: 12px 0 22px;">
-            <div class="field" style="margin-bottom: 10px;"><label for="pe">Employee name</label><input id="pe" class="input" type="text" value="{{ profile.employee }}" onChange="{{ onProfEmployee }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-            <div class="field" style="margin-bottom: 10px;"><label for="pr">Role</label><input id="pr" class="input" type="text" value="{{ profile.role }}" onChange="{{ onProfRole }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-            <div class="field" style="margin-bottom: 10px;"><label for="pc">Employer</label><input id="pc" class="input" type="text" value="{{ profile.employer }}" onChange="{{ onProfEmployer }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
-            <div class="field"><label for="pa">ABN</label><input id="pa" class="input" type="text" inputMode="numeric" value="{{ profile.abn }}" onChange="{{ onProfAbn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field" style="margin-bottom: 10px;"><label for="pe">Employee name</label><input id="pe" class="input" type="text" value="{{ profile.employee }}" sc-camel-on-change="{{ onProfEmployee }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field" style="margin-bottom: 10px;"><label for="pr">Role</label><input id="pr" class="input" type="text" value="{{ profile.role }}" sc-camel-on-change="{{ onProfRole }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field" style="margin-bottom: 10px;"><label for="pc">Employer</label><input id="pc" class="input" type="text" value="{{ profile.employer }}" sc-camel-on-change="{{ onProfEmployer }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            <div class="field"><label for="pa">ABN</label><input id="pa" class="input" type="text" sc-camel-input-mode="numeric" value="{{ profile.abn }}" sc-camel-on-change="{{ onProfAbn }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
           </div>
 
         </div>
 
         <div>
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Security</div>
+          <div style="border-top: 2px solid var(--color-text); padding: 12px 0 16px; margin: 12px 0 20px;">
+            <div style="font-size: 14px; font-weight: 600; text-wrap: pretty;">{{ pinStatus }}</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
+              <div class="field"><label for="pinA">New PIN</label><input id="pinA" class="input" type="password" sc-camel-input-mode="numeric" sc-camel-auto-complete="off" value="{{ pinSetA }}" sc-camel-on-change="{{ onPinA }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+              <div class="field"><label for="pinB">Repeat</label><input id="pinB" class="input" type="password" sc-camel-input-mode="numeric" sc-camel-auto-complete="off" value="{{ pinSetB }}" sc-camel-on-change="{{ onPinB }}" style="font-size: 16px; min-height: 44px; width: 100%;"></div>
+            </div>
+            <button class="btn btn-secondary" sc-camel-on-click="{{ setPin }}" style="width:100%;min-height:48px;font-size:15px;justify-content:flex-start;margin-top:10px;">{{ setPinLabel }}</button>
+            <sc-if value="{{ hasPin }}" hint-placeholder-val="{{ false }}">
+              <button class="btn btn-ghost" sc-camel-on-click="{{ clearPin }}" style="width:100%;min-height:44px;font-size:14px;justify-content:flex-start;margin-top:6px;color: var(--color-accent-700);">Remove PIN</button>
+            </sc-if>
+            <sc-if value="{{ hasPinMsg }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 10px; text-wrap: pretty;">{{ pinMsg }}</div>
+            </sc-if>
+            <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 10px; text-wrap: pretty;">{{ pinWarn }}</div>
+          </div>
+
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Reminders</div>
+          <div style="border-top: 2px solid var(--color-text); padding: 12px 0 16px; margin: 12px 0 20px;">
+            <button class="btn btn-secondary" sc-camel-on-click="{{ toggleReminders }}" style="width:100%;min-height:48px;font-size:15px;justify-content:flex-start;">{{ reminderLabel }}</button>
+            <div style="font-size: 12px; color: var(--color-neutral-700); margin-top: 10px; text-wrap: pretty;">{{ reminderHelp }}</div>
+          </div>
+
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Backup</div>
           <div style="border-top: 2px solid var(--color-text); border-bottom: 2px solid var(--color-divider); padding: 12px 0; margin: 12px 0 14px;">
             <div style="font-size: 14px; font-weight: 600;">{{ lastBackupText }}</div>
@@ -478,17 +782,17 @@
             </sc-if>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-            <button class="btn btn-primary" onClick="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Download backup</button>
-            <button class="btn btn-secondary" onClick="{{ copyBackup }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Copy to clipboard</button>
-            <button class="btn btn-secondary" onClick="{{ exportBundleCsv }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Export CSV bundle</button>
+            <button class="btn btn-primary" sc-camel-on-click="{{ exportJson }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Download backup</button>
+            <button class="btn btn-secondary" sc-camel-on-click="{{ copyBackup }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Copy to clipboard</button>
+            <button class="btn btn-secondary" sc-camel-on-click="{{ exportBundleCsv }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Export CSV bundle</button>
             <label class="btn btn-secondary" for="imp" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; cursor: pointer; display: flex; align-items: center;">Restore from file</label>
-            <input id="imp" type="file" accept=".json,application/json" onChange="{{ importJson }}" style="display: none;">
+            <input id="imp" type="file" accept=".json,application/json" sc-camel-on-change="{{ importJson }}" style="display: none;">
           </div>
           <sc-if value="{{ hasBackupMsg }}" hint-placeholder-val="{{ false }}">
             <div style="font-size: 13px; color: var(--color-accent-700); margin-top: 12px; text-wrap: pretty;">{{ backupMsg }}</div>
           </sc-if>
           <sc-if value="{{ canUndoRestore }}" hint-placeholder-val="{{ false }}">
-            <button class="btn btn-ghost" onClick="{{ undoRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">Undo the restore</button>
+            <button class="btn btn-ghost" sc-camel-on-click="{{ undoRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">Undo the restore</button>
           </sc-if>
           <sc-if value="{{ hasBackupLog }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top: 18px;">
@@ -520,15 +824,15 @@
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);">Storage on this device</div>
           <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ storageText }}</p>
           <sc-if value="{{ needsPersist }}" hint-placeholder-val="{{ false }}">
-            <button class="btn btn-primary" onClick="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
+            <button class="btn btn-primary" sc-camel-on-click="{{ requestPersist }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Ask Android to keep my data</button>
           </sc-if>
 
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Install on this device</div>
           <p style="font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; margin: 10px 0;">{{ installText }}</p>
-          <button class="btn btn-secondary" onClick="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ doInstall }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Install app</button>
 
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700); margin-top: 26px;">Danger</div>
-          <button class="btn btn-ghost" onClick="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
+          <button class="btn btn-ghost" sc-camel-on-click="{{ resetAll }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left; margin-top: 10px; color: var(--color-accent-700);">{{ resetLabel }}</button>
         </div>
       </div>
     </sc-if>
@@ -540,18 +844,18 @@
     <div class="no-print" style="position: sticky; bottom: 12px; z-index: 40; max-width:1120px;margin:0 auto;width:100%; padding: 0 16px;">
       <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--color-text); color: var(--color-bg); padding: 10px 14px;">
         <span style="font-size: 14px;">{{ undoLabel }}</span>
-        <button class="btn btn-primary" onClick="{{ doUndo }}" style="min-height: 40px; padding: 0 16px;">Undo</button>
+        <button class="btn btn-primary" sc-camel-on-click="{{ doUndo }}" style="min-height: 44px; padding: 0 16px;">Undo</button>
       </div>
     </div>
   </sc-if>
 
   <sc-if value="{{ showBottomNav }}" hint-placeholder-val="{{ false }}">
     <nav class="no-print" aria-label="Main" style="position: sticky; bottom: 0; z-index: 50; background: var(--color-bg); border-top: 2px solid var(--color-text); display: grid; grid-template-columns: repeat(5, 1fr); padding-bottom: max(env(safe-area-inset-bottom, 0px), 6px);">
-      <button onClick="{{ goClock }}" aria-label="Clock" aria-current="{{ curClock }}" style="{{ navClock }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
-      <button onClick="{{ goTime }}" aria-label="Timesheet" aria-current="{{ curTime }}" style="{{ navTime }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Time</span></button>
-      <button onClick="{{ goSales }}" aria-label="Sales" aria-current="{{ curSales }}" style="{{ navSales }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
-      <button onClick="{{ goPay }}" aria-label="Pay" aria-current="{{ curPay }}" style="{{ navPay }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
-      <button onClick="{{ goMore }}" aria-label="More" aria-current="{{ curMore }}" style="{{ navMore }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
+      <button sc-camel-on-click="{{ goClock }}" aria-label="Clock" aria-current="{{ curClock }}" style="{{ navClock }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Clock</span></button>
+      <button sc-camel-on-click="{{ goTime }}" aria-label="Timesheet" aria-current="{{ curTime }}" style="{{ navTime }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg><span>Time</span></button>
+      <button sc-camel-on-click="{{ goSales }}" aria-label="Sales" aria-current="{{ curSales }}" style="{{ navSales }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V9M9 20V4M15 20v-8M21 20V7"></path></svg><span>Sales</span></button>
+      <button sc-camel-on-click="{{ goPay }}" aria-label="Pay" aria-current="{{ curPay }}" style="{{ navPay }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3zM3 10h18"></path><circle cx="12" cy="14" r="1.6"></circle></svg><span>Pay</span></button>
+      <button sc-camel-on-click="{{ goMore }}" aria-label="More" aria-current="{{ curMore }}" style="{{ navMore }}"><svg width="22" height="22" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>More</span></button>
     </nav>
   </sc-if>
 
@@ -571,9 +875,9 @@
         </sc-if>
         <div style="margin-top: 12px; padding-top: 10px; border-top: 2px solid var(--color-divider); font-size: 13px; color: var(--color-neutral-800); text-wrap: pretty;">{{ pLoss }} Merge keeps both sets. A snapshot is taken first either way.</div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 16px;">
-          <button class="btn btn-primary" onClick="{{ doReplace }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Replace everything</button>
-          <button class="btn btn-secondary" onClick="{{ doMerge }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Merge</button>
-          <button class="btn btn-ghost" onClick="{{ cancelRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Cancel</button>
+          <button class="btn btn-primary" sc-camel-on-click="{{ doReplace }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Replace everything</button>
+          <button class="btn btn-secondary" sc-camel-on-click="{{ doMerge }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Merge</button>
+          <button class="btn btn-ghost" sc-camel-on-click="{{ cancelRestore }}" style="width:100%;min-height:52px;font-size:16px;justify-content:flex-start;text-align:left;">Cancel</button>
         </div>
       </div>
     </div>
@@ -582,7 +886,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:1080},&quot;hourlyRate&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:30,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:200,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;$/h&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;superPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:25,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;productPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;consumptionPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;tier1Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:2,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier2Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier3Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;}}">
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:560,&quot;height&quot;:1080},&quot;hourlyRate&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:30,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:200,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;$/h&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;superPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:25,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Pay&quot;},&quot;productPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;consumptionPct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Commission&quot;},&quot;tier1Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:2,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier2Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;tier3Pct&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;%&quot;,&quot;section&quot;:&quot;Package tiers&quot;},&quot;leaveDayHours&quot;:{&quot;editor&quot;:&quot;float&quot;,&quot;default&quot;:7.6,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:24,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;h/day&quot;,&quot;section&quot;:&quot;Leave&quot;}}">
 const DAY = 86400000;
 const ANCHOR = Math.floor(Date.UTC(2026, 9, 5) / DAY);
 const CATS = [
@@ -593,6 +897,16 @@ const CATS = [
 ];
 const CATLABEL = { product: 'Product sold', consumption: 'Service consumption', servicePackage: 'Service package', vip: 'VIP package' };
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const LEAVE = [
+  { key: 'annual', label: 'Annual leave', paid: false },
+  { key: 'sick', label: 'Sick leave', paid: false },
+  { key: 'carers', label: "Carer's leave", paid: true },
+  { key: 'phol', label: 'Public holiday', paid: true },
+  { key: 'unpaid', label: 'Unpaid leave', paid: false },
+  { key: 'rdo', label: 'Rostered day off', paid: false }
+];
+const LEAVEMAP = {};
+LEAVE.forEach(l => { LEAVEMAP[l.key] = l; });
 
 function dnum(s) { const p = s.split('-').map(Number); return Math.floor(Date.UTC(p[0], p[1] - 1, p[2]) / DAY); }
 function ymdOf(n) { return new Date(n * DAY).toISOString().slice(0, 10); }
@@ -611,13 +925,35 @@ function paidMinutes(s) {
   return Math.max(0, ((b - a + 1440) % 1440) - (Number(s.breakMin) || 0));
 }
 function fnv(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(16).padStart(8, '0'); }
-function coreOf(d) { return { shifts: d.shifts || [], sales: d.sales || [], locked: d.locked || [], profile: d.profile || {}, theme: d.theme || 'light' }; }
+function coreOf(d) {
+  const c = { shifts: d.shifts || [], sales: d.sales || [], locked: d.locked || [], profile: d.profile || {}, theme: d.theme || 'light' };
+  // Each key is only present once it holds something, so checksums on older backups still verify.
+  if ((d.days || []).length) c.days = d.days;
+  if ((d.templates || []).length) c.templates = d.templates;
+  if (Array.isArray(d.payouts) && d.payouts.length) c.payouts = d.payouts;
+  return c;
+}
 function checksumOf(d) { return fnv(JSON.stringify(coreOf(d))); }
 function stampOf(d) { return localYmd(d) + '-' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0'); }
 function isYmd(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s); }
 function isHm(s) { return s == null || s === '' || (typeof s === 'string' && /^\d{1,2}:\d{2}$/.test(s)); }
 function validShift(s) { return !!s && typeof s === 'object' && isYmd(s.date) && isHm(s.in) && isHm(s.out) && (s.breakMin == null || isFinite(Number(s.breakMin))); }
 function validSale(s) { return !!s && typeof s === 'object' && isYmd(s.date) && !!CATLABEL[s.cat] && isFinite(Number(s.amount)); }
+function validDay(d) { return !!d && typeof d === 'object' && isYmd(d.date) && !!LEAVEMAP[d.type]; }
+function validTpl(t) { return !!t && typeof t === 'object' && isHm(t.in) && isHm(t.out) && !!t.in && !!t.out; }
+function tplLabel(t) { return t.label || (to12(t.in) + '–' + to12(t.out)); }
+function normPayouts(v) {
+  if (Array.isArray(v)) return v.filter(validPayout);
+  if (!v || typeof v !== 'object') return [];
+  return Object.keys(v).map(k => {
+    const p = v[k] || {};
+    const amount = Number(p.amount != null ? p.amount : p.paid);
+    if (!Number.isInteger(Number(k)) || !isFinite(amount)) return null;
+    return { id: p.id || uid(), period: Number(k), amount: r2(amount), date: p.date || (p.at ? String(p.at).slice(0, 10) : ''), note: p.note || '', settled: !!p.settled };
+  }).filter(Boolean);
+}
+function validPayout(p) { return !!p && typeof p === 'object' && Number.isInteger(Number(p.period)) && p.amount != null && p.amount !== '' && isFinite(Number(p.amount)); }
+function r2(n) { const v = Math.round(n * 100) / 100; return v === 0 ? 0 : v; }
 function spanOf(rows) { const ds = rows.map(r => r.date).filter(isYmd).sort(); return ds.length ? { from: ds[0], to: ds[ds.length - 1] } : null; }
 function spanLabel(sp) { return sp ? fmtDate(sp.from, { day: 'numeric', month: 'short', year: 'numeric' }) + ' – ' + fmtDate(sp.to, { day: 'numeric', month: 'short', year: 'numeric' }) : 'no dated records'; }
 function verCmp(a, b) {
@@ -634,8 +970,25 @@ function agoText(iso) {
 }
 function csvRows(rows) { return rows.map(r => r.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\n'); }
 
-const VERSION = '2.5.0';
+const VERSION = '2.7.3';
 const CHANGELOG = [
+  { v: '2.7.3', date: '2026-10-11', notes: ['Fixed the header overflowing the screen on narrow phones.'] },
+  { v: '2.7.2', date: '2026-10-10', notes: ['Removed penalty and overtime rates — every hour is paid at the one rate.'] },
+  { v: '2.7.1', date: '2026-10-10', notes: ['Annual leave and sick leave are now unpaid — they are recorded for your own records and add nothing to pay.', 'Leave can be entered as a date range, so a week off is one entry instead of five.'] },
+  { v: '2.7.0', date: '2026-10-10', notes: [
+    'Leave and sick days, recorded as whole days on the Timesheet. Paid types add a standard day of hours to your pay; unpaid ones are counted but add nothing.',
+    'Shift templates — save your usual times and log a whole shift in one tap from the Clock screen. The app offers to make one from the pattern you work most.',
+    'Pay forecast: mid-fortnight, the Pay tab projects what payday should come to at your current run rate.',
+    'Part-payments: a fortnight can be paid in instalments, each with its own date and note, all summed against one expected figure.',
+    'Payment differences screen — every fortnight where what landed did not match what was expected, in one list.',
+    'Financial year screen: totals, days off taken, best fortnight, biggest sales run and your current streak.',
+    'Payday reminder when the app is opened on or after a pay date with nothing recorded.',
+    'Optional PIN lock on opening the app.',
+    'Commission tier line now shows what a package sale is worth at your current tier.'
+  ] },
+  { v: '2.6.2', date: '2026-10-10', notes: ['Fixed a crash on start for anyone who had recorded a payout in an earlier 2.6.0 build — those payouts are converted automatically and kept.'] },
+  { v: '2.6.1', date: '2026-10-10', notes: ['The CSV bundle now includes a PAYOUTS sheet: every payout with its gross, brought-forward amount, expected, paid, difference, status and note, plus the outstanding balance.'] },
+  { v: '2.6.0', date: '2026-10-10', notes: ['Payout reconciliation on the Pay tab: record what your employer actually paid and the app shows the difference from what you were owed.', 'A shortfall (or overpayment) carries forward and is added to — or taken off — the expected payout on your next fortnight, until a payout covers it. A banner keeps it in view.', 'Add a note about why the payout was off. Write a difference off if you agree to let it go.', 'Payout status now shows in History and in the CSV export, and payouts are included in backups.', 'Fixed Export CSV, which failed with an error.'] },
   { v: '2.5.0', date: '2026-10-09', notes: ['Android Back now closes sheets and steps back through tabs instead of leaving the app.', 'Asks Android to keep the data persistent so it is not evicted when storage runs low.', 'Breaks are a button — start and end one instead of typing minutes.', 'Catches a missed clock-out on the next open and offers a time to save.', 'Haptic feedback on clock in and out and on confirming a delete.', 'Add a sale straight from the Clock screen, with the category you used last.', 'Fields no longer hide behind the keyboard; swipe a card left to delete; swipe between tabs.', 'Follows the system dark mode on first run; icon-only buttons are labelled for screen readers.'] },
   { v: '2.4.0', date: '2026-10-09', notes: ['One responsive build for phone and computer — no separate mobile file.', 'Bottom tab bar on a phone, top tabs on a computer.', 'Tables replaced with card rows throughout; 44px minimum touch targets.', '16px inputs with numeric and decimal keypads, two-tap deletes, swipe between fortnights.', 'Tap a chart bar to read the day.'] },
   { v: '2.3.0', date: '2026-10-09', notes: ['Backups are timestamped to the minute and named with their record counts.', 'Restore now previews the file first — export date, version, counts and date range — and offers replace or merge.', 'A snapshot is taken before any restore, so one tap undoes it.', 'Deeper validation with a checksum; invalid records are reported, not silently loaded.', 'Last-backup tracker, a nudge after 14 days and at fortnight lock, plus the last three backups listed.', 'Copy a backup to the clipboard, or export shifts and sales as one CSV bundle.'] },
@@ -646,10 +999,11 @@ const CHANGELOG = [
   { v: '1.0.0', date: '2026-10-08', notes: ['Clock in/out, sales by category, fortnightly pay with tiered commission, CSV export and history.'] }
 ];
 const TABS = ['clock', 'time', 'sales', 'pay', 'more'];
+const SUBS = ['hist', 'settings', 'disc', 'fy'];
 function mn(t) { if (!t) return 0; const p = String(t).split(':').map(Number); return (p[0] || 0) * 60 + (p[1] || 0); }
 function hm(d) { return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
 function addHours(t, h) { const m = Math.min(mn(t) + h * 60, 23 * 60 + 59); return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
-const EMPTY = { shifts: [], sales: [], locked: [], profile: { employee: '', role: '', employer: '', abn: '' }, theme: 'light' };
+const EMPTY = { shifts: [], sales: [], payouts: [], days: [], templates: [], locked: [], reminders: { payday: true }, profile: { employee: '', role: '', employer: '', abn: '' }, theme: 'light' };
 
 class Component extends DCLogic {
   constructor(props) {
@@ -685,7 +1039,18 @@ class Component extends DCLogic {
       swipeDx: 0,
       storageText: '',
       persisted: null,
-      showAllHistory: false
+      showAllHistory: false,
+      payForm: { period: null, id: null, amount: '', date: '', note: '' },
+      dayForm: { date: today, end: '', type: 'annual', note: '' },
+      tplForm: { label: '', in: '', out: '', brk: '' },
+      showTplForm: false,
+      pinInput: '',
+      pinErr: '',
+      pinSetA: '',
+      pinSetB: '',
+      pinMsg: '',
+      gateOpen: false,
+      paydayDismissed: false
     };
   }
 
@@ -695,6 +1060,12 @@ class Component extends DCLogic {
       const raw = localStorage.getItem('timeclock.v2') || localStorage.getItem('timeclock.v1');
       if (raw) loaded = JSON.parse(raw);
     } catch (e) { /* first run */ }
+    if (loaded) {
+      loaded.payouts = normPayouts(loaded.payouts);
+      loaded.days = (loaded.days || []).filter(validDay);
+      loaded.templates = (loaded.templates || []).filter(validTpl);
+      loaded.reminders = Object.assign({ payday: true }, loaded.reminders || {});
+    }
     if (loaded) this.setState({ data: Object.assign({}, EMPTY, loaded, { profile: Object.assign({}, EMPTY.profile, loaded.profile || {}) }) });
     if (!loaded || !loaded.theme) {
       try { if (window.matchMedia('(prefers-color-scheme: dark)').matches) this.setState({ data: Object.assign({}, EMPTY, loaded || {}, { theme: 'dark' }) }); } catch (e) { /* no matchMedia */ }
@@ -724,7 +1095,7 @@ class Component extends DCLogic {
       if (this.state.pending) { this.setState({ pending: null }); try { history.pushState({ fnTab: this.state.tab }, ''); } catch (err) {} return; }
       if (this.state.missed) { this.setState({ missed: null }); try { history.pushState({ fnTab: this.state.tab }, ''); } catch (err) {} return; }
       const s = e.state || {};
-      this.setState({ tab: TABS.indexOf(s.fnTab) === -1 && s.fnTab !== 'hist' && s.fnTab !== 'settings' ? 'clock' : s.fnTab, armed: null, barTap: null });
+      this.setState({ tab: TABS.indexOf(s.fnTab) === -1 && SUBS.indexOf(s.fnTab) === -1 ? 'clock' : s.fnTab, armed: null, barTap: null });
     };
     window.addEventListener('popstate', this.onPop);
 
@@ -737,6 +1108,11 @@ class Component extends DCLogic {
     };
     if (window.visualViewport) window.visualViewport.addEventListener('resize', this.onVV);
 
+    try {
+      const pin = localStorage.getItem('fortnight.pin');
+      if (pin) this.setState({ gateOpen: true });
+    } catch (e) { /* no pin */ }
+    setTimeout(() => this.maybeNotifyPayday(), 1200);
     this.checkStorage();
     this.timer = setInterval(() => this.setState({ now: Date.now() }), 1000);
     this.onPrompt = e => { e.preventDefault(); this.deferredPrompt = e; this.setState({ installState: 'ready' }); };
@@ -850,7 +1226,8 @@ class Component extends DCLogic {
     return {
       rate: Number(p.hourlyRate ?? 30), sup: Number(p.superPct ?? 12) / 100,
       prod: Number(p.productPct ?? 5) / 100, cons: Number(p.consumptionPct ?? 3) / 100,
-      t1: Number(p.tier1Pct ?? 2) / 100, t2: Number(p.tier2Pct ?? 4) / 100, t3: Number(p.tier3Pct ?? 8) / 100
+      t1: Number(p.tier1Pct ?? 2) / 100, t2: Number(p.tier2Pct ?? 4) / 100, t3: Number(p.tier3Pct ?? 8) / 100,
+      dayHours: Number(p.leaveDayHours ?? 7.6)
     };
   }
   rateFor(base) { const c = this.cfg(); return base < 9231 ? c.t1 : base < 16154 ? c.t2 : c.t3; }
@@ -859,12 +1236,236 @@ class Component extends DCLogic {
   inPeriod(dateStr, i) { const r = this.periodDays(i); const n = dnum(dateStr); return n >= r.start && n <= r.end; }
   isLocked(i) { return (this.state.data.locked || []).indexOf(i) !== -1; }
 
+  // ── Payout reconciliation ──
+  // For each fortnight with a recorded payout: expected = gross pay + whatever was carried in,
+  // difference = expected - received. A positive difference is owed to the user and carries
+  // forward; a negative one is an overpayment and is taken off the next expected payout.
+  payoutsFor(i) {
+    return normPayouts(this.state.data.payouts)
+      .filter(p => validPayout(p) && Number(p.period) === i)
+      .sort((a, b) => String(a.date || '').localeCompare(String(b.date || '')));
+  }
+  payoutOf(i) { const l = this.payoutsFor(i); return l.length ? l[l.length - 1] : null; }
+  // A fortnight may be paid in several instalments; they are summed against one expected figure.
+  ledger() {
+    const recs = normPayouts(this.state.data.payouts).filter(validPayout).slice()
+      .sort((a, b) => Number(a.period) - Number(b.period) || String(a.date || '').localeCompare(String(b.date || '')));
+    const periods = [];
+    recs.forEach(p => { const k = Number(p.period); if (periods.indexOf(k) === -1) periods.push(k); });
+    periods.sort((a, b) => a - b);
+    let carry = 0;
+    const by = {};
+    periods.forEach(k => {
+      const list = recs.filter(p => Number(p.period) === k);
+      const gross = this.compute(k).gross;
+      const expected = r2(gross + carry);
+      const paid = r2(list.reduce((s, p) => s + Number(p.amount), 0));
+      const diff = r2(expected - paid);
+      const settled = list.some(p => p.settled);
+      const carryOut = settled ? 0 : diff;
+      by[k] = { list, rec: list[list.length - 1], gross: r2(gross), carryIn: carry, expected, paid, diff, carryOut, settled };
+      carry = carryOut;
+    });
+    return { by, recs, periods, balance: carry };
+  }
+  carryBefore(i, L) {
+    let c = 0;
+    L.periods.forEach(k => { if (k < i) c = L.by[k].carryOut; });
+    return c;
+  }
+  discrepancies() {
+    const L = this.ledger();
+    return L.periods.map(k => Object.assign({ period: k, label: this.periodLabel(k) }, L.by[k]))
+      .filter(e => Math.abs(e.diff) >= 0.005 || e.settled || e.list.length > 1)
+      .reverse();
+  }
+  payDraft(i) {
+    const f = this.state.payForm;
+    if (f && f.period === i) return f;
+    return { period: i, id: null, amount: '', date: localYmd(new Date()), note: '' };
+  }
+  setPayField(key, val) {
+    const i = this.state.periodIdx;
+    const cur = this.state.payForm;
+    const base = cur && cur.period === i ? cur : { period: i, id: null, amount: '', date: localYmd(new Date()), note: '' };
+    this.setState({ payForm: Object.assign({}, base, { period: i, [key]: val }) });
+  }
+  editPayout = (p) => {
+    this.setState({ payForm: { period: Number(p.period), id: p.id, amount: String(p.amount), date: p.date || '', note: p.note || '' } });
+  };
+  cancelPayEdit = () => this.setState({ payForm: { period: null, id: null, amount: '', date: '', note: '' } });
+  savePayout = () => {
+    const i = this.state.periodIdx;
+    const f = this.payDraft(i);
+    const n = parseFloat(f.amount);
+    if (f.amount === '' || !isFinite(n) || n < 0) return;
+    const amount = r2(n);
+    const all = normPayouts(this.state.data.payouts);
+    const existing = f.id ? all.find(p => p.id === f.id) : null;
+    const rec = {
+      id: f.id || uid(), period: i, amount,
+      date: f.date || localYmd(new Date()), note: f.note || '',
+      settled: !!(existing && existing.settled)
+    };
+    const others = all.filter(p => p.id !== rec.id);
+    this.vib(10);
+    this.patch({ payouts: others.concat([rec]) }, existing ? 'Payment updated' : 'Payment recorded');
+    this.setState({ payForm: { period: null, id: null, amount: '', date: '', note: '' } });
+  };
+  toggleWriteOff = () => {
+    const i = this.state.periodIdx;
+    const l = this.payoutsFor(i);
+    if (!l.length) return;
+    const on = l.some(p => p.settled);
+    this.patch({ payouts: normPayouts(this.state.data.payouts).map(x => Number(x.period) === i ? Object.assign({}, x, { settled: !on }) : x) },
+      on ? 'Write-off removed' : 'Difference written off');
+  };
+
+  // ── Leave and sick days, counted as whole days ──
+  addDay = () => {
+    const f = this.state.dayForm;
+    if (!isYmd(f.date) || !LEAVEMAP[f.type]) return;
+    const from = dnum(f.date);
+    const to = isYmd(f.end) ? dnum(f.end) : from;
+    if (to < from || to - from > 120) return;
+    const added = [];
+    for (let n = from; n <= to; n++) {
+      const date = ymdOf(n);
+      if (this.isLocked(this.periodOf(date))) continue;
+      added.push({ id: uid(), date, type: f.type, note: f.note || '' });
+    }
+    if (!added.length) return;
+    const taken = {};
+    added.forEach(d => { taken[d.date] = true; });
+    const days = (this.state.data.days || []).filter(d => !taken[d.date]);
+    this.vib(10);
+    this.patch({ days: days.concat(added) }, added.length > 1 ? added.length + ' days added' : 'Day added');
+    this.setState({ dayForm: { date: f.date, end: '', type: f.type, note: '' } });
+  };
+  removeDay = (id) => {
+    this.vib(8);
+    this.patch({ days: (this.state.data.days || []).filter(d => d.id !== id) }, 'Day removed');
+  };
+
+  // ── Shift templates ──
+  applyTemplate = (t, toForm) => {
+    if (toForm) { this.setState({ shiftForm: { date: this.state.shiftForm.date, in: t.in, out: t.out, brk: String(t.brk || '') } }); return; }
+    const date = localYmd(new Date());
+    if (this.isLocked(this.periodOf(date))) return;
+    this.vib(14);
+    this.patch({ shifts: this.state.data.shifts.concat([{ id: uid(), date, in: t.in, out: t.out, breakMin: Number(t.brk) || 0 }]) }, 'Shift logged from ' + tplLabel(t));
+  };
+  saveTemplate = () => {
+    const f = this.state.tplForm;
+    if (!f.in || !f.out) return;
+    const t = { id: uid(), label: (f.label || '').trim(), in: f.in, out: f.out, brk: Number(f.brk) || 0 };
+    this.vib(10);
+    this.patch({ templates: (this.state.data.templates || []).concat([t]) }, 'Template saved');
+    this.setState({ tplForm: { label: '', in: '', out: '', brk: '' }, showTplForm: false });
+  };
+  removeTemplate = (id) => this.patch({ templates: (this.state.data.templates || []).filter(t => t.id !== id) }, 'Template removed');
+  // When nothing is saved yet, offer the shift pattern worked most often.
+  suggestedTemplate() {
+    if ((this.state.data.templates || []).length) return null;
+    const tally = {};
+    this.state.data.shifts.forEach(s => {
+      if (!s.in || !s.out) return;
+      const k = s.in + '|' + s.out + '|' + (Number(s.breakMin) || 0);
+      tally[k] = (tally[k] || 0) + 1;
+    });
+    const best = Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+    if (!best || tally[best] < 2) return null;
+    const p = best.split('|');
+    return { id: 'suggest', label: '', in: p[0], out: p[1], brk: Number(p[2]), count: tally[best] };
+  }
+
+  // ── PIN lock (device-level only; the data itself stays unencrypted) ──
+  pinHash(p) { return fnv('fortnight|' + p + '|salt'); }
+  hasPin() { try { return !!localStorage.getItem('fortnight.pin'); } catch (e) { return false; } }
+  submitPin = () => {
+    const v = String(this.state.pinInput || '').trim();
+    if (this.pinHash(v) === localStorage.getItem('fortnight.pin')) { this.vib(10); this.setState({ gateOpen: false, pinInput: '', pinErr: '' }); }
+    else { this.vib([20, 60, 20]); this.setState({ pinErr: 'Wrong PIN.', pinInput: '' }); }
+  };
+  setPin = () => {
+    const a = String(this.state.pinSetA || '').trim(), b = String(this.state.pinSetB || '').trim();
+    if (!/^\d{4,8}$/.test(a)) { this.setState({ pinMsg: 'Use 4 to 8 digits.' }); return; }
+    if (a !== b) { this.setState({ pinMsg: 'The two PINs do not match.' }); return; }
+    try { localStorage.setItem('fortnight.pin', this.pinHash(a)); } catch (e) {}
+    this.vib(10);
+    this.setState({ pinSetA: '', pinSetB: '', pinMsg: 'PIN set. It is asked for each time the app opens.' });
+  };
+  clearPin = () => {
+    try { localStorage.removeItem('fortnight.pin'); } catch (e) {}
+    this.setState({ pinMsg: 'PIN removed.', pinSetA: '', pinSetB: '' });
+  };
+
+  // ── Payday reminder ──
+  // No server, so this fires when the app is opened on or after a pay date with nothing recorded.
+  paydayDue() {
+    const today = dnum(localYmd(new Date()));
+    const prev = Math.floor((today - ANCHOR) / 14) - 1;
+    const end = this.periodDays(prev).end;
+    if (today < end + 1 || today > end + 7) return null;
+    if (this.payoutsFor(prev).length) return null;
+    const g = this.compute(prev);
+    if (g.gross <= 0) return null;
+    const cin = this.carryBefore(prev, this.ledger());
+    return { period: prev, label: this.periodLabel(prev), expected: r2(g.gross + cin) };
+  }
+  maybeNotifyPayday() {
+    const due = this.paydayDue();
+    if (!due) return;
+    const rem = (this.state.data.reminders || {});
+    if (!rem.payday) return;
+    try {
+      if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+      const key = 'fortnight.notified.' + due.period;
+      if (localStorage.getItem(key)) return;
+      localStorage.setItem(key, '1');
+      new Notification('Fortnight — payday', { body: due.label + ' should pay ' + money(due.expected) + '. Check it against what lands.', icon: 'icon-512.png', tag: 'fortnight-payday' });
+    } catch (e) { /* notifications unavailable */ }
+  }
+  askPaydayReminder = () => {
+    const rem = Object.assign({}, this.state.data.reminders || {});
+    if (rem.payday) { this.patch({ reminders: Object.assign(rem, { payday: false }) }); return; }
+    const turnOn = () => this.patch({ reminders: Object.assign(rem, { payday: true }) });
+    try {
+      if (typeof Notification === 'undefined') { turnOn(); return; }
+      if (Notification.permission === 'granted') { turnOn(); return; }
+      Notification.requestPermission().then(() => turnOn());
+    } catch (e) { turnOn(); }
+  };
+
+  // ── Records and streaks ──
+  fyBreakdown(year) {
+    const rows = this.activeIdxs().filter(k => this.fyOf(k) === year).sort((a, b) => a - b)
+      .map(k => Object.assign({ period: k, label: this.periodLabel(k) }, this.compute(k)));
+    const best = rows.slice().sort((a, b) => b.gross - a.gross)[0] || null;
+    const bestSales = rows.slice().sort((a, b) => b.salesTotal - a.salesTotal)[0] || null;
+    let streak = 0;
+    for (let n = rows.length - 1; n >= 0; n--) { if (rows[n].salesTotal > 0) streak++; else break; }
+    return { rows, best, bestSales, streak };
+  }
+
   compute(i) {
     const c = this.cfg();
     const shifts = this.state.data.shifts.filter(s => this.inPeriod(s.date, i));
     const sales = this.state.data.sales.filter(s => this.inPeriod(s.date, i));
+    const days = (this.state.data.days || []).filter(d => validDay(d) && this.inPeriod(d.date, i));
     let hours = 0;
-    shifts.forEach(s => { const m = paidMinutes(s); if (m != null) hours += m / 60; });
+    const perDay = {};
+    shifts.forEach(s => { const m = paidMinutes(s); if (m != null) perDay[s.date] = (perDay[s.date] || 0) + m / 60; });
+    Object.keys(perDay).forEach(date => { hours += perDay[date]; });
+    const ordPay = hours * c.rate;
+    const leaveCount = {};
+    let leaveDaysPaid = 0, leaveDaysUnpaid = 0;
+    days.forEach(d => {
+      leaveCount[d.type] = (leaveCount[d.type] || 0) + 1;
+      if (LEAVEMAP[d.type].paid) leaveDaysPaid++; else leaveDaysUnpaid++;
+    });
+    const leaveHours = leaveDaysPaid * c.dayHours;
+    const leavePay = leaveHours * c.rate;
     const by = { product: 0, consumption: 0, servicePackage: 0, vip: 0 };
     sales.forEach(s => { by[s.cat] = (by[s.cat] || 0) + Number(s.amount || 0); });
     const tierBase = by.product + by.servicePackage + by.vip;
@@ -875,9 +1476,10 @@ class Component extends DCLogic {
     const consComm = by.consumption * c.cons;
     const comm = pkgComm + prodComm + consComm;
     const commSuper = comm * c.sup;
-    const wage = hours * c.rate;
+    const basePay = ordPay;
+    const wage = basePay + leavePay;
     const wageSuper = wage * c.sup;
-    return { c, shifts, sales, hours, by, tierBase, tierRate, pkgBase, pkgComm, prodComm, consComm, comm, commSuper, commNet: comm - commSuper, wage, wageSuper, gross: wage + comm - commSuper, superTotal: wageSuper + commSuper, salesTotal: tierBase + by.consumption };
+    return { c, shifts, sales, days, hours, perDay, basePay, leaveCount, leaveDaysPaid, leaveDaysUnpaid, leaveDays: leaveDaysPaid + leaveDaysUnpaid, leaveHours, leavePay, by, tierBase, tierRate, pkgBase, pkgComm, prodComm, consComm, comm, commSuper, commNet: comm - commSuper, wage, wageSuper, gross: wage + comm - commSuper, superTotal: wageSuper + commSuper, salesTotal: tierBase + by.consumption };
   }
 
   periodLabel(i) {
@@ -889,6 +1491,7 @@ class Component extends DCLogic {
     const m = {};
     this.state.data.shifts.forEach(s => { m[this.periodOf(s.date)] = true; });
     this.state.data.sales.forEach(s => { m[this.periodOf(s.date)] = true; });
+    (this.state.data.days || []).forEach(s => { if (isYmd(s.date)) m[this.periodOf(s.date)] = true; });
     return Object.keys(m).map(Number).sort((a, b) => b - a);
   }
 
@@ -914,11 +1517,13 @@ class Component extends DCLogic {
   fyOf(i) { const d = dateObj(ymdOf(this.periodDays(i).start)); const y = d.getMonth() >= 6 ? d.getFullYear() : d.getFullYear() - 1; return y; }
   ytd(i) {
     const y = this.fyOf(i);
-    const acc = { hours: 0, wage: 0, comm: 0, commSuper: 0, gross: 0, superTotal: 0, sales: 0 };
+    const acc = { hours: 0, wage: 0, comm: 0, commSuper: 0, gross: 0, superTotal: 0, sales: 0, leaveDays: 0, leave: {} };
     this.activeIdxs().filter(k => this.fyOf(k) === y && k <= i).forEach(k => {
       const x = this.compute(k);
       acc.hours += x.hours; acc.wage += x.wage; acc.comm += x.comm; acc.commSuper += x.commSuper;
       acc.gross += x.gross; acc.superTotal += x.superTotal; acc.sales += x.salesTotal;
+      acc.leaveDays += x.leaveDays;
+      Object.keys(x.leaveCount).forEach(k => { acc.leave[k] = (acc.leave[k] || 0) + x.leaveCount[k]; });
     });
     acc.label = 'FY ' + y + '–' + String(y + 1).slice(2);
     return acc;
@@ -975,11 +1580,14 @@ class Component extends DCLogic {
       rows.push(['Shift', s.date, to12(s.in) + ' to ' + (to12(s.out) || 'open') + (s.breakMin ? ' (' + s.breakMin + ' min break)' : ''), '', m == null ? '0.00 h' : (m / 60).toFixed(2) + ' h']);
     });
     r.sales.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach(s => rows.push(['Sale', s.date, CATLABEL[s.cat], s.note || '', Number(s.amount).toFixed(2)]));
-    const barsCaptionShort = 'Peak ' + money0(maxSale) + '.';
     const y = this.ytd(i);
     rows.push([], ['Summary', this.periodLabel(i), '', '', '']);
-    rows.push(['Hours', '', '', '', r.hours.toFixed(2)]);
-    rows.push(['Wages', '', money(r.c.rate) + '/h', '', r.wage.toFixed(2)]);
+    r.days.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach(d => rows.push([LEAVEMAP[d.type].label, d.date, LEAVEMAP[d.type].paid ? r.c.dayHours + ' h paid' : 'unpaid', d.note || '', LEAVEMAP[d.type].paid ? (r.c.dayHours * r.c.rate).toFixed(2) : '0.00']));
+    rows.push(['Hours worked', '', '', '', r.hours.toFixed(2)]);
+    if (r.leaveHours) rows.push(['Paid leave hours', '', r.leaveDaysPaid + ' day' + (r.leaveDaysPaid === 1 ? '' : 's'), '', r.leaveHours.toFixed(2)]);
+    rows.push(['Wages', '', money(r.c.rate) + '/h', '', r.basePay.toFixed(2)]);
+    if (r.leavePay) rows.push(['Paid leave', '', '', '', r.leavePay.toFixed(2)]);
+    if (r.leavePay) rows.push(['Wages total', '', '', '', r.wage.toFixed(2)]);
     rows.push(['Tier base', '', '', '', r.tierBase.toFixed(2)]);
     rows.push(['Package commission', '', (r.tierRate * 100).toFixed(0) + '%', '', r.pkgComm.toFixed(2)]);
     rows.push(['Product commission', '', (r.c.prod * 100).toFixed(0) + '%', '', r.prodComm.toFixed(2)]);
@@ -987,6 +1595,17 @@ class Component extends DCLogic {
     rows.push(['Super withheld from commission', '', '-' + (r.c.sup * 100).toFixed(0) + '%', '', (-r.commSuper).toFixed(2)]);
     rows.push(['Gross pay', '', '', '', r.gross.toFixed(2)]);
     rows.push(['Super total', '', '', '', r.superTotal.toFixed(2)]);
+    const L = this.ledger(), pr = L.by[i], cin = pr ? pr.carryIn : this.carryBefore(i, L);
+    rows.push([], ['Payout reconciliation', '', '', '', '']);
+    rows.push(['Brought forward (owed to you; negative = overpaid)', '', '', '', cin.toFixed(2)]);
+    rows.push(['Expected payout', '', '', '', r2(r.gross + cin).toFixed(2)]);
+    if (pr) {
+      pr.list.forEach(p => rows.push(['Payment received', p.date || '', '', p.note || '', r2(Number(p.amount)).toFixed(2)]));
+      if (pr.list.length > 1) rows.push(['Total received', '', pr.list.length + ' payments', '', pr.paid.toFixed(2)]);
+      rows.push(['Difference (owed to you; negative = overpaid)', '', pr.rec.settled ? 'written off' : 'carried forward', '', pr.diff.toFixed(2)]);
+    } else {
+      rows.push(['Payout received', '', '', 'not recorded', '']);
+    }
     rows.push([], [y.label + ' to date', '', '', '', ''], ['YTD gross', '', '', '', y.gross.toFixed(2)], ['YTD super', '', '', '', y.superTotal.toFixed(2)]);
     this.download('payslip-' + ymdOf(this.periodDays(i).start) + '.csv', rows.map(r2 => r2.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',')).join('\n'), 'text/csv');
   };
@@ -1004,7 +1623,7 @@ class Component extends DCLogic {
     return Object.assign({
       app: 'Fortnight', schema: 2, appVersion: VERSION,
       exportedAt: new Date().toISOString(),
-      counts: { shifts: core.shifts.length, sales: core.sales.length },
+      counts: { shifts: core.shifts.length, sales: core.sales.length, payouts: (core.payouts || []).length, days: (core.days || []).length, templates: (core.templates || []).length },
       span: spanOf(core.shifts.concat(core.sales)),
       checksum: checksumOf(d)
     }, core);
@@ -1026,7 +1645,7 @@ class Component extends DCLogic {
     const name = this.backupName('json');
     this.download(name, JSON.stringify(p, null, 2), 'application/json');
     this.noteBackup('JSON file');
-    this.setState({ backupMsg: 'Saved ' + name + ' — ' + p.counts.shifts + ' shifts, ' + p.counts.sales + ' sales, checksum ' + p.checksum + '.' });
+    this.setState({ backupMsg: 'Saved ' + name + ' — ' + p.counts.shifts + ' shifts, ' + p.counts.sales + ' sales, ' + p.counts.payouts + ' payouts, checksum ' + p.checksum + '.' });
   };
 
   exportBundleCsv = () => {
@@ -1041,6 +1660,20 @@ class Component extends DCLogic {
     (d.sales || []).slice().sort((a, b) => (a.date < b.date ? -1 : 1)).forEach(s => {
       rows.push([s.date, CATLABEL[s.cat] || s.cat, Number(s.amount).toFixed(2), s.note || '']);
     });
+    const dd = (d.days || []).filter(validDay).slice().sort((a, b) => a.date.localeCompare(b.date));
+    if (dd.length) {
+      rows.push([], ['LEAVE AND SICK DAYS'], ['Date', 'Day', 'Type', 'Paid', 'Note']);
+      dd.forEach(x => rows.push([x.date, DOW[dateObj(x.date).getDay()], LEAVEMAP[x.type].label, LEAVEMAP[x.type].paid ? 'yes' : 'no', x.note || '']));
+    }
+    const L = this.ledger();
+    if (L.recs.length) {
+      rows.push([], ['PAYOUTS'], ['Fortnight', 'Paid on', 'Gross calculated', 'Brought forward', 'Expected', 'Actually paid', 'Difference', 'Carried forward', 'Status', 'Note']);
+      L.recs.forEach(p => {
+        const k = Number(p.period), e = L.by[k];
+        rows.push([this.periodLabel(k), p.date || '', e.gross.toFixed(2), e.carryIn.toFixed(2), e.expected.toFixed(2), e.paid.toFixed(2), e.diff.toFixed(2), e.carryOut.toFixed(2), p.settled ? 'written off' : (Math.abs(e.carryOut) < 0.005 ? 'settled' : 'carried forward'), p.note || '']);
+      });
+      rows.push([], ['Outstanding balance (owed to you; negative = overpaid)', L.balance.toFixed(2)]);
+    }
     const name = this.backupName('csv');
     this.download(name, csvRows(rows), 'text/csv');
     this.noteBackup('CSV bundle');
@@ -1079,6 +1712,10 @@ class Component extends DCLogic {
     }
     const shifts = d.shifts.filter(validShift).map(s => Object.assign({}, s, { id: s.id || uid(), breakMin: Number(s.breakMin) || 0 }));
     const sales = d.sales.filter(validSale).map(s => Object.assign({}, s, { id: s.id || uid(), amount: Number(s.amount) }));
+    const payouts = normPayouts(d.payouts).map(p => Object.assign({}, p, { id: p.id || uid(), period: Number(p.period), amount: Number(p.amount), settled: !!p.settled }));
+    const badPayouts = Array.isArray(d.payouts) ? d.payouts.length - payouts.length : 0; // object-form payouts are migrated, not counted as bad
+    const days = (Array.isArray(d.days) ? d.days : []).filter(validDay).map(x => Object.assign({}, x, { id: x.id || uid() }));
+    const templates = (Array.isArray(d.templates) ? d.templates : []).filter(validTpl).map(x => Object.assign({}, x, { id: x.id || uid() }));
     const badShifts = d.shifts.length - shifts.length, badSales = d.sales.length - sales.length;
     const fv = String(d.appVersion || '0.0.0');
     const cmp = verCmp(fv, VERSION);
@@ -1086,11 +1723,13 @@ class Component extends DCLogic {
     const haveS = {}, haveE = {};
     (cur.shifts || []).forEach(x => { haveS[x.id] = 1; });
     (cur.sales || []).forEach(x => { haveE[x.id] = 1; });
+    const havePer = {};
+    (cur.payouts || []).forEach(x => { havePer[Number(x.period)] = 1; });
     this.setState({
       backupMsg: '',
       pending: {
         sourceName,
-        shifts, sales,
+        shifts, sales, payouts, badPayouts, days, templates,
         locked: Array.isArray(d.locked) ? d.locked.filter(n => typeof n === 'number') : [],
         profile: d.profile && typeof d.profile === 'object' ? d.profile : {},
         theme: d.theme === 'dark' ? 'dark' : 'light',
@@ -1100,6 +1739,7 @@ class Component extends DCLogic {
         fv, cmp,
         newShifts: shifts.filter(x => !haveS[x.id]).length,
         newSales: sales.filter(x => !haveE[x.id]).length,
+        newPayouts: payouts.filter(x => !havePer[Number(x.period)]).length,
         exportedAt: d.exportedAt || null,
         span: spanOf(shifts.concat(sales))
       }
@@ -1114,25 +1754,30 @@ class Component extends DCLogic {
     let next;
     if (mode === 'merge') {
       const join = (a, b) => { const m = {}; a.concat(b).forEach(x => { m[x.id] = x; }); return Object.keys(m).map(k => m[k]).sort((x, y) => (x.date < y.date ? -1 : 1)); };
+      const joinPay = (a, b) => { const m = {}; b.concat(a).forEach(x => { m[x.id] = x; }); return Object.keys(m).map(k => m[k]).sort((x, y) => Number(x.period) - Number(y.period)); };
+      const joinDays = (a, b) => { const m = {}; b.concat(a).forEach(x => { m[x.date] = x; }); return Object.keys(m).sort().map(k => m[k]); };
       const locks = {};
       (cur.locked || []).concat(p.locked).forEach(n => { locks[n] = 1; });
       next = Object.assign({}, cur, {
         shifts: join(cur.shifts || [], p.shifts),
         sales: join(cur.sales || [], p.sales),
+        payouts: joinPay((cur.payouts || []).filter(validPayout), p.payouts || []),
+        days: joinDays((cur.days || []).filter(validDay), p.days || []),
+        templates: join(cur.templates || [], p.templates || []),
         locked: Object.keys(locks).map(Number),
         profile: Object.assign({}, p.profile, cur.profile)
       });
     } else {
       next = Object.assign({}, EMPTY, {
-        shifts: p.shifts, sales: p.sales, locked: p.locked, theme: cur.theme,
+        shifts: p.shifts, sales: p.sales, payouts: p.payouts || [], days: p.days || [], templates: p.templates || [], locked: p.locked, theme: cur.theme, reminders: cur.reminders,
         profile: Object.assign({}, EMPTY.profile, p.profile)
       });
     }
-    const skipped = p.badShifts + p.badSales;
+    const skipped = p.badShifts + p.badSales + (p.badPayouts || 0);
     this.save(next, 'Restored from backup');
     this.setState({
       pending: null, snapshot: cur,
-      backupMsg: (mode === 'merge' ? 'Merged' : 'Replaced') + ' — now ' + next.shifts.length + ' shifts and ' + next.sales.length + ' sales.'
+      backupMsg: (mode === 'merge' ? 'Merged' : 'Replaced') + ' — now ' + next.shifts.length + ' shifts, ' + next.sales.length + ' sales and ' + (next.payouts || []).length + ' payouts.'
         + (skipped ? ' ' + skipped + ' invalid record' + (skipped === 1 ? '' : 's') + ' skipped.' : '')
         + (p.cmp < 0 ? ' Migrated from v' + p.fv + '.' : '')
     });
@@ -1177,6 +1822,36 @@ class Component extends DCLogic {
     const warnings = this.warningsFor(i);
     const range = this.periodDays(i);
 
+    // Payout reconciliation for the fortnight on screen
+    const L = this.ledger();
+    const pr = L.by[i] || null;
+    const carryIn = pr ? pr.carryIn : this.carryBefore(i, L);
+    const expected = r2(r.gross + carryIn);
+    const draft = this.payDraft(i);
+    const draftN = parseFloat(draft.amount);
+    const draftOk = draft.amount !== '' && isFinite(draftN) && draftN >= 0;
+    const draftBad = draft.amount !== '' && !draftOk;
+    let payStatus = '', payStatusStyle = '';
+    const payList = this.payoutsFor(i);
+    const otherPaid = r2(payList.filter(p => p.id !== draft.id).reduce((s, p) => s + Number(p.amount), 0));
+    if (draftOk) {
+      const dd = r2(expected - otherPaid - draftN);
+      const saved = draft.id ? payList.find(p => p.id === draft.id) : null;
+      const dirty = !saved || r2(draftN) !== r2(Number(saved.amount));
+      const wroteOff = !dirty && !!(pr && pr.settled);
+      if (dd === 0) payStatus = 'Matches what you were owed. Nothing to carry forward.';
+      else if (dd > 0) payStatus = 'Short by ' + money(dd) + '. ' + (wroteOff ? 'Written off, so it will not carry forward.' : 'It carries forward and is added to your expected payout next fortnight.');
+      else payStatus = 'Overpaid by ' + money(-dd) + '. ' + (wroteOff ? 'Written off, so it will not carry forward.' : 'It carries forward and is taken off your expected payout next fortnight.');
+      if (dirty) payStatus += ' Not saved yet.';
+      payStatusStyle = 'font-size:13px;margin-bottom:12px;padding:10px;text-wrap:pretty;border:2px solid ' + (dd === 0 || wroteOff ? 'var(--color-divider);' : 'var(--color-accent);color:var(--color-accent-900);');
+    }
+
+    // ── Leave, templates, forecast ──
+    const dayForm = st.dayForm;
+    const periodDays = (st.data.days || []).filter(d => validDay(d) && this.inPeriod(d.date, i))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    const tpls = (st.data.templates || []).filter(validTpl);
+    const suggested = this.suggestedTemplate();
     const tabDefs = [['clock', 'Clock'], ['time', 'Timesheet' + (warnings.length ? ' · ' + warnings.length : '')], ['sales', 'Sales'], ['pay', 'Pay'], ['hist', 'History'], ['settings', 'Settings']];
     const tabs = tabDefs.map((t, n) => ({
       label: t[1],
@@ -1198,6 +1873,15 @@ class Component extends DCLogic {
     const elapsed = Math.min(14, Math.max(1, dnum(today) - range.start + 1));
     const inPeriodNow = dnum(today) >= range.start && dnum(today) <= range.end;
     const projBase = r.tierBase / elapsed * 14;
+    // Forecast: scale this fortnight's run rate out to all 14 days, then re-price it.
+    const scale = inPeriodNow && elapsed < 14 ? 14 / elapsed : 1;
+    const fcHours = r.hours * scale;
+    const fcWage = r.basePay * scale + r.leavePay;
+    const fcTierRate = this.rateFor(projBase);
+    const fcComm = (r.pkgBase * scale) * fcTierRate + (r.by.product * scale) * r.c.prod + (r.by.consumption * scale) * r.c.cons;
+    const fcGross = fcWage + fcComm * (1 - r.c.sup);
+    const payday = fmtDate(ymdOf(range.end), { weekday: 'long', day: 'numeric', month: 'long' });
+    const due = this.paydayDue();
     const projectionText = !inPeriodNow ? 'Fortnight closed.'
       : 'Day ' + elapsed + ' of 14 — on this run rate you finish near ' + money0(projBase) + ', a ' + (this.rateFor(projBase) * 100).toFixed(0) + '% tier.';
 
@@ -1245,11 +1929,14 @@ class Component extends DCLogic {
       const x = this.compute(k);
       const prevIdx = idxs[n + 1];
       const d = prevIdx == null ? null : x.gross - this.compute(prevIdx).gross;
+      const hp = L.by[k];
       return {
         label: this.periodLabel(k), hours: hrsLabel(x.hours), sales: money0(x.salesTotal),
         tier: (x.tierRate * 100).toFixed(0) + '%', comm: money(x.comm), gross: money(x.gross),
         delta: d == null ? '—' : (d >= 0 ? '+' : '−') + money0(Math.abs(d)),
         deltaStyle: d == null ? '' : (d >= 0 ? 'color: var(--color-neutral-800);' : 'color: var(--color-accent-700);'),
+        payoutLine: hp ? 'Paid ' + money(hp.paid) + (hp.diff === 0 ? ' · matches' : hp.diff > 0 ? ' · short ' + money(hp.diff) : ' · over by ' + money(-hp.diff)) + (hp.rec.settled && hp.diff !== 0 ? ' · written off' : '') : 'No payout recorded',
+        payStyle: hp && hp.diff !== 0 && !hp.rec.settled ? 'color: var(--color-accent-700); font-weight: 600;' : 'color: var(--color-neutral-700);',
         open: () => this.setState({ periodIdx: k, tab: 'pay', selectedDay: null })
       };
     });
@@ -1280,6 +1967,8 @@ class Component extends DCLogic {
     const y = this.ytd(i);
     const prof = st.data.profile || EMPTY.profile;
     const sub = { borderBottom: '2px solid var(--color-text)', fontWeight: 600 };
+    const disc = this.discrepancies();
+    const fy = this.fyBreakdown(this.fyOf(i));
 
     return {
       version: 'v' + VERSION,
@@ -1296,6 +1985,9 @@ class Component extends DCLogic {
       tabs,
       isClock: st.tab === 'clock', isTime: st.tab === 'time', isSales: st.tab === 'sales',
       isPay: st.tab === 'pay', isHist: st.tab === 'hist', isSettings: st.tab === 'settings',
+      isDisc: st.tab === 'disc', isFy: st.tab === 'fy',
+      goDisc: () => this.goTab('disc'),
+      goFy: () => this.goTab('fy'),
       periodLabel: this.periodLabel(i),
       goPrev: () => this.setState({ periodIdx: i - 1, selectedDay: null }),
       goNext: () => this.setState({ periodIdx: i + 1, selectedDay: null }),
@@ -1351,6 +2043,66 @@ class Component extends DCLogic {
       tierTotal: money(r.tierBase),
       tierNext: r.tierBase >= 16154 ? 'Top tier reached' : money0(gap) + ' to ' + nextRateLabel,
       projectionText,
+      tierValueText: r.tierBase >= 16154
+        ? 'Every package dollar now earns the top ' + (r.tierRate * 100).toFixed(0) + '% rate.'
+        : 'At the ' + (r.tierRate * 100).toFixed(0) + '% tier, a ' + money0(1000) + ' package sale earns ' + money(1000 * r.tierRate * (1 - r.c.sup)) + ' after super.',
+
+      // Leave and sick days — recorded as whole days
+      leaveTypes: LEAVE.map(l => ({ key: l.key, label: l.label })),
+      dayForm,
+      onDayDate: e => this.setState({ dayForm: Object.assign({}, this.state.dayForm, { date: e.target.value }) }),
+      onDayEnd: e => this.setState({ dayForm: Object.assign({}, this.state.dayForm, { end: e.target.value }) }),
+      addDayLabel: (() => {
+        const d = this.state.dayForm;
+        if (!isYmd(d.date)) return 'Add days';
+        const to = isYmd(d.end) ? dnum(d.end) : dnum(d.date);
+        const n = to - dnum(d.date) + 1;
+        return n > 1 ? 'Add ' + n + ' days' : 'Add day';
+      })(),
+      onDayType: e => this.setState({ dayForm: Object.assign({}, this.state.dayForm, { type: e.target.value }) }),
+      onDayNote: e => this.setState({ dayForm: Object.assign({}, this.state.dayForm, { note: e.target.value }) }),
+      addDay: this.addDay,
+      hasLeaveDays: periodDays.length > 0,
+      leaveSummary: periodDays.length
+        ? LEAVE.filter(l => periodDays.some(d => d.type === l.key))
+            .map(l => periodDays.filter(d => d.type === l.key).length + ' × ' + l.label.toLowerCase()).join(' · ')
+        : 'No leave or sick days this fortnight.',
+      leavePayLine: r.leaveHours
+        ? money(r.leavePay) + ' of paid leave — ' + r.leaveDaysPaid + ' day' + (r.leaveDaysPaid === 1 ? '' : 's') + ' at ' + r.c.dayHours + ' h.'
+        : 'Annual and sick leave are recorded for your records only — they add nothing to pay.',
+      leaveRows: periodDays.map(d => ({
+        dateLabel: fmtDate(d.date, { weekday: 'short', day: 'numeric', month: 'short' }),
+        typeLabel: LEAVEMAP[d.type].label,
+        paidLabel: LEAVEMAP[d.type].paid ? r.c.dayHours + ' h paid' : 'unpaid',
+        note: d.note || '',
+        delLabel: st.armed === 'day' + d.id ? 'Confirm' : 'Remove',
+        del: () => this.armDelete('day' + d.id, () => this.removeDay(d.id))
+      })),
+
+      // Shift templates
+      hasTemplates: tpls.length > 0,
+      templates: tpls.map(t => ({
+        label: tplLabel(t),
+        detail: hrsLabel(Math.max(0, ((mn(t.out) - mn(t.in) + 1440) % 1440) - (Number(t.brk) || 0)) / 60) + (t.brk ? ' · ' + t.brk + ' min break' : ''),
+        log: () => this.applyTemplate(t, false),
+        fill: () => this.applyTemplate(t, true),
+        delLabel: st.armed === 'tpl' + t.id ? 'Confirm' : 'Remove',
+        del: () => this.armDelete('tpl' + t.id, () => this.removeTemplate(t.id))
+      })),
+      hasSuggested: !!suggested,
+      suggestedText: suggested ? 'You have worked ' + to12(suggested.in) + '–' + to12(suggested.out) + ' ' + suggested.count + ' times. Save it as a one-tap template?' : '',
+      saveSuggested: () => { if (suggested) this.patch({ templates: [{ id: uid(), label: '', in: suggested.in, out: suggested.out, brk: suggested.brk }] }, 'Template saved'); },
+      showTplForm: st.showTplForm,
+      toggleTplForm: () => this.setState({ showTplForm: !st.showTplForm }),
+      tplFormLabel: st.showTplForm ? 'Cancel' : 'New template',
+      tplForm: st.tplForm,
+      onTplLabel: e => this.setState({ tplForm: Object.assign({}, this.state.tplForm, { label: e.target.value }) }),
+      onTplIn: e => this.setState({ tplForm: Object.assign({}, this.state.tplForm, { in: e.target.value }) }),
+      onTplOut: e => this.setState({ tplForm: Object.assign({}, this.state.tplForm, { out: e.target.value }) }),
+      onTplBrk: e => this.setState({ tplForm: Object.assign({}, this.state.tplForm, { brk: e.target.value }) }),
+      saveTemplate: this.saveTemplate,
+      saveTplDisabled: st.tplForm.in && st.tplForm.out ? undefined : true,
+
       miniStats: [
         { label: 'Hours', value: hrsLabel(r.hours) },
         { label: 'Sales', value: money0(r.salesTotal) },
@@ -1432,7 +2184,12 @@ class Component extends DCLogic {
         { label: 'Commission earned', value: money(r.comm) }
       ],
       payRows: ([
-        { label: 'Wages', basis: hrsLabel(r.hours), rate: money(r.c.rate) + '/h', amount: money(r.wage), style: {} },
+        { label: 'Wages', basis: hrsLabel(r.hours) + ' worked', rate: money(r.c.rate) + '/h', amount: money(r.basePay), style: {} }
+      ]).concat(r.leaveDaysPaid ? [
+        { label: 'Paid leave', basis: r.leaveDaysPaid + ' day' + (r.leaveDaysPaid === 1 ? '' : 's') + ' · ' + hrsLabel(r.leaveHours), rate: money(r.c.rate) + '/h', amount: money(r.leavePay), style: {} }
+      ] : []).concat(r.leaveDaysPaid ? [
+        { label: 'Wages total', basis: '', rate: '', amount: money(r.wage), style: sub }
+      ] : []).concat([
         { label: 'Product sold', basis: money(r.by.product), rate: (r.c.prod * 100).toFixed(0) + '%', amount: money(r.prodComm), style: {} },
         { label: 'Service consumption', basis: money(r.by.consumption), rate: (r.c.cons * 100).toFixed(0) + '%', amount: money(r.consComm), style: {} },
         { label: 'Service + VIP packages', basis: money(r.pkgBase), rate: (r.tierRate * 100).toFixed(0) + '%', amount: money(r.pkgComm), style: {} },
@@ -1446,6 +2203,143 @@ class Component extends DCLogic {
           + (row.style && row.style.color ? 'color:' + row.style.color + ';' : '')
       })),
       grossPay: money(r.gross),
+
+      payForm: draft,
+      payGrossLine: money(r.gross),
+      hasCarryIn: carryIn !== 0,
+      carryLabel: carryIn > 0 ? 'Owed from earlier payouts' : 'Overpaid on earlier payouts',
+      carryValue: (carryIn > 0 ? '+' : '−') + money(Math.abs(carryIn)),
+      payExpected: money(expected),
+      onPayAmount: e => this.setPayField('amount', e.target.value),
+      onPayDate: e => this.setPayField('date', e.target.value),
+      onPayNote: e => this.setPayField('note', e.target.value),
+      onPayKey: e => { if (e.key === 'Enter') this.savePayout(); },
+      savePayout: this.savePayout,
+      savePayLabel: draft.id ? 'Update this payment' : (payList.length ? 'Add payment' : 'Save payment'),
+      savePayDisabled: draftOk ? undefined : true,
+      hasPayErr: draftBad,
+      payErr: 'Enter an amount of zero or more.',
+      hasPayStatus: draftOk,
+      payStatus,
+      payStatusStyle,
+      hasPayoutRecord: !!pr,
+      canWriteOff: !!pr && pr.diff !== 0,
+      writeOffLabel: pr && pr.settled ? 'Carry the difference forward again' : 'Write off this difference',
+      toggleWriteOff: this.toggleWriteOff,
+      removePayLabel: st.armed === 'pay' + i ? 'Tap to confirm' : 'Remove all payments',
+      removePayout: () => this.armDelete('pay' + i, () => this.save(Object.assign({}, st.data, { payouts: normPayouts(st.data.payouts).filter(p => Number(p.period) !== i) }), 'Payments removed')),
+
+      hasPayList: payList.length > 0,
+      payListTitle: payList.length > 1 ? payList.length + ' payments received' : 'Payment received',
+      payListTotal: pr ? money(pr.paid) : money(0),
+      hasPayTotal: payList.length > 1,
+      payRecords: payList.map(p => ({
+        amount: money(Number(p.amount)),
+        when: p.date ? fmtDate(p.date, { day: 'numeric', month: 'short' }) : 'no date',
+        note: p.note || '',
+        isEditing: draft.id === p.id,
+        mStyle: 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-divider);'
+          + (draft.id === p.id ? 'background:var(--color-neutral-200);' : ''),
+        edit: () => this.editPayout(p),
+        editLabel: draft.id === p.id ? 'Editing' : 'Edit',
+        delLabel: st.armed === 'po' + p.id ? 'Confirm' : 'Delete',
+        del: () => this.armDelete('po' + p.id, () => this.save(Object.assign({}, st.data, { payouts: normPayouts(st.data.payouts).filter(x => x.id !== p.id) }), 'Payment removed'))
+      })),
+      isEditingPayout: !!draft.id,
+      cancelPayEdit: this.cancelPayEdit,
+      payFormTitle: draft.id ? 'Edit this payment' : (payList.length ? 'Add another payment' : 'Record what was paid'),
+      saveNudge: payList.length && !draft.id ? 'Part-payments add up against the one expected figure above.' : '',
+      hasSaveNudge: payList.length > 0 && !draft.id,
+
+      // Forecast
+      showForecast: inPeriodNow && elapsed < 14,
+      forecastTitle: 'On track for payday — ' + payday,
+      forecastGross: money0(fcGross),
+      forecastDetail: 'Day ' + elapsed + ' of 14. At this run rate: ' + hrsLabel(fcHours) + ', ' + money0(r.salesTotal * scale) + ' of sales, '
+        + money0(fcComm * (1 - r.c.sup)) + ' commission after super.',
+      forecastSoFar: 'Banked so far ' + money(r.gross) + '.',
+
+      // Payday reminder
+      showPayday: !!due && !st.paydayDismissed,
+      paydayTitle: due ? 'Payday — ' + due.label : '',
+      paydayText: due ? 'That fortnight should pay ' + money(due.expected) + '. Check it against what landed and record it.' : '',
+      paydayGo: () => { if (due) this.setState({ tab: 'pay', periodIdx: due.period, paydayDismissed: true }); },
+      paydayDismiss: () => this.setState({ paydayDismissed: true }),
+      remindersOn: !!(st.data.reminders || {}).payday,
+      reminderLabel: (st.data.reminders || {}).payday ? 'Payday reminders on' : 'Payday reminders off',
+      toggleReminders: this.askPaydayReminder,
+      reminderHelp: 'When on, opening the app on or after a pay date shows a notification if nothing has been recorded for that fortnight.',
+
+      // Discrepancy log
+      discRows: disc.map(e => ({
+        label: e.label,
+        expected: money(e.expected),
+        paid: money(e.paid),
+        diff: (e.diff > 0 ? 'Short ' : e.diff < 0 ? 'Over ' : 'Exact ') + money(Math.abs(e.diff)),
+        diffStyle: 'font-family:var(--font-heading);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;'
+          + (Math.abs(e.diff) < 0.005 ? '' : 'color:var(--color-accent-700);'),
+        status: e.settled ? 'Written off — not carried forward' : Math.abs(e.carryOut) < 0.005 ? 'Settled' : e.carryOut > 0 ? money(e.carryOut) + ' carried forward as owed' : money(-e.carryOut) + ' carried forward as overpaid',
+        count: e.list.length > 1 ? e.list.length + ' payments' : (e.list[0] && e.list[0].date ? 'Paid ' + fmtDate(e.list[0].date, { day: 'numeric', month: 'short' }) : 'One payment'),
+        note: (e.list.map(p => p.note).filter(Boolean)[0]) || '',
+        open: () => this.setState({ tab: 'pay', periodIdx: e.period })
+      })),
+      noDisc: disc.length === 0,
+      discBalance: L.balance === 0 ? 'Everything balances — nothing outstanding.'
+        : L.balance > 0 ? money(L.balance) + ' is still owed to you overall.'
+        : 'You are ' + money(-L.balance) + ' ahead overall.',
+
+      // Financial year
+      fyTitle: y.label,
+      fyStats: [
+        { label: 'Gross pay', value: money0(y.gross) },
+        { label: 'Hours worked', value: hrsLabel(y.hours) },
+        { label: 'Commission', value: money0(y.comm) },
+        { label: 'Super', value: money0(y.superTotal) },
+        { label: 'Sales', value: money0(y.sales) },
+        { label: 'Leave days', value: String(y.leaveDays) },
+        { label: 'Fortnights', value: String(fy.rows.length) }
+      ],
+      fyLeaveRows: LEAVE.filter(l => y.leave[l.key]).map(l => ({ label: l.label, value: y.leave[l.key] + ' day' + (y.leave[l.key] === 1 ? '' : 's') })),
+      hasFyLeave: LEAVE.some(l => y.leave[l.key]),
+      bestText: fy.best ? fy.best.label + ' — ' + money(fy.best.gross) : 'No fortnights yet',
+      bestSalesText: fy.bestSales ? fy.bestSales.label + ' — ' + money(fy.bestSales.salesTotal) : '—',
+      streakText: fy.streak > 0 ? fy.streak + ' fortnight' + (fy.streak === 1 ? '' : 's') + ' in a row with sales recorded' : 'No current streak — record a sale to start one',
+      fyRows: fy.rows.slice().reverse().map(x => ({
+        label: x.label,
+        gross: money(x.gross),
+        detail: hrsLabel(x.hours) + ' · ' + money0(x.salesTotal) + ' sales' + (x.leaveDays ? ' · ' + x.leaveDays + ' leave' : ''),
+        isBest: !!(fy.best && fy.best.period === x.period),
+        mStyle: 'display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--color-divider);'
+          + (fy.best && fy.best.period === x.period ? 'border-left:3px solid var(--color-accent);padding-left:8px;' : ''),
+        open: () => this.setState({ tab: 'pay', periodIdx: x.period })
+      })),
+
+      // PIN lock
+      pinGate: st.gateOpen,
+      pinInput: st.pinInput,
+      onPinInput: e => this.setState({ pinInput: e.target.value, pinErr: '' }),
+      onPinKey: e => { if (e.key === 'Enter') this.submitPin(); },
+      submitPin: this.submitPin,
+      hasPinErr: !!st.pinErr,
+      pinErr: st.pinErr,
+      hasPin: this.hasPin(),
+      pinStatus: this.hasPin() ? 'A PIN is set — it is asked for each time the app opens.' : 'No PIN. Anyone with your unlocked phone can open this app.',
+      pinSetA: st.pinSetA,
+      pinSetB: st.pinSetB,
+      onPinA: e => this.setState({ pinSetA: e.target.value, pinMsg: '' }),
+      onPinB: e => this.setState({ pinSetB: e.target.value, pinMsg: '' }),
+      setPin: this.setPin,
+      clearPin: this.clearPin,
+      setPinLabel: this.hasPin() ? 'Change PIN' : 'Set PIN',
+      hasPinMsg: !!st.pinMsg,
+      pinMsg: st.pinMsg,
+      pinWarn: 'The PIN stops someone opening the app. It does not encrypt the data, and a backup file is always readable.',
+
+      showOwedBanner: L.balance !== 0,
+      owedTitle: L.balance > 0 ? 'Owed to you' : 'Overpaid',
+      owedText: L.balance > 0
+        ? money(L.balance) + ' is still owed from earlier payouts. Make sure it is added to your next payout.'
+        : 'You were overpaid ' + money(-L.balance) + ' on an earlier payout. Expect it to come off your next payout.',
       superTotal: money(r.superTotal),
       superDetail: money(r.wageSuper) + ' on wages plus ' + money(r.commSuper) + ' withheld from commission.',
 
@@ -1511,9 +2405,9 @@ class Component extends DCLogic {
       pCounts: st.pending ? st.pending.shifts.length + ' shifts · ' + st.pending.sales.length + ' sales' : '',
       pSpan: st.pending ? spanLabel(st.pending.span) : '',
       pNew: st.pending ? st.pending.newShifts + ' shifts and ' + st.pending.newSales + ' sales in this file are not already here' : '',
-      pLoss: st.pending ? 'Replace discards your current ' + (st.data.shifts || []).length + ' shifts and ' + (st.data.sales || []).length + ' sales.' : '',
-      pHasRejects: !!(st.pending && (st.pending.badShifts + st.pending.badSales) > 0),
-      pRejects: st.pending ? (st.pending.badShifts + ' shift record' + (st.pending.badShifts === 1 ? '' : 's') + ' and ' + st.pending.badSales + ' sale record' + (st.pending.badSales === 1 ? '' : 's') + ' failed validation and will be skipped.') : '',
+      pLoss: st.pending ? 'Replace discards your current ' + (st.data.shifts || []).length + ' shifts and ' + (st.data.sales || []).length + ' sales and ' + (st.data.payouts || []).length + ' payouts.' : '',
+      pHasRejects: !!(st.pending && (st.pending.badShifts + st.pending.badSales + (st.pending.badPayouts || 0)) > 0),
+      pRejects: st.pending ? (st.pending.badShifts + ' shift record' + (st.pending.badShifts === 1 ? '' : 's') + ' and ' + st.pending.badSales + ' sale record' + (st.pending.badSales === 1 ? '' : 's') + (st.pending.badPayouts ? ' (plus ' + st.pending.badPayouts + ' payout record' + (st.pending.badPayouts === 1 ? '' : 's') + ')' : '') + ' failed validation and will be skipped.') : '',
       pBadSum: !!(st.pending && !st.pending.checksumOk),
       pSumText: st.pending ? (st.pending.hasChecksum ? (st.pending.checksumOk ? 'Checksum verified.' : 'Checksum does not match — this file was edited or truncated after export. Restore only if you know why.') : 'No checksum in this file (written by an older version).') : '',
       doReplace: () => this.applyRestore('replace'),
@@ -1552,12 +2446,12 @@ class Component extends DCLogic {
       navTime: this.navStyle(st.tab === 'time'),
       navSales: this.navStyle(st.tab === 'sales'),
       navPay: this.navStyle(st.tab === 'pay'),
-      navMore: this.navStyle(st.tab === 'more' || st.tab === 'hist' || st.tab === 'settings'),
+      navMore: this.navStyle(st.tab === 'more' || SUBS.indexOf(st.tab) !== -1),
       tabClock: this.tabStyle(st.tab === 'clock'),
       tabTime: this.tabStyle(st.tab === 'time'),
       tabSales: this.tabStyle(st.tab === 'sales'),
       tabPay: this.tabStyle(st.tab === 'pay'),
-      tabMore: this.tabStyle(st.tab === 'more' || st.tab === 'hist' || st.tab === 'settings'),
+      tabMore: this.tabStyle(st.tab === 'more' || SUBS.indexOf(st.tab) !== -1),
       rowStyle: 'appearance:none;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:0 14px;background:transparent;color:var(--color-text);border:0;border-bottom:2px solid var(--color-divider);font-family:var(--font-body);font-size:16px;font-weight:600;text-align:left;',
 
       onSwipeStart: e => { const t = e.touches && e.touches[0]; this.sw = t ? { x: t.clientX, y: t.clientY } : null; },
@@ -1625,9 +2519,9 @@ class Component extends DCLogic {
       pFacts: st.pending ? [
         { k: 'Exported', v: st.pending.exportedAt ? new Date(st.pending.exportedAt).toLocaleString('en-AU', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'not recorded', style: 'font-variant-numeric: tabular-nums;' },
         { k: 'Version', v: 'v' + st.pending.fv + (st.pending.cmp < 0 ? ' — older, will be migrated' : st.pending.cmp > 0 ? ' — NEWER than this app' : ' — same as this app'), style: st.pending.cmp > 0 ? 'color: var(--color-accent-700); font-weight: 600;' : '' },
-        { k: 'Contains', v: st.pending.shifts.length + ' shifts · ' + st.pending.sales.length + ' sales', style: 'font-variant-numeric: tabular-nums;' },
+        { k: 'Contains', v: st.pending.shifts.length + ' shifts · ' + st.pending.sales.length + ' sales · ' + (st.pending.payouts || []).length + ' payouts', style: 'font-variant-numeric: tabular-nums;' },
         { k: 'Covering', v: spanLabel(st.pending.span), style: 'font-variant-numeric: tabular-nums;' },
-        { k: 'New here', v: st.pending.newShifts + ' shifts, ' + st.pending.newSales + ' sales not already stored', style: '' },
+        { k: 'New here', v: st.pending.newShifts + ' shifts, ' + st.pending.newSales + ' sales, ' + (st.pending.newPayouts || 0) + ' payouts not already stored', style: '' },
         { k: 'Integrity', v: st.pending.hasChecksum ? (st.pending.checksumOk ? 'Checksum verified.' : 'Checksum MISMATCH — edited or truncated.') : 'No checksum (older export).', style: st.pending.checksumOk ? '' : 'color: var(--color-accent-700); font-weight: 600;' }
       ] : []
     };
@@ -1635,5 +2529,6 @@ class Component extends DCLogic {
 }
 
 </script>
-</body>
-</html>
+
+
+</body></html>
